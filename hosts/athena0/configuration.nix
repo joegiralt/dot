@@ -18,26 +18,26 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
-    hostName       = opts.hostname;
-    domain         = ""; # TODO: get domain name!
-    search         = [ opts.hostname ];
+    hostName = opts.hostname;
+    domain = ""; # TODO: get domain name!
+    search = [ opts.hostname ];
     defaultGateway = {
-      address   = "192.168.1.1";
+      address = "192.168.1.1";
       interface = "enp89s0";
     };
     wireless = {
-        iwd = {
-            enable = true;
-            settings = {
-            IPV6     = { Enabled     = false; };
-            Settings = { AutoConnect = true;  };
+      iwd = {
+        enable = true;
+        settings = {
+          IPV6 = { Enabled = false; };
+          Settings = { AutoConnect = true; };
         };
-        };
+      };
     };
     networkmanager = {
-    enable            = true;
-    wifi.backend      = "iwd";
-    insertNameservers = opts.nameservers;
+      enable = true;
+      wifi.backend = "iwd";
+      insertNameservers = opts.nameservers;
     };
 
     nameservers = pkgs.lib.mkForce opts.nameservers;
@@ -45,12 +45,12 @@
     enableIPv6 = false;
 
     firewall = {
-    enable = true;
-    allowPing = false;
-    allowedTCPPorts = [ 21 443 22 ];
-    allowedUDPPorts = [ 21 443 22 ];
+      enable = true;
+      allowPing = false;
+      allowedTCPPorts = [ 21 443 22 ];
+      allowedUDPPorts = [ 21 443 22 ];
     };
-};
+  };
 
   # Set your time zone.
   time.timeZone = opts.timeZone;
@@ -200,6 +200,15 @@
       ];
     })
   ];
+
+
+  # Prevent the machine from sleeping or hibernating
+  powerManagement.enable = true;
+  powerManagement.hibernate = false;
+  powerManagement.sleep = {
+    enable = false;
+    suspend = false;
+  };
 
   # NOTE: DO NOT CHANGE
   system.stateVersion = "24.05";
