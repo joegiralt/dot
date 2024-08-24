@@ -13,7 +13,7 @@
 
   outputs = { self, nixpkgs, home-manager, ... } @ inputs : 
   let
-    opts = {};
+    opts = (import ./opts.nix);
     systems = {
         x86   = "x86_64-linux";
         arm64 = "aarch64-linux";
