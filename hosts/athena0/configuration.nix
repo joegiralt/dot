@@ -122,6 +122,7 @@
       macbook-ed25519
       macbook-rsa
     ];
+    shell = pkgs.zsh;
     description = "Admin";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ ];
