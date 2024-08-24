@@ -124,7 +124,20 @@
     ];
     shell = pkgs.zsh;
     description = "Admin";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "audio"
+      "bluetooth"
+      "disk"
+      "docker"
+      "lp"
+      "networkmanager"
+      "ntfy-sh"
+      "scanner"
+      "sshd"
+      "vboxusers"
+      "video"
+      "wheel" 
+    ];
     packages = with pkgs; [ ];
   };
 
