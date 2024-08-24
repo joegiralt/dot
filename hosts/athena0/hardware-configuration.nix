@@ -12,6 +12,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelParams = [ "nohibernate" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -36,7 +37,7 @@
 
   networking = {
     useDHCP = lib.mkDefault false;
-    # hostId = "0ec79991";
+    hostId = "0ec79991";
     interfaces = {
       enp89s0 = {
         useDHCP = lib.mkDefault true;
