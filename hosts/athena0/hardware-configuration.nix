@@ -36,7 +36,7 @@
 
   networking = {
     useDHCP = lib.mkDefault false;
-    hostId = "0ec79991";
+    # hostId = "0ec79991";
     interfaces = {
       enp89s0 = {
         useDHCP = lib.mkDefault false;

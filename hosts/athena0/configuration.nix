@@ -50,7 +50,6 @@
     allowedTCPPorts = [ 21 443 22 ];
     allowedUDPPorts = [ 21 443 22 ];
     };
-
 };
 
   # Set your time zone.
