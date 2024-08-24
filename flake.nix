@@ -25,7 +25,7 @@
          (import ./hosts/${hostname}/configuration.nix)
        ];
        specialArgs = {
-         inherit system;
+         inherit system hostname;
          opts = opts // (import ./hosts/${hostname}/opts.nix);
        };
      };
