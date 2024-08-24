@@ -1,6 +1,6 @@
 { config, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts =  [ 53 3000 ];
-  networking.firewall.allowedUDPPorts =  [ 53 ];
+  networking.firewall.allowedTCPPorts = [ 53 3000 ];
+  networking.firewall.allowedUDPPorts = [ 53 ];
   services.adguardhome = {
     enable = true;
     host = "0.0.0.0";
