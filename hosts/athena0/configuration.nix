@@ -2,19 +2,22 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, opts, pkgs, hostname, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../common/containers
+      ../common/services
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -74,17 +77,29 @@
     #media-session.enable = true;
   };
 
+  services.openssh = {
+    enable = true;
+    allowSFTP = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.admin = {
     isNormalUser = true;
+    openssh.authorizedKeys.keys = with opts.publicKeys; [
+      macbook-ed25519
+      macbook-rsa
+    ];
     description = "Admin";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    
-    ];  
+    packages = with pkgs; [ ];
   };
 
   # Install firefox.
