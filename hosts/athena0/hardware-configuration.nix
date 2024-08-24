@@ -39,7 +39,7 @@
     # hostId = "0ec79991";
     interfaces = {
       enp89s0 = {
-        useDHCP = lib.mkDefault false;
+        useDHCP = lib.mkDefault true;
         ipv4 = {
           addresses = [{
             address = opts.lanAddress;
