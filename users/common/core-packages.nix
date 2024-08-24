@@ -8,6 +8,7 @@
     aspellDicts.en
     aspellDicts.en-computers
     aspellDicts.en-science
+    atuin
     babashka
     bat
     beanstalkd
