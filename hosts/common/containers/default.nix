@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ./ollama.nix ];
+  imports = [ ./ollama.nix ./telemetry.nix ];
 
   virtualisation.podman = {
     enable = true;
