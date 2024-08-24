@@ -17,15 +17,41 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = hostname; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking = {
+    hostName       = opts.hostname;
+    domain         = ""; # TODO: get domain name!
+    search         = [ opts.hostname ];
+    defaultGateway = {
+      address   = "192.168.1.1";
+      interface = "enp89s0";
+    };
+    wireless = {
+        iwd = {
+            enable = true;
+            settings = {
+            IPV6     = { Enabled     = false; };
+            Settings = { AutoConnect = true;  };
+        };
+        };
+    };
+    networkmanager = {
+    enable            = true;
+    wifi.backend      = "iwd";
+    insertNameservers = opts.nameservers;
+    };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    nameservers = pkgs.lib.mkForce opts.nameservers;
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+    enableIPv6 = false;
+
+    firewall = {
+    enable = true;
+    allowPing = false;
+    allowedTCPPorts = [ 21 443 22 ];
+    allowedUDPPorts = [ 21 443 22 ];
+    };
+
+};
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
