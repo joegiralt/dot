@@ -22,6 +22,21 @@
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_watches" = "1048576";
+    "vm.swappiness" = 70;
+    "vm.dirty_ratio" = 20;
+    "vm.dirty_background_ratio" = 10;
+  };
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 196 * 1024;
+      randomEncryption.enable = true;
+    }
+  ];
+
   networking = {
     hostName = opts.hostname;
     domain = ""; # TODO: get domain name!
