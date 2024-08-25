@@ -234,6 +234,20 @@
     })
   ];
 
+  nix = {
+    gc = {
+      automatic = true;
+      dates     = "weekly";
+      options   = "--delete-older-than 7d";
+    };
+    settings = {
+      warn-dirty            = true;
+      auto-optimise-store   = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+    package = pkgs.nixFlakes;
+  };
+
   system.switch = {
     enable   = false;
     enableNg = true;
