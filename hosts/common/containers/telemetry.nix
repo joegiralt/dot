@@ -25,6 +25,40 @@
     ];
   };
 
+  environment.etc = {
+    "prometheus/prometheus.yml" = {
+      enable = true;
+      text = ''
+        global:
+          scrape_interval: 15s
+          scrape_timeout: 10s
+          evaluation_interval: 15s
+        alerting:
+          alertmanagers:
+          - static_configs:
+            - targets: []
+            scheme: http
+            timeout: 10s
+            api_version: v1
+        scrape_configs:
+        - job_name: prometheus
+          honor_timestamps: true
+          scrape_interval: 15s
+          scrape_timeout: 10s
+          metrics_path: /metrics
+          scheme: http
+          static_configs:
+          - targets:
+            - localhost:9090
+        - job_name: node_exporter
+          static_configs:
+            - targets:
+              - ${opts.hostname}:9002
+              - ${opts.hostname}:9134
+      '';
+    };
+  };
+
   virtualisation.oci-containers.containers = {
     "prometheus" = {
       autoStart = true;
@@ -33,7 +67,7 @@
         [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" "--user=${opts.adminUID}" ];
       ports = [ "9001:9090" ];
       volumes = [
-        "/mnt/data/appdata/prometheus/config:/etc/prometheus"
+        "/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
         "/mnt/data/appdata/prometheus/data:/prometheus"
       ];
       cmd = [ "--config.file=/etc/prometheus/prometheus.yml" ];
