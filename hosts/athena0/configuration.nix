@@ -22,6 +22,21 @@
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_watches" = "1048576";
+    "vm.swappiness" = 70;
+    "vm.dirty_ratio" = 20;
+    "vm.dirty_background_ratio" = 10;
+  };
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 196 * 1024;
+      randomEncryption.enable = true;
+    }
+  ];
+
   networking = {
     hostName = opts.hostname;
     domain = ""; # TODO: get domain name!
@@ -94,26 +109,30 @@
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+  security.sudo.wheelNeedsPassword = false;
+  services = {
+    flaltpak.enable = false;
+    packagekit.enable = true;
+    udisks2.enable = true;
+    dbus.enable = true;
+    printing.enable = false;
 
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      #jack.enable = true; # If you want to use JACK applications, uncomment this
+    };
 
-  services.openssh = {
-    enable = true;
-    allowSFTP = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
+    openssh = {
+      enable = true;
+      allowSFTP = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
     };
   };
 
@@ -147,14 +166,23 @@
     packages = with pkgs; [ ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  programs = {
+    firefox.enable = true;
+    zsh.enable = true;
+    mtr.enable = true;
+    mosh.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+  };
 
-  # Enables Zsh
-  programs.zsh.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    packageOverrides = pkgs: {
+      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+    };
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -206,6 +234,27 @@
       ];
     })
   ];
+
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+    settings = {
+      warn-dirty = true;
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+    package = pkgs.nixFlakes;
+  };
+
+  system.switch = {
+    enable = false;
+    enableNg = true;
+  };
+
+  system.copySystemConfiguration = false;
 
   # NOTE: DO NOT CHANGE
   system.stateVersion = "24.05";
