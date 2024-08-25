@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ./ollama.nix ./telemetry.nix ];
+  imports = [ ./ollama.nix ./telemetry.nix ./jellyfin.nix ];
 
   virtualisation.podman = {
     enable = true;
