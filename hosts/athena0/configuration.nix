@@ -111,7 +111,7 @@
   security.rtkit.enable = true;
   security.sudo.wheelNeedsPassword = false;
   services = {
-    flaltpak.enable = false;
+    flatpak.enable = false;
     packagekit.enable = true;
     udisks2.enable = true;
     dbus.enable = true;
