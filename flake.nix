@@ -14,10 +14,18 @@
   outputs = { self, nixpkgs, home-manager, ... } @ inputs:
     let
       opts = (import ./opts.nix);
+
       systems = {
         x86 = "x86_64-linux";
         arm64 = "aarch64-linux";
       };
+
+      mkFormatters =
+        systemsl: builtins.foldl'
+          (output: sys: output // { ${sys} = nixpkgs.legacyPackages."${sys}".nixpkgs-fmt; })
+          { }
+          (nixpkgs.lib.attrValues systemsl);
+
       mkSystem =
         pkgs: system: hostname: pkgs.lib.nixosSystem {
           system = system;
@@ -29,6 +37,7 @@
             opts = opts // (import ./hosts/${hostname}/opts.nix);
           };
         };
+
       mkHome =
         pkgs: system: username: host: home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs.legacyPackages."${system}";
@@ -43,11 +52,19 @@
         };
     in
     {
+
+      # Formatters for all systems
+      formatter = mkFormatters systems;
+
+      # NixOS Configurations
       nixosConfigurations = {
         athena0 = mkSystem nixpkgs systems.x86 "athena0";
       };
+
+      # HomeManager Configurations
       homeConfigurations = {
         admin = mkHome nixpkgs systems.x86 "admin" "athena0";
       };
+
     };
 }
