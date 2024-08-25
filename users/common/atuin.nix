@@ -5,7 +5,7 @@
     settings = {
       # Set your preferences here
       history = {
-        path = "/Users/${username}/.local/share/atuin/history.db";
+        path = "/home/${username}/.local/share/atuin/history.db";
       };
       sync = {
         # Configure automatic synchronization
