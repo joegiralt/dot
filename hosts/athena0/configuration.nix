@@ -111,17 +111,17 @@
   security.rtkit.enable = true;
   security.sudo.wheelNeedsPassword = false;
   services = {
-    flaltpak.enable   = false;
+    flaltpak.enable = false;
     packagekit.enable = true;
-    udisks2.enable    = true;
-    dbus.enable       = true;
-    printing.enable   = false;
+    udisks2.enable = true;
+    dbus.enable = true;
+    printing.enable = false;
 
     pipewire = {
-      enable            = true;
-      alsa.enable       = true;
+      enable = true;
+      alsa.enable = true;
       alsa.support32Bit = true;
-      pulse.enable      = true;
+      pulse.enable = true;
       #jack.enable = true; # If you want to use JACK applications, uncomment this
     };
 
@@ -129,8 +129,8 @@
       enable = true;
       allowSFTP = true;
       settings = {
-        PermitRootLogin              = "no";
-        PasswordAuthentication       = false;
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
       };
     };
@@ -168,10 +168,10 @@
   programs = {
     firefox.enable = true;
     zsh.enable = true;
-    mtr.enable  = true;
+    mtr.enable = true;
     mosh.enable = true;
     gnupg.agent = {
-      enable           = true;
+      enable = true;
       enableSSHSupport = true;
     };
   };
@@ -237,19 +237,19 @@
   nix = {
     gc = {
       automatic = true;
-      dates     = "weekly";
-      options   = "--delete-older-than 7d";
+      dates = "weekly";
+      options = "--delete-older-than 7d";
     };
     settings = {
-      warn-dirty            = true;
-      auto-optimise-store   = true;
+      warn-dirty = true;
+      auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
     };
     package = pkgs.nixFlakes;
   };
 
   system.switch = {
-    enable   = false;
+    enable = false;
     enableNg = true;
   };
 
