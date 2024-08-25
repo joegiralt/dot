@@ -17,6 +17,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  systemd.services.sleep.target.wants = [ ];
+  systemd.services.suspend.target.wants = [ ];
+  systemd.services.hibernate.target.wants = [ ];
+  systemd.services.hybrid-sleep.target.wants = [ ];
+
+  systemd.services.sleep.target.wantedBy = [ ];
+  systemd.services.suspend.target.wantedBy = [ ];
+  systemd.services.hibernate.target.wantedBy = [ ];
+  systemd.services.hybrid-sleep.target.wantedBy = [ ];
+
   networking = {
     hostName = opts.hostname;
     domain = ""; # TODO: get domain name!
@@ -200,14 +210,6 @@
       ];
     })
   ];
-
-
-  # Prevent the machine from sleeping or hibernating
-  powerManagement.enable = true;
-  powerManagement.sleep = {
-    enable = false;
-    suspend = false;
-  };
 
   # NOTE: DO NOT CHANGE
   system.stateVersion = "24.05";
