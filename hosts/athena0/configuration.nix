@@ -232,6 +232,8 @@
     enableNg = true;
   };
 
+  system.copySystemConfiguration = false;
+
   # NOTE: DO NOT CHANGE
   system.stateVersion = "24.05";
 
