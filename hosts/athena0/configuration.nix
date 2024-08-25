@@ -227,6 +227,11 @@
     })
   ];
 
+  system.switch = {
+    enable   = false;
+    enableNg = true;
+  };
+
   # NOTE: DO NOT CHANGE
   system.stateVersion = "24.05";
 
