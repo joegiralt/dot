@@ -196,6 +196,7 @@
     curl
     dhcpcd
     fasm-bin
+    fastfetch
     ffmpeg
     git
     git-crypt
