@@ -20,6 +20,7 @@
       bindkey '^[[A' up-line-or-beginning-search
       zle -N down-line-or-beginning-search
       zle -N up-line-or-beginning-search
+      eval "$(atuin init zsh)"
     '';
     oh-my-zsh = {
       enable = true;
