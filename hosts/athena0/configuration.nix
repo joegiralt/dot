@@ -204,7 +204,6 @@
 
   # Prevent the machine from sleeping or hibernating
   powerManagement.enable = true;
-  powerManagement.hibernate = false;
   powerManagement.sleep = {
     enable = false;
     suspend = false;
