@@ -162,13 +162,17 @@
     packages = with pkgs; [ ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  programs = {
+    firefox.enable = true;
+    zsh.enable = true;
+    mtr.enable  = true;
+    mosh.enable = true;
+    gnupg.agent = {
+      enable           = true;
+      enableSSHSupport = true;
+    };
+  };
 
-  # Enables Zsh
-  programs.zsh.enable = true;
-
-  # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
     packageOverrides = pkgs: {
