@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ./ollama.nix ./telemetry.nix ./jellyfin.nix ];
+  imports = [ ./ollama.nix ./telemetry.nix ./jellyfin.nix ./qbittorrent.nix ];
 
   virtualisation.podman = {
     enable = true;
