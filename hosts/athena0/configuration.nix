@@ -124,6 +124,7 @@
   users.users.admin = {
     isNormalUser = true;
     openssh.authorizedKeys.keys = with opts.publicKeys; [
+      carcosa-ed25519
       macbook-ed25519
       macbook-rsa
     ];
