@@ -5,5 +5,7 @@
     user = "admin";
     port = 2345;
     host = "0.0.0.0";
+
   };
+  networking.firewall.allowedTCPPorts = [ 2345 ];
 }
