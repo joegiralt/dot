@@ -7,13 +7,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, agenix, ... } @ inputs:
     let
       opts = (import ./opts.nix);
 
@@ -33,7 +34,7 @@
           system = system;
           modules = [
             (import ./hosts/${hostname}/configuration.nix)
-            sops-nix.nixosModules.sops
+            agenix.nixosModules.default
           ];
           specialArgs = {
             inherit system hostname;

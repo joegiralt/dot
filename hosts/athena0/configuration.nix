@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, opts, pkgs, hostname, ... }:
+{ config, opts, pkgs, hostname, inputs, ... }:
 
 {
   imports =
@@ -229,6 +229,7 @@
     zip
     zmap
     zsh
+    inputs.agenix.packages.x86_64-linux.default
     (vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions; [
         bbenoist.nix
