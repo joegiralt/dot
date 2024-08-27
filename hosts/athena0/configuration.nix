@@ -229,13 +229,12 @@
     zip
     zmap
     zsh
-    inputs.agenix.packages.x86_64-linux.default
     (vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions; [
         bbenoist.nix
       ];
     })
-  ];
+  ] ++ [ inputs.agenix.packages.x86_64-linux.default ];
 
   nix = {
     gc = {

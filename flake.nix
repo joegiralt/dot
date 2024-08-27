@@ -37,7 +37,7 @@
             agenix.nixosModules.default
           ];
           specialArgs = {
-            inherit system hostname;
+            inherit system hostname inputs;
             opts = opts // (import ./hosts/${hostname}/opts.nix);
           };
         };
