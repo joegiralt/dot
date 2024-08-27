@@ -1,4 +1,4 @@
-{ pkgs, opts, ... }:
+{ pkgs, opts, config, ... }:
 {
   networking.firewall =
     {
