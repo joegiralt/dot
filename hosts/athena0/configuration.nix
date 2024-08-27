@@ -16,6 +16,7 @@
   # Secret defs
   age.secrets = {
     athena0-admin-password.file = ../../secrets/athena0-admin-password.age;
+    tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
   };
 
   # Bootloader.
