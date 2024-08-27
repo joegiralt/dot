@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, opts, pkgs, hostname, inputs, ... }:
+{ config, opts, pkgs, age, hostname, ... }:
 
 {
   imports =
@@ -12,6 +12,11 @@
       ../common/containers
       ../common/services
     ];
+
+  # Secret defs
+  age.secrets = {
+    athena0-admin-password.file = ../../secrets/athena0-admin-password.age;
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -141,6 +146,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.admin = {
+    passwordFile = config.age.secrets.athena0-admin-password.path;
     isNormalUser = true;
     openssh.authorizedKeys.keys = with opts.publicKeys; [
       carcosa-ed25519
@@ -234,7 +240,7 @@
         bbenoist.nix
       ];
     })
-  ] ++ [ inputs.agenix.packages.x86_64-linux.default ];
+  ];
 
   nix = {
     gc = {
