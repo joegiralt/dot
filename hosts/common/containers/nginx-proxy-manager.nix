@@ -21,8 +21,6 @@
       ];
       environment = {
         TZ = opts.timeZone;
-        # PUID = opts.adminUID;
-        # PGID = opts.adminGID;
       };
     };
   };
