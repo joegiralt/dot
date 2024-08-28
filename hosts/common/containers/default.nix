@@ -1,6 +1,11 @@
 { pkgs, ... }:
 {
-  imports = [ ./ollama.nix ./telemetry.nix ./homer.nix ];
+  imports = [
+    ./homer.nix
+    ./nginx-proxy-manager.nix
+    ./ollama.nix
+    ./telemetry.nix
+  ];
 
   virtualisation.podman = {
     enable = true;
