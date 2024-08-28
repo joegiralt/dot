@@ -8,18 +8,17 @@
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
-        "--network=host"
-        # "--cap-add=net_bind_service"
+        "--privileged"
       ];
       volumes = [
         "/mnt/data/appdata/npm-data:/data"
         "/mnt/data/appdata/npm-letsencrypt:/etc/letsencrypt"
       ];
-      # ports = [
-      #   "80:80"
-      #   "81:81"
-      #   "443:443"
-      # ];
+      ports = [
+        "80:80"
+        "81:81"
+        "443:443"
+      ];
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;
