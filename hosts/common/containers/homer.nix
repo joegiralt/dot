@@ -1,6 +1,6 @@
-{ opts, ... }: 
+{ opts, ... }:
 {
-  networking.firewall.allowedTCPPorts = [ 80 ];
+  networking.firewall.allowedTCPPorts = [ 83 ];
   virtualisation.oci-containers.containers = {
     "homer" = {
       autoStart = true;
@@ -8,7 +8,7 @@
       extraOptions =
         [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
       volumes = [ "/mnt/data/appdata/homer/:/www/assets" ];
-      ports = [ "80:8080" ];
+      ports = [ "83:8080" ];
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;
