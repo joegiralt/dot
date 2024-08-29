@@ -1,6 +1,6 @@
 { pkgs, opts, ... }:
 {
-  networking.firewall.allowedTCPPorts = 3456;
+  networking.firewall.allowedTCPPorts = [ 3456 ];
   virtualisation.oci-containers.containers = {
     "stirling-pdf" = {
       autoStart = true;
