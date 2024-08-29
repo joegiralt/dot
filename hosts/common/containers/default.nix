@@ -4,6 +4,7 @@
     ./homer.nix
     ./nginx-proxy-manager.nix
     ./ollama.nix
+    ./stirling-pdf.nix
     ./telemetry.nix
   ];
 
