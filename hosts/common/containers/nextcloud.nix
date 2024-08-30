@@ -1,6 +1,6 @@
 { config, lib, pkgs, opts, ... }: {
 
-  networking.firewall.allowedTCPPorts = [ 443 80 ];
+  networking.firewall.allowedTCPPorts = [ 444 84 5432 ];
 
   virtualisation.oci-containers.containers = {
     "nextcloud-db" = {
