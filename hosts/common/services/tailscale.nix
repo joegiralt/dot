@@ -10,5 +10,9 @@
     port = 41641;
     openFirewall = true;
     authKeyFile = config.age.secrets.tailscale-auth-key.path;
+    extraSetFlags = [
+      "--exit-node=es-mad-wg-102.mullvad.ts.net."
+      "--exit-node-allow-lan-access"
+    ];
   };
 }
