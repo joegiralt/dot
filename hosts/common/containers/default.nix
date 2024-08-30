@@ -2,6 +2,7 @@
 {
   imports = [
     ./homer.nix
+    ./nextcloud.nix
     ./nginx-proxy-manager.nix
     ./ollama.nix
     ./stirling-pdf.nix
