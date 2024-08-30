@@ -10,4 +10,5 @@ in
   "athena0-admin-password.age" = { publicKeys = users ++ systems; };
   "tailscale-auth-key.age" = { publicKeys = users ++ systems; };
   "mullvad-account-number.age" = { publicKeys = users ++ systems; };
+  "nextcloud-env.age" = { publicKeys = users ++ systems; };
 }
