@@ -8,6 +8,7 @@
     ./paperless.nix
     ./stirling-pdf.nix
     ./telemetry.nix
+    ./qbittorrent.nix
   ];
 
   virtualisation.podman = {
