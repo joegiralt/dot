@@ -1,7 +1,9 @@
 { pkgs, ... }:
 {
   imports = [
+    ./flaresolverr.nix
     ./homer.nix
+    ./jackett.nix
     ./jellyfin.nix
     ./nginx-proxy-manager.nix
     ./ollama.nix
