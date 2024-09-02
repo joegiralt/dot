@@ -2,6 +2,7 @@
 {
   imports = [
     ./homer.nix
+    ./jellyfin.nix
     ./nginx-proxy-manager.nix
     ./ollama.nix
     ./paperless.nix
