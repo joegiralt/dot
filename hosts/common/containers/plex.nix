@@ -1,5 +1,5 @@
 { config, lib, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts = [ 9009 ];
+  networking.firewall.allowedTCPPorts = [ 32400 ];
 
   systemd.tmpfiles.rules = [
     "d /mnt/data/appdata/plex/database 0755 ${opts.adminUID} ${opts.adminGID} -"
@@ -21,7 +21,7 @@
         "/mnt/data/media/film:/movies"
         "/mnt/data/media/tv:/tv"
       ];
-      ports = [ "9009:32400" ];
+      ports = [ "32400:32400" ];
       environmentFiles = [ config.age.secrets.plex-env.path ];
       environment = {
         TZ = opts.timeZone;
