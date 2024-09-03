@@ -8,6 +8,7 @@
     ./nginx-proxy-manager.nix
     ./ollama.nix
     ./paperless.nix
+    ./plex.nix
     ./stirling-pdf.nix
     ./telemetry.nix
     ./qbittorrent.nix
