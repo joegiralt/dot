@@ -19,6 +19,7 @@
     tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
     mullvad-account-number.file = ../../secrets/mullvad-account-number.age;
     paperless-env.file = ../../secrets/paperless-env.age;
+    plex-env.file = ../../secrets/plex-env.age;
   };
 
   # Bootloader.
