@@ -13,7 +13,10 @@
     "plex" = {
       autoStart = true;
       image = "plexinc/pms-docker";
-      extraOptions = [ "--no-healthcheck" ];
+      extraOptions = [
+        "--no-healthcheck"
+        "--network=host"
+      ];
       volumes = [
         "/mnt/data/appdata/plex/database/:/config"
         "/mnt/data/appdata/plex/transcode/:/transcode"
@@ -21,7 +24,7 @@
         "/mnt/data/media/film:/movies"
         "/mnt/data/media/tv:/tv"
       ];
-      ports = [ "32400:32400" ];
+      # ports = [ "32400:32400" ];
       environmentFiles = [ config.age.secrets.plex-env.path ];
       environment = {
         TZ = opts.timeZone;
