@@ -12,4 +12,5 @@ in
   "mullvad-account-number.age" = { publicKeys = users ++ systems; };
   "nextcloud-env.age" = { publicKeys = users ++ systems; };
   "paperless-env.age" = { publicKeys = users ++ systems; };
+  "plex-env.age" = { publicKeys = users ++ systems; };
 }
