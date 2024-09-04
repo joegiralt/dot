@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./filebrowser.nix
     ./flaresolverr.nix
     ./homer.nix
     ./jackett.nix
