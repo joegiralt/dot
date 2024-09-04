@@ -15,6 +15,17 @@
     "f /mnt/data/appdata/filebrowser/config/settings.json 0644 ${opts.adminUID} ${opts.adminGID} -"
   ];
 
+  environment.etc."filebrowser/config/settings.json".text = ''
+    {
+      "port": 8080,
+      "baseURL": "",
+      "address": "",
+      "log": "stdout",
+      "database": "/database/filebrowser.db",
+      "root": "/srv"
+    }
+  '';
+
   virtualisation.oci-containers.containers = {
     "filebrowser" = {
       autoStart = true;
@@ -28,7 +39,7 @@
         "/mnt/data/appdata/filebrowser/database/filebrowser.db:/database/filebrowser.db"
         "/mnt/data/appdata/filebrowser/config/settings.json:/config/settings.json"
       ];
-      ports = [ "9009:80" ];
+      ports = [ "9009:8080" ];
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;
