@@ -8,6 +8,7 @@
   networking.firewall.allowedTCPPorts = [ 9009 ];
 
   systemd.tmpfiles.rules = [
+    "d /mnt/data/appdata/filebrowser/ 0755 ${opts.adminUID} ${opts.adminGID} -"
     "d /mnt/data/appdata/filebrowser/database 0755 ${opts.adminUID} ${opts.adminGID} -"
     "f /mnt/data/appdata/filebrowser/database/filebrowser.db 0644 ${opts.adminUID} ${opts.adminGID} -"
     "d /mnt/data/appdata/filebrowser/config 0755 ${opts.adminUID} ${opts.adminGID} -"
