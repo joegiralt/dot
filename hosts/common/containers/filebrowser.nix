@@ -5,7 +5,7 @@
 , ...
 }: {
 
-  networking.firewall.allowedTCPPorts = [ 9009 ];
+  networking.firewall.allowedTCPPorts = [ 9008 ];
 
   systemd.tmpfiles.rules = [
     "d /mnt/data/appdata/filebrowser/ 0755 ${opts.adminUID} ${opts.adminGID} -"
@@ -39,7 +39,7 @@
         "/mnt/data/appdata/filebrowser/database/filebrowser.db:/database/filebrowser.db"
         "/mnt/data/appdata/filebrowser/config/settings.json:/config/settings.json"
       ];
-      ports = [ "9009:8080" ];
+      ports = [ "9008:8080" ];
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;
