@@ -29,8 +29,8 @@
       ports = [ "9009:80" ];
       environment = {
         TZ = opts.timeZone;
-        PUID = "${pkgs.runtimeShellCommands.getEnv 'id -u'}"; # Retrieve UID dynamically or use opts
-        PGID = "${pkgs.runtimeShellCommands.getEnv 'id -g'}"; # Retrieve GID dynamically or use opts
+        PUID = opts.adminUID;
+        PGID = opts.adminGID;
       };
     };
   };
