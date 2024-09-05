@@ -155,6 +155,7 @@
     openssh.authorizedKeys.keys = with opts.publicKeys; [
       carcosa-ed25519
       macbook-ed25519
+      macbook-spare-ed25519
       macbook-rsa
     ];
     shell = pkgs.zsh;
