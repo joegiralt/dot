@@ -56,6 +56,7 @@
   programs = {
     home-manager.enable = true;
     htop.enable = true;
+    ssh.startAgent = true;
   };
 
   systemd.user = {
