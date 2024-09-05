@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./audiobookshelf.nix
     ./filebrowser.nix
     ./flaresolverr.nix
     ./homer.nix
