@@ -14,7 +14,7 @@
       image = "ghcr.io/advplyr/audiobookshelf:latest";
       extraOptions = [
         "--no-healthcheck"
-        "--network=host"
+        # "--network=host"
       ];
       volumes = [
         "/mnt/data/media/audiobooks:/audiobooks"
