@@ -41,8 +41,8 @@
       ];
       ports = [ "9008:8080" ];
       labels = {
-        "kuma.ntfy.http.name" = "Filebrowser";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:9008";
+        "kuma.filebrowser.http.name" = "Filebrowser";
+        "kuma.filebrowser.http.url" = "http://${opts.lanAddress}:9008";
       };
       environment = {
         TZ = opts.timeZone;
