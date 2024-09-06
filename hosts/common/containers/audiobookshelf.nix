@@ -19,7 +19,7 @@
         admin = opts;
         paths = opts.paths;
         ports = opts.ports;
-        lan-adddress = opts.lanAddress;
+        lan-address = opts.lanAddress;
         time-zone = opts.timeZone;
         admin-UID = opts.adminUID;
         admin-GID = opts.adminGID;
