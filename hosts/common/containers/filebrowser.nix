@@ -5,14 +5,14 @@
 , ...
 }: {
 
-  networking.firewall.allowedTCPPorts = [ 9008 ];
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [ filebrowser ]);
 
   systemd.tmpfiles.rules = [
-    "d /mnt/data/appdata/filebrowser/ 0755 ${opts.adminUID} ${opts.adminGID} -"
-    "d /mnt/data/appdata/filebrowser/database 0755 ${opts.adminUID} ${opts.adminGID} -"
-    "f /mnt/data/appdata/filebrowser/database/filebrowser.db 0644 ${opts.adminUID} ${opts.adminGID} -"
-    "d /mnt/data/appdata/filebrowser/config 0755 ${opts.adminUID} ${opts.adminGID} -"
-    "f /mnt/data/appdata/filebrowser/config/settings.json 0644 ${opts.adminUID} ${opts.adminGID} -"
+    "d ${opts.paths.app-data}/filebrowser/ 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d ${opts.paths.app-data}/filebrowser/database 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "f ${opts.paths.app-data}/filebrowser/database/filebrowser.db 0644 ${opts.adminUID} ${opts.adminGID} -"
+    "d ${opts.paths.app-data}/filebrowser/config 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "f ${opts.paths.app-data}/filebrowser/config/settings.json 0644 ${opts.adminUID} ${opts.adminGID} -"
   ];
 
   environment.etc."filebrowser/config/settings.json".text = ''
@@ -36,13 +36,13 @@
       ];
       volumes = [
         "/:/srv"
-        "/mnt/data/appdata/filebrowser/database/filebrowser.db:/database/filebrowser.db"
-        "/mnt/data/appdata/filebrowser/config/settings.json:/config/settings.json"
+        "${opts.paths.app-data}/filebrowser/database/filebrowser.db:/database/filebrowser.db"
+        "${opts.paths.app-data}/filebrowser/config/settings.json:/config/settings.json"
       ];
-      ports = [ "9008:8080" ];
+      ports = [ "${opts.ports.filebrowser}:8080" ];
       labels = {
         "kuma.filebrowser.http.name" = "Filebrowser";
-        "kuma.filebrowser.http.url" = "http://${opts.lanAddress}:9008";
+        "kuma.filebrowser.http.url" = "http://${opts.lanAddress}:${opts.ports.filebrowser}";
       };
       environment = {
         TZ = opts.timeZone;

@@ -36,6 +36,7 @@
 
   ports = {
     audiobookshelf = "13378";
+    filebrowser = "9008";
   };
 
 }
