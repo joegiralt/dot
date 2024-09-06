@@ -42,10 +42,6 @@
       volumes = [ "/mnt/data/databases/paperless:/var/lib/mysql" ];
       extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
       ports = [ "3306:3306" ];
-      labels = {
-        "kuma.paperless-db.http.name" = "Paperless DB";
-        "kuma.paperless-db.http.url" = "http://${opts.lanAddress}:3306";
-      };
       environmentFiles = [ config.age.secrets.paperless-env.path ];
       environment = {
         MARIADB_HOST = "${opts.hostname}";
@@ -60,11 +56,14 @@
     paperless-redis = {
       autoStart = true;
       image = "docker.io/library/redis:7";
-      extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
+      extraOptions = [
+        "--add-host=${opts.hostname}:${opts.lanAddress}"
+        "--no-healthcheck"
+      ];
       ports = [ "6379:6379" ];
       labels = {
-        "kuma.paperless-redis.http.name" = "Paperless Redis";
-        "kuma.paperless-redis.http.url" = "http://${opts.lanAddress}:6379";
+        "kuma.paperless-redis.redis.name" = "Paperless Redis";
+        "kuma.paperless-redis.redis.database_connection_string" = "redis://${opts.lanAddress}:6379";
       };
       volumes = [
         "/mnt/data/databases/paperless/redis:/data"

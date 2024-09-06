@@ -27,7 +27,7 @@
       # ports = [ "32400:32400" ];
       labels = {
         "kuma.plex.http.name" = "Plex";
-        "kuma.plex.http.url" = "http://${opts.lanAddress}:32400";
+        "kuma.plex.http.url" = "http://${opts.lanAddress}:32400/identity";
       };
       environmentFiles = [ config.age.secrets.plex-env.path ];
       environment = {
