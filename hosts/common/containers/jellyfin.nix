@@ -19,7 +19,7 @@
       ports = [ "8096:8096" ];
       labels = {
         "kuma.jellyfin.http.name" = "Jellyfin";
-        "kuma.jellyfin.http.url" = "http://${opts.lanAddress}:8016";
+        "kuma.jellyfin.http.url" = "http://${opts.lanAddress}:8096";
       };
       environment = {
         JELLYFIN_LOG_DIR = "/log";
