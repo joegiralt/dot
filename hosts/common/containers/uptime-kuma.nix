@@ -1,5 +1,10 @@
 { config, lib, pkgs, opts, ... }: {
   networking.firewall.allowedTCPPorts = [ 9002 ];
+
+  systemd.tmpfiles.rules = [
+    "d mnt/data/appdata/uptime-kuma/ 0755 ${opts.adminUID} ${opts.adminGID} -"
+  ];
+
   virtualisation.oci-containers.containers = {
     # Service Health Monitoring
     "uptime-kuma" = {
