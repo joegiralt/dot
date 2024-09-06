@@ -21,7 +21,7 @@
       ports = [ "9117:9117" ];
       labels = {
         "kuma.jackett.http.name" = "Jackett";
-        "kuma.jackett.http.url" = "http://${opts.lanAddress}:9117";
+        "kuma.jackett.http.url" = "http://${opts.lanAddress}:9117/health";
       };
     };
   };

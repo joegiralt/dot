@@ -25,7 +25,7 @@
       ports = [ "13378:80" ];
       labels = {
         "kuma.audiobookshelf.http.name" = "Audiobookshelf";
-        "kuma.audiobookshelf.http.url" = "http://${opts.lanAddress}:13378";
+        "kuma.audiobookshelf.http.url" = "http://${opts.lanAddress}:13378/healthcheck";
       };
       environment = {
         TZ = opts.timeZone;
