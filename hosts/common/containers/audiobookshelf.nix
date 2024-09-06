@@ -22,7 +22,7 @@
         "${opts.paths.app-data}/audiobookshelf/metadata:/metadata"
         "${opts.paths.app-data}/audiobookshelf/config:/config"
       ];
-      ports = [ "13378:80" ];
+      ports = [ "${opts.ports.audiobookshelf}:80" ];
       labels = {
         "kuma.audiobookshelf.http.name" = "Audiobookshelf";
         "kuma.audiobookshelf.http.url" = "http://${opts.lanAddress}:${opts.ports.audiobookshelf}/healthcheck";
