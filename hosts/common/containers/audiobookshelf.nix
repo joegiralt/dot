@@ -1,11 +1,11 @@
 { config, lib, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts = [ 13378 ];
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [ audiobookshelf ]);
 
-  systemd.tmpfiles.rules = [
-    "d /mnt/data/media/audiobooks 0755 ${opts.adminUID} ${opts.adminGID} -"
-    "d /mnt/data/media/podcasts 0755 ${opts.adminUID} ${opts.adminGID} -"
-    "d /mnt/data/appdata/audiobookshelf/metadata 0755 ${opts.adminUID} ${opts.adminGID} -"
-    "d /mnt/data/appdata/audiobookshelf/config 0755 ${opts.adminUID} ${opts.adminGID} -"
+  with opts.paths; with opts; systemd.tmpfiles.rules = [
+    "d ${audiobooks} 0755 ${adminUID} ${adminGID} -"
+    "d ${podcasts} 0755 ${adminUID} ${adminGID} -"
+    "d ${app-data}/audiobookshelf/metadata 0755 ${adminUID} ${adminGID} -"
+    "d ${app-data}/audiobookshelf/config 0755 ${adminUID} ${adminGID} -"
   ];
 
   virtualisation.oci-containers.containers = {
@@ -14,18 +14,17 @@
       image = "ghcr.io/advplyr/audiobookshelf:latest";
       extraOptions = [
         "--no-healthcheck"
-        # "--network=host"
       ];
-      volumes = [
-        "/mnt/data/media/audiobooks:/audiobooks"
-        "/mnt/data/media/podcasts:/podcasts"
-        "/mnt/data/appdata/audiobookshelf/metadata:/metadata"
-        "/mnt/data/appdata/audiobookshelf/config:/config"
+      with opts.paths; volumes = [
+        "${audiobooks}:/audiobooks"
+        "${podcasts}:/podcasts"
+        "${app-data}/audiobookshelf/metadata:/metadata"
+        "${app-data}/audiobookshelf/config:/config"
       ];
       ports = [ "13378:80" ];
       labels = {
         "kuma.audiobookshelf.http.name" = "Audiobookshelf";
-        "kuma.audiobookshelf.http.url" = "http://${opts.lanAddress}:13378/healthcheck";
+        "kuma.audiobookshelf.http.url" = "http://${opts.lanAddress}:${opts.ports.audiobookshelf}/healthcheck";
       };
       environment = {
         TZ = opts.timeZone;
