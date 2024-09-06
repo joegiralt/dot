@@ -20,6 +20,7 @@
     mullvad-account-number.file = ../../secrets/mullvad-account-number.age;
     paperless-env.file = ../../secrets/paperless-env.age;
     plex-env.file = ../../secrets/plex-env.age;
+    autokuma-env.file = ../../secrets/autokuma-env.age;
   };
 
   # Bootloader.
@@ -139,7 +140,7 @@
       allowSFTP = true;
       settings = {
         PermitRootLogin = "no";
-        PasswordAuthentication = true;
+        PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
       };
     };
@@ -155,8 +156,6 @@
     openssh.authorizedKeys.keys = with opts.publicKeys; [
       carcosa-ed25519
       macbook-ed25519
-      macbook-spare-ed25519
-      macbook-rsa
     ];
     shell = pkgs.zsh;
     description = "Admin";

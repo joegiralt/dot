@@ -13,4 +13,5 @@ in
   "nextcloud-env.age" = { publicKeys = users ++ systems; };
   "paperless-env.age" = { publicKeys = users ++ systems; };
   "plex-env.age" = { publicKeys = users ++ systems; };
+  "autokuma-env.age" = { publicKeys = users ++ systems; };
 }
