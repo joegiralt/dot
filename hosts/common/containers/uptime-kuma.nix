@@ -1,5 +1,5 @@
 { config, lib, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts = [ 9002 ];
+  networking.firewall.allowedTCPPorts = [ 9011 ];
 
   systemd.tmpfiles.rules = [
     "d mnt/data/appdata/uptime-kuma/ 0755 ${opts.adminUID} ${opts.adminGID} -"
@@ -18,7 +18,7 @@
       volumes = [
         "mnt/data/appdata/uptime-kuma/:/app/data"
       ];
-      ports = [ "9002:3001" ];
+      ports = [ "9011:3001" ];
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;
