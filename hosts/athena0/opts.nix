@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   hostname = "athena0";
   lanAddress = "192.168.1.32";
   timeZone = "Europe/Madrid";
@@ -38,6 +38,4 @@
     audiobookshelf = "13378";
   };
 
-  # utility function: converts a list of port strings to a list of integers
-  portsToInts = portList: builtins.map (port: pkgs.lib.strings.toInt port) portList;
 }
