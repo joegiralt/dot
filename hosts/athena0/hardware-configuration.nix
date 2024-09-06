@@ -45,6 +45,7 @@
   networking = {
     useDHCP = lib.mkDefault false;
     hostId = "0ec79991";
+    # consider moving to systemd.network.netdev
     interfaces = {
       enp90s0 = {
         useDHCP = lib.mkDefault true;
