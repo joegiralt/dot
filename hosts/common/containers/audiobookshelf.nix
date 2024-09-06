@@ -1,5 +1,5 @@
 { config, lib, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [ audiobookshelf ]);
+  networking.firewall.allowedTCPPorts = portsToInts (with opts.ports; [ audiobookshelf ]);
 
   systemd.tmpfiles.rules =
     let

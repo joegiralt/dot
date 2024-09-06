@@ -33,6 +33,9 @@
     videos = "/mnt/data2/media/videos";
   };
   ports = {
-    audiobookshelf = 13378;
+    audiobookshelf = "13378";
   };
+  # utilities
+  # Utility function: Convert a list of port strings to a list of integers
+  portsToInts = portList: builtins.map (port: builtins.parseInt port) portList;
 }
