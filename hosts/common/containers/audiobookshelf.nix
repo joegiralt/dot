@@ -19,10 +19,10 @@
         admin = opts;
         paths = opts.paths;
         ports = opts.ports;
-        lan-address = opts.lanAddress;
-        time-zone = opts.timeZone;
-        admin-UID = opts.adminUID;
-        admin-GID = opts.adminGID;
+        lanAddress = opts.lanAddress;
+        timeZone = opts.timeZone;
+        adminUID = opts.adminUID;
+        adminGID = opts.adminGID;
       in
       {
         autoStart = true;
@@ -39,12 +39,12 @@
         ports = [ "${ports.audiobookshelf}:80" ];
         labels = {
           "kuma.audiobookshelf.http.name" = "Audiobookshelf";
-          "kuma.audiobookshelf.http.url" = "http://${lan-address}:${ports.audiobookshelf}/healthcheck";
+          "kuma.audiobookshelf.http.url" = "http://${lanAddress}:${ports.audiobookshelf}/healthcheck";
         };
         environment = {
-          TZ = time-zone;
-          PUID = admin-UID;
-          PGID = admin-GID;
+          TZ = timeZone;
+          PUID = adminUID;
+          PGID = adminGID;
         };
       };
   };
