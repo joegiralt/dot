@@ -36,7 +36,7 @@ in
       # ];
       labels = {
         "kuma.qbittorrent-nox.http.name" = "Qbittorrent";
-        "kuma.qbittorrent-nox.http.url" = "http://${opts.lanAddress}:6881";
+        "kuma.qbittorrent-nox.http.url" = "http://${opts.lanAddress}:8001";
       };
       environment = {
         QBT_EULA = "accept";
