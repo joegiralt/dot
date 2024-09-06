@@ -12,9 +12,9 @@
   ];
 
   paths = {
-    app-data = "/mnt/data/appdata/files";
+    app-data = "/mnt/data/appdata";
     app-data-archive = "/mnt/data/appdata/files";
-    app-dbs = "/mnt/dpool1/appdata/databases";
+    app-dbs = "/mnt/data/appdata/databases";
     app-dbs-archive = "/mnt/data/appdata/databases";
     audiobooks = "/mnt/data/media/audiobooks";
     books = "/mnt/data/media/books";
