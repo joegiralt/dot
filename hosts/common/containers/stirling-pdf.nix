@@ -13,6 +13,10 @@
         "/mnt/data/appdata/stirling-pdf/custom-files:/custom-files"
       ];
       ports = [ "3456:8080" ];
+      labels = {
+        "kuma.ntfy.http.name" = "Stirling PDF";
+        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:3456";
+      };
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;

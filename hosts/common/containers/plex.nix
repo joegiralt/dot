@@ -25,6 +25,10 @@
         "/mnt/data/media/tv:/tv"
       ];
       # ports = [ "32400:32400" ];
+      labels = {
+        "kuma.ntfy.http.name" = "Plex";
+        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:32400";
+      };
       environmentFiles = [ config.age.secrets.plex-env.path ];
       environment = {
         TZ = opts.timeZone;

@@ -23,6 +23,10 @@
         "/mnt/data/appdata/audiobookshelf/config:/config"
       ];
       ports = [ "13378:80" ];
+      labels = {
+        "kuma.ntfy.http.name" = "Audiobookshelf";
+        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:13378";
+      };
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;

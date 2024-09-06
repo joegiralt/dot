@@ -19,6 +19,10 @@
         "/mnt/data/downloads:/downloads"
       ];
       ports = [ "9117:9117" ];
+      labels = {
+        "kuma.ntfy.http.name" = "Jackett";
+        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:9117";
+      };
     };
   };
 }

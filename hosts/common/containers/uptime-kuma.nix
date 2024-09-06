@@ -19,6 +19,10 @@
         "/mnt/data/appdata/uptime-kuma/:/app/data"
       ];
       ports = [ "9011:3001" ];
+      labels = {
+        "kuma.ntfy.http.name" = "Uptime Kuma";
+        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:9011";
+      };
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;

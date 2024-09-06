@@ -34,6 +34,10 @@ in
       #   "6881:6881/udp"
       #   "8001:8001/tcp"
       # ];
+      labels = {
+        "kuma.ntfy.http.name" = "Qbittorrent";
+        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:6881";
+      };
       environment = {
         QBT_EULA = "accept";
         QBT_VERSION = "latest";
