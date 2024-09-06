@@ -26,23 +26,23 @@
       };
     };
 
-    # "autokuma" = {
-    #   autoStart = true;
-    #   image = "ghcr.io/bigboot/autokuma:latest";
-    #   dependsOn = [ "uptime-kuma" ];
-    #   extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
-    #   volumes = [
-    #     "/var/run/podman/podman.sock:/var/run/docker.sock"
-    #   ];
-    #   environmentFiles = [
-    #     config.age.secrets.autokuma-env.path
-    #   ];
-    #   environment = {
-    #     TZ = opts.timeZone;
-    #     PUID = opts.adminUID;
-    #     PGID = opts.adminGID;
-    #     AUTOKUMA__KUMA__URL = "http://${opts.hostname}:${opts.ports.uptime-kuma}";
-    #   };
-    # };
+    "autokuma" = {
+      autoStart = true;
+      image = "ghcr.io/bigboot/autokuma:latest";
+      dependsOn = [ "uptime-kuma" ];
+      extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
+      volumes = [
+        "/var/run/podman/podman.sock:/var/run/docker.sock"
+      ];
+      environmentFiles = [
+        config.age.secrets.autokuma-env.path
+      ];
+      environment = {
+        TZ = opts.timeZone;
+        PUID = opts.adminUID;
+        PGID = opts.adminGID;
+        AUTOKUMA__KUMA__URL = "http://${opts.hostname}:${opts.ports.uptime-kuma}";
+      };
+    };
   };
 }

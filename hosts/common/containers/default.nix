@@ -14,6 +14,7 @@
     ./stirling-pdf.nix
     ./telemetry.nix
     ./qbittorrent.nix
+    ./uptime-kuma.nix
   ];
 
   virtualisation.podman = {
