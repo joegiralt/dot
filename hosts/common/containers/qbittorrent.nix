@@ -35,8 +35,8 @@ in
       #   "8001:8001/tcp"
       # ];
       labels = {
-        "kuma.ntfy.http.name" = "Qbittorrent";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:6881";
+        "kuma.qbittorrent-nox.http.name" = "Qbittorrent";
+        "kuma.qbittorrent-nox.http.url" = "http://${opts.lanAddress}:6881";
       };
       environment = {
         QBT_EULA = "accept";

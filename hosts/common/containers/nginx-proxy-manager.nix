@@ -20,8 +20,8 @@
         "443:443"
       ];
       labels = {
-        "kuma.ntfy.http.name" = "Nginx Proxy Manager";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:443";
+        "kuma.nginx-proxy-manager.http.name" = "Nginx Proxy Manager";
+        "kuma.nginx-proxy-manager.http.url" = "http://${opts.lanAddress}:443";
       };
       environment = {
         TZ = opts.timeZone;

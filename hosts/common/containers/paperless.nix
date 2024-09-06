@@ -15,8 +15,8 @@
       ];
       ports = [ "9000:8000" ];
       labels = {
-        "kuma.ntfy.http.name" = "Paperless App";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:9000";
+        "kuma.paperless-app.http.name" = "Paperless App";
+        "kuma.paperless-app.http.url" = "http://${opts.lanAddress}:9000";
       };
       environmentFiles = [ config.age.secrets.paperless-env.path ];
       environment = {
@@ -43,8 +43,8 @@
       extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
       ports = [ "3306:3306" ];
       labels = {
-        "kuma.ntfy.http.name" = "Paperless DB";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:3306";
+        "kuma.paperless-db.http.name" = "Paperless DB";
+        "kuma.paperless-db.http.url" = "http://${opts.lanAddress}:3306";
       };
       environmentFiles = [ config.age.secrets.paperless-env.path ];
       environment = {
@@ -63,8 +63,8 @@
       extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
       ports = [ "6379:6379" ];
       labels = {
-        "kuma.ntfy.http.name" = "Paperless Redis";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:6379";
+        "kuma.paperless-redis.http.name" = "Paperless Redis";
+        "kuma.paperless-redis.http.url" = "http://${opts.lanAddress}:6379";
       };
       volumes = [
         "/mnt/data/databases/paperless/redis:/data"

@@ -11,8 +11,8 @@
       volumes = [ "/mnt/data/appdata/ollama:/root/.ollama" ];
       ports = [ "11434:11434" ];
       labels = {
-        "kuma.ntfy.http.name" = "Ollama";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:11434";
+        "kuma.ollama.http.name" = "Ollama";
+        "kuma.ollama.http.url" = "http://${opts.lanAddress}:11434";
       };
       environment = {
         TZ = opts.timeZone;
@@ -34,8 +34,8 @@
       ];
       ports = [ "8080:8080" ];
       labels = {
-        "kuma.ntfy.http.name" = "Ollama Web";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:8080";
+        "kuma.ollama-web.http.name" = "Ollama Web";
+        "kuma.ollama-web.http.url" = "http://${opts.lanAddress}:8080";
       };
       environment = {
         TZ = opts.timeZone;

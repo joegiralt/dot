@@ -26,8 +26,8 @@
       ];
       # ports = [ "32400:32400" ];
       labels = {
-        "kuma.ntfy.http.name" = "Plex";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:32400";
+        "kuma.plex.http.name" = "Plex";
+        "kuma.plex.http.url" = "http://${opts.lanAddress}:32400";
       };
       environmentFiles = [ config.age.secrets.plex-env.path ];
       environment = {

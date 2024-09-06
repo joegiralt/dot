@@ -84,8 +84,8 @@
         [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" "--user=${opts.adminUID}" ];
       ports = [ "9001:9090" ];
       labels = {
-        "kuma.ntfy.http.name" = "Prometheus";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:9001";
+        "kuma.prometheus.http.name" = "Prometheus";
+        "kuma.prometheus.http.url" = "http://${opts.lanAddress}:9001";
       };
       volumes = [
         "/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
@@ -106,8 +106,8 @@
         [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" "--user=${opts.adminUID}" ];
       ports = [ "2200:3000" ];
       labels = {
-        "kuma.ntfy.http.name" = "Grafana";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:2200";
+        "kuma.grafana.http.name" = "Grafana";
+        "kuma.grafana.http.url" = "http://${opts.lanAddress}:2200";
       };
       volumes = [
         "/etc/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml:ro"

@@ -18,8 +18,8 @@
         [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
       ports = [ "8096:8096" ];
       labels = {
-        "kuma.ntfy.http.name" = "Jellyfin";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:8016";
+        "kuma.jellyfin.http.name" = "Jellyfin";
+        "kuma.jellyfin.http.url" = "http://${opts.lanAddress}:8016";
       };
       environment = {
         JELLYFIN_LOG_DIR = "/log";

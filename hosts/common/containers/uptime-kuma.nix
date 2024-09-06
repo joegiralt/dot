@@ -20,8 +20,8 @@
       ];
       ports = [ "9011:3001" ];
       labels = {
-        "kuma.ntfy.http.name" = "Uptime Kuma";
-        "kuma.ntfy.http.url" = "http://${opts.lanAddress}:9011";
+        "kuma.uptime-kuma.http.name" = "Uptime Kuma";
+        "kuma.uptime-kuma.http.url" = "http://${opts.lanAddress}:9011";
       };
       environment = {
         TZ = opts.timeZone;
