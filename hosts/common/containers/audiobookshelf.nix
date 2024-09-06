@@ -14,28 +14,38 @@
     ];
 
   virtualisation.oci-containers.containers = {
-    "audiobookshelf" = {
-      autoStart = true;
-      image = "ghcr.io/advplyr/audiobookshelf:latest";
-      extraOptions = [
-        "--no-healthcheck"
-      ];
-      with opts.paths; volumes = [
-        "${audiobooks}:/audiobooks"
-        "${podcasts}:/podcasts"
-        "${app-data}/audiobookshelf/metadata:/metadata"
-        "${app-data}/audiobookshelf/config:/config"
-      ];
-      ports = [ "13378:80" ];
-      labels = {
-        "kuma.audiobookshelf.http.name" = "Audiobookshelf";
-        "kuma.audiobookshelf.http.url" = "http://${opts.lanAddress}:${opts.ports.audiobookshelf}/healthcheck";
+    audiobookshelf =
+      let
+        admin = opts;
+        paths = opts.paths;
+        ports = opts.ports;
+        lan-adddress = opts.lanAddress;
+        time-zone = opts.timeZone;
+        admin-UID = opts.adminUID;
+        admin-GID = opts.adminGID;
+      in
+      {
+        autoStart = true;
+        image = "ghcr.io/advplyr/audiobookshelf:latest";
+        extraOptions = [
+          "--no-healthcheck"
+        ];
+        volumes = [
+          "${paths.audiobooks}:/audiobooks"
+          "${paths.podcasts}:/podcasts"
+          "${paths.app-data}/audiobookshelf/metadata:/metadata"
+          "${paths.app-data}/audiobookshelf/config:/config"
+        ];
+        ports = [ "${ports.audiobookshelf}:80" ];
+        labels = {
+          "kuma.audiobookshelf.http.name" = "Audiobookshelf";
+          "kuma.audiobookshelf.http.url" = "http://${lan-address}:${ports.audiobookshelf}/healthcheck";
+        };
+        environment = {
+          TZ = time-zone;
+          PUID = admin-UID;
+          PGID = admin-GID;
+        };
       };
-      environment = {
-        TZ = opts.timeZone;
-        PUID = opts.adminUID;
-        PGID = opts.adminGID;
-      };
-    };
   };
 }
