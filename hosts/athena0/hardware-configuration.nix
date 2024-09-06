@@ -46,7 +46,7 @@
     useDHCP = lib.mkDefault false;
     hostId = "0ec79991";
     interfaces = {
-      enp89s0 = {
+      enp90s0 = {
         useDHCP = lib.mkDefault true;
         ipv4 = {
           addresses = [{
@@ -55,7 +55,7 @@
           }];
         };
       };
-      wlp90s0 = {
+      wlan0 = {
         useDHCP = lib.mkDefault true;
       };
     };

@@ -53,7 +53,7 @@
     search = [ opts.hostname ];
     defaultGateway = {
       address = "192.168.1.1";
-      interface = "enp89s0";
+      interface = "enp90s0";
     };
     wireless = {
       iwd = {
