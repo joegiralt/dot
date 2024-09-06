@@ -34,5 +34,5 @@
   };
   ports = {
     audiobookshelf = 13378;
-  }
+  };
 }
