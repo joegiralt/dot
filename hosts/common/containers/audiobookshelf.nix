@@ -1,12 +1,17 @@
 { config, lib, pkgs, opts, ... }: {
   networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [ audiobookshelf ]);
 
-  with opts.paths; with opts; systemd.tmpfiles.rules = [
-    "d ${audiobooks} 0755 ${adminUID} ${adminGID} -"
-    "d ${podcasts} 0755 ${adminUID} ${adminGID} -"
-    "d ${app-data}/audiobookshelf/metadata 0755 ${adminUID} ${adminGID} -"
-    "d ${app-data}/audiobookshelf/config 0755 ${adminUID} ${adminGID} -"
-  ];
+  systemd.tmpfiles.rules =
+    let
+      paths = opts.paths;
+      admin = opts;
+    in
+    [
+      "d ${paths.audiobooks} 0755 ${admin.adminUID} ${admin.adminGID} -"
+      "d ${paths.podcasts} 0755 ${admin.adminUID} ${admin.adminGID} -"
+      "d ${paths.app-data}/audiobookshelf/metadata 0755 ${admin.adminUID} ${admin.adminGID} -"
+      "d ${paths.app-data}/audiobookshelf/config 0755 ${admin.adminUID} ${admin.adminGID} -"
+    ];
 
   virtualisation.oci-containers.containers = {
     "audiobookshelf" = {
