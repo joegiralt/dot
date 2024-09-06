@@ -2,7 +2,7 @@
   networking.firewall.allowedTCPPorts = [ 9011 ];
 
   systemd.tmpfiles.rules = [
-    "d mnt/data/appdata/uptime-kuma/ 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d /mnt/data/appdata/uptime-kuma/ 0755 ${opts.adminUID} ${opts.adminGID} -"
   ];
 
   virtualisation.oci-containers.containers = {
@@ -16,7 +16,7 @@
           "--no-healthcheck"
         ];
       volumes = [
-        "mnt/data/appdata/uptime-kuma/:/app/data"
+        "/mnt/data/appdata/uptime-kuma/:/app/data"
       ];
       ports = [ "9011:3001" ];
       environment = {
