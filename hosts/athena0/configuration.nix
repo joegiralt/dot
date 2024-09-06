@@ -156,6 +156,7 @@
     openssh.authorizedKeys.keys = with opts.publicKeys; [
       carcosa-ed25519
       macbook-ed25519
+      spare-macbook-ed25519
     ];
     shell = pkgs.zsh;
     description = "Admin";
