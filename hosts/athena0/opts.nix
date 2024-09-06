@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   hostname = "athena0";
   lanAddress = "192.168.1.32";
   timeZone = "Europe/Madrid";
@@ -10,6 +10,7 @@
     "149.112.112.112" # Quad9
     "194.242.2.5" # Mullvad
   ];
+
   paths = {
     app-data = "/mnt/data/appdata/files";
     app-data-archive = "/mnt/data/appdata/files";
@@ -32,10 +33,11 @@
     torrent-watch = "/mnt/data/downloads/torrents";
     videos = "/mnt/data2/media/videos";
   };
+
   ports = {
     audiobookshelf = "13378";
   };
-  # utilities
-  # Utility function: Convert a list of port strings to a list of integers
-  portsToInts = portList: builtins.map (port: builtins.parseInt port) portList;
+
+  # utility function: converts a list of port strings to a list of integers
+  portsToInts = portList: builtins.map (port: pkgs.lib.strings.toInt port) portList;
 }
