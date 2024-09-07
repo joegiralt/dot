@@ -1,6 +1,7 @@
 {
   hostname = "athena0";
   lanAddress = "192.168.1.32";
+  publicURL = "nothing.ltd";
   timeZone = "Europe/Madrid";
   adminUID = "1000";
   adminGID = "100";
@@ -44,6 +45,10 @@
     jellyfin = "8096";
     ollama = "11434";
     ollama-web = "8080";
+    paperless-app = "9000";
+    paperless-web = "9001";
+    paperless-db = "3306";
+    paperless-redis-redis = "6379";
   };
 
 }
