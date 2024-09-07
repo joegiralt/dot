@@ -57,6 +57,7 @@
     netdata = "19999";
     prometheus-app = "9001";
     prometheus-node = "9002";
+    uptime-kuma = "9011";
   };
 
 }
