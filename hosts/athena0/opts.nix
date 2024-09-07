@@ -48,7 +48,7 @@
     paperless-app = "9000";
     paperless-web = "9001";
     paperless-db = "3306";
-    paperless-redis-redis = "6379";
+    paperless-redis = "6379";
   };
 
 }
