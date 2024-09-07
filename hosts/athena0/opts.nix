@@ -38,6 +38,7 @@
     audiobookshelf = "13378";
     filebrowser = "9008";
     flare-solverr = "8191";
+    homer = "83";
   };
 
 }

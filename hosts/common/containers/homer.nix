@@ -1,17 +1,19 @@
 { opts, ... }:
 {
-  networking.firewall.allowedTCPPorts = [ 83 ];
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [ homer ]);
   virtualisation.oci-containers.containers = {
     "homer" = {
       autoStart = true;
       image = "b4bz/homer:latest";
       extraOptions =
         [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
-      volumes = [ "/mnt/data/appdata/homer/:/www/assets" ];
-      ports = [ "83:8080" ];
+      volumes = [
+        "${opts.paths.app-data}/homer/:/www/assets"
+      ];
+      ports = [ "${opts.ports.homer}:8080" ];
       labels = {
         "kuma.homer.http.name" = "Homer";
-        "kuma.homer.http.url" = "http://${opts.lanAddress}:83";
+        "kuma.homer.http.url" = "http://${opts.lanAddress}:${opts.ports.homer}";
       };
       environment = {
         TZ = opts.timeZone;
