@@ -21,7 +21,7 @@
     dbs = "/mnt/data/databases";
     documents = "/mnt/data/personal/documents";
     downloads = "/mnt/data/downloads";
-    images = "/mnt/data/media/photos";
+    images = "/mnt/data/media/images";
     llama-cpp-models = "/mnt/data/resources/llms/llama-cpp-models";
     magazines = "/mnt/data/media/magazines";
     film = "/mnt/data2/media/film";
@@ -31,7 +31,7 @@
     podman-socket = "/var/run/podman/podman.sock";
     qbt-images = "/mnt/data/media/photos/other";
     tv = "/mnt/data2/media/tv";
-    torrent-watch = "/mnt/data/downloads/torrents";
+    torrents = "/mnt/data/downloads/torrents";
     videos = "/mnt/data2/media/videos";
   };
 

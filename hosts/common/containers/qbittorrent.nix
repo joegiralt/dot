@@ -48,12 +48,13 @@ in
       };
       volumes = [
         "${opts.paths.app-data}/qbittorrent/config/:/config"
-        "/mnt/data/downloads:/downloads"
-        "/mnt/data/torrents:/torrents"
-        "/mnt/data/media/images:/images"
-        "/mnt/data/media/film:/film"
-        "/mnt/data/media/books:/books"
-        "/mnt/data/media/magazines:/magazines"
+        "${opts.paths.downloads}:/downloads"
+        "${opts.paths.torrents}:/torrents"
+        "${opts.paths.images}:/images"
+        "${opts.paths.film}:/film"
+        "${opts.paths.tv}:/tv"
+        "${opts.paths.books}:/books"
+        "${opts.paths.magazines}:/magazines"
         "/etc/vuetorrent:/vuetorrent:ro"
       ];
       extraOptions = [

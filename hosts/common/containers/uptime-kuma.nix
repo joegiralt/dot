@@ -36,7 +36,7 @@
       dependsOn = [ "uptime-kuma" ];
       extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
       volumes = [
-        "/var/run/podman/podman.sock:/var/run/docker.sock"
+        "${opts.paths.podman-socket}:/var/run/docker.sock"
       ];
       environmentFiles = [
         config.age.secrets.autokuma-env.path

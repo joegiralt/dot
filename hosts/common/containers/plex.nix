@@ -4,9 +4,9 @@
   systemd.tmpfiles.rules = [
     "d ${opts.paths.app-data}/plex/database 0755 ${opts.adminUID} ${opts.adminGID} -"
     "d ${opts.paths.app-data}/plex/transcode 0755 ${opts.adminUID} ${opts.adminGID} -"
-    "d /mnt/data/media/music 0755 ${opts.adminUID} ${opts.adminGID} -"
-    "d /mnt/data/media/film 0755 ${opts.adminUID} ${opts.adminGID} -"
-    "d /mnt/data/media/tv 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d ${opts.paths.music} 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d /mnt/data2/media/film 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d /mnt/data2/media/tv 0755 ${opts.adminUID} ${opts.adminGID} -"
   ];
 
   virtualisation.oci-containers.containers = {
@@ -20,7 +20,7 @@
       volumes = [
         "${opts.paths.app-data}/plex/database/:/config"
         "${opts.paths.app-data}/plex/transcode/:/transcode"
-        "/mnt/data/media/music:/music"
+        "${opts.paths.music}:/music"
         "/mnt/data2/media/film:/movies"
         "/mnt/data2/media/tv:/tv"
       ];
