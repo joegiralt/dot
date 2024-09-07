@@ -49,6 +49,14 @@
     paperless-web = "9001";
     paperless-db = "3306";
     paperless-redis = "6379";
+    plex = "32400";
+    qbittorrent-nox = "6881";
+    qbittorrent-web = "8001";
+    stirling-pdf = "3456";
+    grafana = "2200";
+    netdata = "19999";
+    prometheus-app = "9001";
+    prometheus-node = "9002";
   };
 
 }

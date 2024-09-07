@@ -1,6 +1,11 @@
 { pkgs, opts, ... }:
 {
-  networking.firewall.allowedTCPPorts = [ 3456 ];
+  networking.firewall.allowedTCPPorts =
+    builtins.map pkgs.lib.strings.toInt (
+      with opts.ports; [
+        stirling-pdf
+      ]
+    );
   virtualisation.oci-containers.containers = {
     "stirling-pdf" = {
       autoStart = true;
@@ -15,7 +20,7 @@
       ports = [ "3456:8080" ];
       labels = {
         "kuma.stirling-pdf.http.name" = "Stirling PDF";
-        "kuma.stirling-pdf.http.url" = "http://${opts.lanAddress}:3456";
+        "kuma.stirling-pdf.http.url" = "http://${opts.lanAddress}:${opts.ports.stirling-pdf}";
       };
       environment = {
         TZ = opts.timeZone;

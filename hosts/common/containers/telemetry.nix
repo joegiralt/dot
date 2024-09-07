@@ -1,16 +1,18 @@
 { pkgs, opts, ... }:
 {
   networking.firewall.allowedTCPPorts =
-    [
-      2200 # grafana 
-      19999 # netdata
-      9001 # prometheus_app
-      9002 # prometheus_node
-    ];
+    builtins.map pkgs.lib.strings.toInt (
+      with opts.ports; [
+        grafana
+        netdata
+        prometheus-app
+        prometheus-node
+      ]
+    );
 
   services.prometheus.exporters.node = {
     enable = true;
-    port = 9002;
+    port = pkgs.lib.strings.toInt opts.ports.prometheus-node;
     # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/nixos/modules/services/monitoring/prometheus/exporters.nix
     enabledCollectors = [ "systemd" ];
     # /nix/store/zgsw0yx18v10xa58psanfabmg95nl2bb-node_exporter-1.8.1/bin/node_exporter  --help
@@ -35,7 +37,7 @@
         datasources:
         - name: Prometheus
           type: prometheus
-          url: http://${opts.hostname}:9001
+          url: http://${opts.hostname}:${opts.ports.prometheus-app}
           isDefault: true
           access: proxy
           editable: true
@@ -82,10 +84,10 @@
       image = "prom/prometheus";
       extraOptions =
         [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" "--user=${opts.adminUID}" ];
-      ports = [ "9001:9090" ];
+      ports = [ "${opts.ports.prometheus-app}:9090" ];
       labels = {
         "kuma.prometheus.http.name" = "Prometheus";
-        "kuma.prometheus.http.url" = "http://${opts.lanAddress}:9001";
+        "kuma.prometheus.http.url" = "http://${opts.lanAddress}:${opts.ports.prometheus-app}";
       };
       volumes = [
         "/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
@@ -104,10 +106,10 @@
       image = "grafana/grafana";
       extraOptions =
         [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" "--user=${opts.adminUID}" ];
-      ports = [ "2200:3000" ];
+      ports = [ "${opts.ports.grafana}:3000" ];
       labels = {
         "kuma.grafana.http.name" = "Grafana";
-        "kuma.grafana.http.url" = "http://${opts.lanAddress}:2200";
+        "kuma.grafana.http.url" = "http://${opts.lanAddress}:${opts.ports.grafana}";
       };
       volumes = [
         "/etc/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml:ro"

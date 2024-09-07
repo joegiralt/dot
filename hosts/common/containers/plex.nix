@@ -1,5 +1,10 @@
 { config, lib, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts = [ 32400 ];
+  networking.firewall.allowedTCPPorts =
+    builtins.map pkgs.lib.strings.toInt (
+      with opts.ports; [
+        plex
+      ]
+    );
 
   systemd.tmpfiles.rules = [
     "d ${opts.paths.app-data}/plex/database 0755 ${opts.adminUID} ${opts.adminGID} -"
@@ -21,13 +26,13 @@
         "${opts.paths.app-data}/plex/database/:/config"
         "${opts.paths.app-data}/plex/transcode/:/transcode"
         "${opts.paths.music}:/music"
-        "/mnt/data2/media/film:/movies"
-        "/mnt/data2/media/tv:/tv"
+        "${opts.paths.film}:/movies"
+        "${opts.paths.tv}:/tv"
       ];
-      # ports = [ "32400:32400" ];
+      # ports = [ "${opts.paths.plex}:32400" ];
       labels = {
         "kuma.plex.http.name" = "Plex";
-        "kuma.plex.http.url" = "http://${opts.lanAddress}:32400/identity";
+        "kuma.plex.http.url" = "http://${opts.lanAddress}:${opts.ports.plex}/identity";
       };
       environmentFiles = [ config.age.secrets.plex-env.path ];
       environment = {
