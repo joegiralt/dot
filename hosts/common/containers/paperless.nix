@@ -39,7 +39,7 @@
     paperless-db = {
       autoStart = true;
       image = "docker.io/library/mariadb:11";
-      volumes = [ "/mnt/data/databases/paperless:/var/lib/mysql" ];
+      volumes = [ "${opts.paths.dbs}/paperless:/var/lib/mysql" ];
       extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
       ports = [ "3306:3306" ];
       environmentFiles = [ config.age.secrets.paperless-env.path ];
@@ -66,7 +66,7 @@
         "kuma.paperless-redis.redis.database_connection_string" = "redis://${opts.lanAddress}:6379";
       };
       volumes = [
-        "/mnt/data/databases/paperless/redis:/data"
+        "${opts.paths.dbs}/paperless/redis:/data"
       ];
     };
   };

@@ -111,7 +111,7 @@
       };
       volumes = [
         "/etc/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml:ro"
-        "/mnt/data/databases/grafana:/var/lib/grafana"
+        "${opts.paths.dbs}/grafana:/var/lib/grafana"
       ];
       environment = {
         TZ = opts.timeZone;

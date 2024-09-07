@@ -18,6 +18,7 @@
     app-dbs-archive = "/mnt/data/appdata/databases";
     audiobooks = "/mnt/data/media/audiobooks";
     books = "/mnt/data/media/books";
+    dbs = "/mnt/data/databases";
     documents = "/mnt/data/personal/documents";
     downloads = "/mnt/data/downloads";
     images = "/mnt/data/media/photos";
