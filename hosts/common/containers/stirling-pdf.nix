@@ -7,10 +7,10 @@
       image = "frooodle/s-pdf:latest";
       extraOptions = [ "--no-healthcheck" ];
       volumes = [
-        "/mnt/data/appdata/stirling-pdf/training-data:/usr/share/tessdata"
-        "/mnt/data/appdata/stirling-pdf/extra-configs:/configs"
-        "/mnt/data/appdata/stirling-pdf/logs:/logs"
-        "/mnt/data/appdata/stirling-pdf/custom-files:/custom-files"
+        "${opts.paths.app-data}/stirling-pdf/training-data:/usr/share/tessdata"
+        "${opts.paths.app-data}/stirling-pdf/extra-configs:/configs"
+        "${opts.paths.app-data}/stirling-pdf/logs:/logs"
+        "${opts.paths.app-data}/stirling-pdf/custom-files:/custom-files"
       ];
       ports = [ "3456:8080" ];
       labels = {

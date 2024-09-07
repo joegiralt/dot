@@ -8,10 +8,10 @@
       extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
       dependsOn = [ "paperless-db" "paperless-redis" ];
       volumes = [
-        "/mnt/data/appdata/paperless/consume:/usr/src/paperless/consume"
-        "/mnt/data/appdata/paperless/data:/usr/src/paperless/data"
-        "/mnt/data/appdata/paperless/export:/usr/src/paperless/export"
-        "/mnt/data/appdata/paperless/media:/usr/src/paperless/media"
+        "${opts.paths.app-data}/paperless/consume:/usr/src/paperless/consume"
+        "${opts.paths.app-data}/paperless/data:/usr/src/paperless/data"
+        "${opts.paths.app-data}/paperless/export:/usr/src/paperless/export"
+        "${opts.paths.app-data}/paperless/media:/usr/src/paperless/media"
       ];
       ports = [ "9000:8000" ];
       labels = {

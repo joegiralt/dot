@@ -89,7 +89,7 @@
       };
       volumes = [
         "/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
-        "/mnt/data/appdata/prometheus/data:/prometheus"
+        "${opts.paths.app-data}/prometheus/data:/prometheus"
       ];
       cmd = [ "--config.file=/etc/prometheus/prometheus.yml" ];
       environment = {

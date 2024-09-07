@@ -2,8 +2,8 @@
   networking.firewall.allowedTCPPorts = [ 32400 ];
 
   systemd.tmpfiles.rules = [
-    "d /mnt/data/appdata/plex/database 0755 ${opts.adminUID} ${opts.adminGID} -"
-    "d /mnt/data/appdata/plex/transcode 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d ${opts.paths.app-data}/plex/database 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d ${opts.paths.app-data}/plex/transcode 0755 ${opts.adminUID} ${opts.adminGID} -"
     "d /mnt/data/media/music 0755 ${opts.adminUID} ${opts.adminGID} -"
     "d /mnt/data/media/film 0755 ${opts.adminUID} ${opts.adminGID} -"
     "d /mnt/data/media/tv 0755 ${opts.adminUID} ${opts.adminGID} -"
@@ -18,8 +18,8 @@
         "--network=host"
       ];
       volumes = [
-        "/mnt/data/appdata/plex/database/:/config"
-        "/mnt/data/appdata/plex/transcode/:/transcode"
+        "${opts.paths.app-data}/plex/database/:/config"
+        "${opts.paths.app-data}/plex/transcode/:/transcode"
         "/mnt/data/media/music:/music"
         "/mnt/data2/media/film:/movies"
         "/mnt/data2/media/tv:/tv"

@@ -47,7 +47,7 @@ in
         USER_GID = opts.adminGID;
       };
       volumes = [
-        "/mnt/data/appdata/qbittorrent/config/:/config"
+        "${opts.paths.app-data}/qbittorrent/config/:/config"
         "/mnt/data/downloads:/downloads"
         "/mnt/data/torrents:/torrents"
         "/mnt/data/media/images:/images"

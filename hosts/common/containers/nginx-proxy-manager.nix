@@ -11,8 +11,8 @@
         "--privileged"
       ];
       volumes = [
-        "/mnt/data/appdata/npm-data:/data"
-        "/mnt/data/appdata/npm-letsencrypt:/etc/letsencrypt"
+        "${opts.paths.app-data}/npm-data:/data"
+        "${opts.paths.app-data}/npm-letsencrypt:/etc/letsencrypt"
       ];
       ports = [
         "80:80"
