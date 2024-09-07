@@ -42,6 +42,8 @@
     homer = "83";
     jackett = "9117";
     jellyfin = "8096";
+    ollama = "11434";
+    ollama-web = "8080";
   };
 
 }

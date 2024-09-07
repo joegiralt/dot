@@ -1,6 +1,12 @@
 { config, lib, pkgs, opts, ... }: {
 
-  networking.firewall.allowedTCPPorts = [ 8080 11434 ];
+  networking.firewall.allowedTCPPorts =
+    builtins.map pkgs.lib.strings.toInt (
+      with opts.ports; [
+        ollama
+        ollama-web
+      ]
+    );
 
   virtualisation.oci-containers.containers = {
     "ollama" = {
@@ -8,13 +14,13 @@
       image = "ollama/ollama";
       extraOptions =
         [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
-      volumes = [ 
-        "${opts.paths.app-data}/ollama:/root/.ollama" 
-        ];
-      ports = [ "11434:11434" ];
+      volumes = [
+        "${opts.paths.app-data}/ollama:/root/.ollama"
+      ];
+      ports = [ "${opts.ports.ollama}:11434" ];
       labels = {
         "kuma.ollama.http.name" = "Ollama";
-        "kuma.ollama.http.url" = "http://${opts.lanAddress}:11434";
+        "kuma.ollama.http.url" = "http://${opts.lanAddress}:${opts.ports.ollama}";
       };
       environment = {
         TZ = opts.timeZone;
@@ -34,7 +40,7 @@
       volumes = [
         "${opts.paths.app-data}/ollama-web:/app/backend/data"
       ];
-      ports = [ "8080:8080" ];
+      ports = [ "${opts.ports.ollama-web}:8080" ];
       labels = {
         "kuma.ollama-web.http.name" = "Ollama Web";
         "kuma.ollama-web.http.url" = "http://${opts.lanAddress}:8080";
