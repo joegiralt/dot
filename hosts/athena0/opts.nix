@@ -37,6 +37,7 @@
   ports = {
     audiobookshelf = "13378";
     filebrowser = "9008";
+    flare-solverr = "8191";
   };
 
 }
