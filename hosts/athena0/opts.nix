@@ -39,6 +39,7 @@
     filebrowser = "9008";
     flare-solverr = "8191";
     homer = "83";
+    jackett = "9117";
   };
 
 }

@@ -1,6 +1,5 @@
 { config, lib, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts = [ 9117 ];
-
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [ jackett ]);
   virtualisation.oci-containers.containers = {
     "jackett" = {
       autoStart = true;
@@ -15,13 +14,13 @@
         PGID = opts.adminGID;
       };
       volumes = [
-        "/mnt/data/appdata/jackett:/config"
-        "/mnt/data/downloads:/downloads"
+        "${opts.paths.app-data}/jackett:/config"
+        "${opts.paths.downloads}:/downloads"
       ];
       ports = [ "9117:9117" ];
       labels = {
         "kuma.jackett.http.name" = "Jackett";
-        "kuma.jackett.http.url" = "http://${opts.lanAddress}:9117/health";
+        "kuma.jackett.http.url" = "http://${opts.lanAddress}:${opts.ports.jackett}/health";
       };
     };
   };
