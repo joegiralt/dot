@@ -40,6 +40,7 @@
     flare-solverr = "8191";
     homer = "83";
     jackett = "9117";
+    jellyfin = "8096";
   };
 
 }

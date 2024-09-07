@@ -1,25 +1,24 @@
 { config, lib, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts = [ 8096 ];
-  networking.firewall.allowedUDPPorts = [ 8096 ];
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [ jellyfin ]);
 
   virtualisation.oci-containers.containers = {
     "jellyfin" = {
       autoStart = true;
       image = "jellyfin/jellyfin";
       volumes = [
-        "/mnt/data/appdata/jellyfin/config:/config"
-        "/mnt/data/appdata/jellyfin/cache/:/cache"
-        "/mnt/data/appdata/jellyfin/log/:/log"
-        "/mnt/data2/media/film:/film"
-        "/mnt/data2/media/tv:/tv"
+        "${opts.paths.app-data}/jellyfin/config:/config"
+        "${opts.paths.app-data}/jellyfin/cache/:/cache"
+        "${opts.paths.app-data}/jellyfin/log/:/log"
+        "${opts.paths.film}:/film"
+        "${opts.paths.tv}:/tv"
 
       ];
       extraOptions =
         [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
-      ports = [ "8096:8096" ];
+      ports = [ "${opts.ports.jellyfin}:8096" ];
       labels = {
         "kuma.jellyfin.http.name" = "Jellyfin";
-        "kuma.jellyfin.http.url" = "http://${opts.lanAddress}:8096";
+        "kuma.jellyfin.http.url" = "http://${opts.lanAddress}:${opts.ports.jellyfin}/health";
       };
       environment = {
         JELLYFIN_LOG_DIR = "/log";
