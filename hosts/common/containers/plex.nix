@@ -21,8 +21,8 @@
         "/mnt/data/appdata/plex/database/:/config"
         "/mnt/data/appdata/plex/transcode/:/transcode"
         "/mnt/data/media/music:/music"
-        "/mnt/data/media/film:/movies"
-        "/mnt/data/media/tv:/tv"
+        "/mnt/data2/media/film:/movies"
+        "/mnt/data2/media/tv:/tv"
       ];
       # ports = [ "32400:32400" ];
       labels = {

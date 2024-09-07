@@ -10,8 +10,8 @@
         "/mnt/data/appdata/jellyfin/config:/config"
         "/mnt/data/appdata/jellyfin/cache/:/cache"
         "/mnt/data/appdata/jellyfin/log/:/log"
-        "/mnt/data/media/film:/film"
-        "/mnt/data/media/tv:/tv"
+        "/mnt/data2/media/film:/film"
+        "/mnt/data2/media/tv:/tv"
 
       ];
       extraOptions =

@@ -29,7 +29,7 @@
     podcasts = "/mnt/data/media/podcasts";
     podman-socket = "/var/run/podman/podman.sock";
     qbt-images = "/mnt/data/media/photos/other";
-    television = "/mnt/data2/media/shows";
+    tv = "/mnt/data2/media/tv";
     torrent-watch = "/mnt/data/downloads/torrents";
     videos = "/mnt/data2/media/videos";
   };
