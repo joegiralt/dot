@@ -59,6 +59,7 @@
     prometheus-node = "9002";
     uptime-kuma = "9011";
     prowlarr = "9696";
+    radarr = "7878";
   };
 
 }
