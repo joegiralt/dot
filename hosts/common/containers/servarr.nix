@@ -46,7 +46,7 @@
         "--no-healthcheck"
       ];
       volumes = [
-        "${opts.paths.application_data}/radarr/:/config"
+        "${opts.paths.app-data}/radarr/:/config"
         "${opts.paths.film}:/movies"
         "${opts.paths.downloads}:/downloads"
       ];
