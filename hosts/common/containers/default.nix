@@ -11,6 +11,7 @@
     ./ollama.nix
     ./paperless.nix
     ./plex.nix
+    ./servarr.nix
     ./stirling-pdf.nix
     ./telemetry.nix
     ./qbittorrent.nix
