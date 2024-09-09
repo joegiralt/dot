@@ -21,6 +21,14 @@
       zle -N down-line-or-beginning-search
       zle -N up-line-or-beginning-search
       eval "$(atuin init zsh)"
+      pod-logs() {
+        local container_name=$1
+        if [ -z "$container_name" ]; then
+          echo "Please provide a container name."
+          return 1
+        fi
+        podman ps -q --filter name="$container_name" | xargs -I {} podman logs {}
+      }
     '';
     oh-my-zsh = {
       enable = true;
