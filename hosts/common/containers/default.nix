@@ -7,6 +7,7 @@
     ./homer.nix
     ./jackett.nix
     ./jellyfin.nix
+    ./livebook.nix
     ./nginx-proxy-manager.nix
     ./ollama.nix
     ./paperless.nix
