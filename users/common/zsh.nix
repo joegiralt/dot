@@ -29,6 +29,7 @@
         fi
         podman ps -q --filter name="$container_name" | xargs -I {} podman logs {}
       }
+      
     '';
     oh-my-zsh = {
       enable = true;
