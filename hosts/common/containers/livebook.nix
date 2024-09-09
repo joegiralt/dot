@@ -32,6 +32,7 @@
       };
       environment = {
         LIVEBOOK_UPDATE_INSTRUCTIONS_URL = "true";
+        LIVEBOOK_TOKEN_ENABLED = "false";
         TZ = opts.timeZone;
         PUID = opts.adminUID;
         PGID = opts.adminGID;
