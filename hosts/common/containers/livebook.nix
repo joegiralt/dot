@@ -31,7 +31,7 @@
         "kuma.livebook.http.url" = "http://${opts.lanAddress}:${opts.ports.livebook}";
       };
       environment = {
-        LIVEBOOK_UPDATE_INSTRUCTIONS_URL = true;
+        LIVEBOOK_UPDATE_INSTRUCTIONS_URL = "true";
         TZ = opts.timeZone;
         PUID = opts.adminUID;
         PGID = opts.adminGID;
