@@ -62,6 +62,7 @@
     radarr = "7878";
     livebook = "9012";
     livebook-alt = "9013";
+    vscode-server = "2345";
   };
 
 }
