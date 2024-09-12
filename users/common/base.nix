@@ -56,7 +56,6 @@
   programs = {
     home-manager.enable = true;
     htop.enable = true;
-    nix-ld.enable = true;
     # ssh.startAgent = true;
   };
 
