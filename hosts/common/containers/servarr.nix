@@ -1,13 +1,18 @@
-{ config, lib, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts =
-    builtins.map pkgs.lib.strings.toInt (with opts.ports; [
-      prowlarr
-      radarr
-      # bazarr
-      # lidarr
-      # readarr
-      # sonarr
-    ]);
+{
+  config,
+  lib,
+  pkgs,
+  opts,
+  ...
+}: {
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [
+    prowlarr
+    radarr
+    # bazarr
+    # lidarr
+    # readarr
+    # sonarr
+  ]);
 
   systemd.tmpfiles.rules = [
     "d ${opts.paths.app-data}/prowlarr 0755 ${opts.adminUID} ${opts.adminGID} -"

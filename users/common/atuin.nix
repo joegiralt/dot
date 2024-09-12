@@ -1,5 +1,8 @@
-{ pkgs, username, ... }: {
-
+{
+  pkgs,
+  username,
+  ...
+}: {
   programs.atuin = {
     enable = true;
     settings = {

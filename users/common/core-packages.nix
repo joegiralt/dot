@@ -1,4 +1,8 @@
-{ pkgs, username, ... }: {
+{
+  pkgs,
+  username,
+  ...
+}: {
   home.packages = with pkgs; [
     amfora
     aria2

@@ -1,10 +1,15 @@
-{ config, lib, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts =
-    builtins.map pkgs.lib.strings.toInt (
-      with opts.ports; [
-        plex
-      ]
-    );
+{
+  config,
+  lib,
+  pkgs,
+  opts,
+  ...
+}: {
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
+    with opts.ports; [
+      plex
+    ]
+  );
 
   systemd.tmpfiles.rules = [
     "d ${opts.paths.app-data}/plex/database 0755 ${opts.adminUID} ${opts.adminGID} -"
@@ -34,7 +39,7 @@
         "kuma.plex.http.name" = "Plex";
         "kuma.plex.http.url" = "http://${opts.lanAddress}:${opts.ports.plex}/identity";
       };
-      environmentFiles = [ config.age.secrets.plex-env.path ];
+      environmentFiles = [config.age.secrets.plex-env.path];
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;

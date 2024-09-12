@@ -1,17 +1,20 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, opts, pkgs, age, hostname, ... }:
-
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../common/containers
-      ../common/services
-    ];
+  config,
+  opts,
+  pkgs,
+  age,
+  hostname,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../common/containers
+    ../common/services
+  ];
 
   # Secret defs
   age.secrets = {
@@ -50,7 +53,7 @@
   networking = {
     hostName = opts.hostname;
     domain = ""; # TODO: get domain name!
-    search = [ opts.hostname ];
+    search = [opts.hostname];
     defaultGateway = {
       address = "192.168.1.1";
       interface = "enp90s0";
@@ -59,8 +62,8 @@
       iwd = {
         enable = true;
         settings = {
-          IPV6 = { Enabled = false; };
-          Settings = { AutoConnect = true; };
+          IPV6 = {Enabled = false;};
+          Settings = {AutoConnect = true;};
         };
       };
     };
@@ -77,8 +80,8 @@
     firewall = {
       enable = true;
       allowPing = false;
-      allowedTCPPorts = [ 21 443 22 ];
-      allowedUDPPorts = [ 21 443 22 ];
+      allowedTCPPorts = [21 443 22];
+      allowedUDPPorts = [21 443 22];
     };
   };
 
@@ -174,7 +177,7 @@
       "video"
       "wheel"
     ];
-    packages = with pkgs; [ ];
+    packages = with pkgs; [];
   };
 
   programs = {
@@ -192,7 +195,7 @@
   nixpkgs.config = {
     allowUnfree = true;
     packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+      vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
     };
   };
 
@@ -242,19 +245,21 @@
     zmap
     zsh
     (vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions; [
-        bbenoist.nix
-        ms-python.python
-        ms-azuretools.vscode-docker
-        ms-vscode-remote.remote-ssh
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "remote-ssh-edit";
-          publisher = "ms-vscode-remote";
-          version = "0.47.2";
-          sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
-        }
-      ];
+      vscodeExtensions = with vscode-extensions;
+        [
+          bbenoist.nix
+          ms-python.python
+          ms-azuretools.vscode-docker
+          ms-vscode-remote.remote-ssh
+        ]
+        ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+          {
+            name = "remote-ssh-edit";
+            publisher = "ms-vscode-remote";
+            version = "0.47.2";
+            sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+          }
+        ];
     })
   ];
 
@@ -267,7 +272,7 @@
     settings = {
       warn-dirty = true;
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
     };
     package = pkgs.nixFlakes;
   };
@@ -281,5 +286,4 @@
 
   # NOTE: DO NOT CHANGE
   system.stateVersion = "24.05";
-
 }

@@ -64,5 +64,4 @@
     livebook-alt = "9013";
     vscode-server = "2345";
   };
-
 }

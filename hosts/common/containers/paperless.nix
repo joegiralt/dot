@@ -1,13 +1,16 @@
-{ pkgs, opts, config, ... }:
 {
-  networking.firewall.allowedTCPPorts =
-    builtins.map pkgs.lib.strings.toInt (
-      with opts.ports; [
-        paperless-app
-        paperless-web
-        paperless-redis
-      ]
-    );
+  pkgs,
+  opts,
+  config,
+  ...
+}: {
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
+    with opts.ports; [
+      paperless-app
+      paperless-web
+      paperless-redis
+    ]
+  );
   virtualisation.oci-containers.containers = {
     paperless-app = {
       autoStart = true;
@@ -26,7 +29,7 @@
         "${opts.paths.app-data}/paperless/export:/usr/src/paperless/export"
         "${opts.paths.app-data}/paperless/media:/usr/src/paperless/media"
       ];
-      ports = [ "${opts.ports.paperless-app}:8000" ];
+      ports = ["${opts.ports.paperless-app}:8000"];
       labels = {
         "kuma.paperless-app.http.name" = "Paperless App";
         "kuma.paperless-app.http.url" = "http://${opts.lanAddress}:${opts.ports.paperless-app}";
@@ -54,10 +57,10 @@
     paperless-db = {
       autoStart = true;
       image = "docker.io/library/mariadb:11";
-      volumes = [ "${opts.paths.dbs}/paperless:/var/lib/mysql" ];
-      extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
-      ports = [ "${opts.ports.paperless-db}:3306" ];
-      environmentFiles = [ config.age.secrets.paperless-env.path ];
+      volumes = ["${opts.paths.dbs}/paperless:/var/lib/mysql"];
+      extraOptions = ["--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck"];
+      ports = ["${opts.ports.paperless-db}:3306"];
+      environmentFiles = [config.age.secrets.paperless-env.path];
       environment = {
         MARIADB_HOST = "${opts.hostname}";
         MARIADB_DATABASE = "paperless";
@@ -75,7 +78,7 @@
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
       ];
-      ports = [ "${opts.ports.paperless-redis}:6379" ];
+      ports = ["${opts.ports.paperless-redis}:6379"];
       labels = {
         "kuma.paperless-redis.redis.name" = "Paperless Redis";
         "kuma.paperless-redis.redis.database_connection_string" = "redis://${opts.lanAddress}:${opts.ports.paperless-redis}";

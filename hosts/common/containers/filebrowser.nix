@@ -1,11 +1,11 @@
-{ config
-, lib
-, pkgs
-, opts
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  opts,
+  ...
 }: {
-
-  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [ filebrowser ]);
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [filebrowser]);
 
   systemd.tmpfiles.rules = [
     "d ${opts.paths.app-data}/filebrowser/ 0755 ${opts.adminUID} ${opts.adminGID} -"
@@ -39,7 +39,7 @@
         "${opts.paths.app-data}/filebrowser/database/filebrowser.db:/database/filebrowser.db"
         "${opts.paths.app-data}/filebrowser/config/settings.json:/config/settings.json"
       ];
-      ports = [ "${opts.ports.filebrowser}:8080" ];
+      ports = ["${opts.ports.filebrowser}:8080"];
       labels = {
         "kuma.filebrowser.http.name" = "Filebrowser";
         "kuma.filebrowser.http.url" = "http://${opts.lanAddress}:${opts.ports.filebrowser}";

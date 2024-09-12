@@ -1,13 +1,18 @@
-{ config, pkgs, opts, ... }: {
-  networking.firewall.allowedTCPPorts = [ 53 3000 ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
+{
+  config,
+  pkgs,
+  opts,
+  ...
+}: {
+  networking.firewall.allowedTCPPorts = [53 3000];
+  networking.firewall.allowedUDPPorts = [53];
   services.adguardhome = {
     enable = true;
     host = "0.0.0.0";
     port = 3000;
     mutableSettings = false;
     openFirewall = true;
-    extraArgs = [ ];
+    extraArgs = [];
     settings = {
       statistics = {
         interval = "48h";
@@ -113,7 +118,7 @@
         cache_ttl_min = 3600;
         cache_ttl_max = 86400;
         cache_optimistic = true;
-        bootstrap_dns = [ "9.9.9.9" "1.1.1.1" "1.0.0.1" ];
+        bootstrap_dns = ["9.9.9.9" "1.1.1.1" "1.0.0.1"];
         ratelimit = 500;
         upstream_dns = [
           "https://extended.dns.mullvad.net/dns-query"

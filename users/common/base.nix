@@ -1,5 +1,10 @@
-{ pkgs, nixpkgs, username, opts, ... }: {
-
+{
+  pkgs,
+  nixpkgs,
+  username,
+  opts,
+  ...
+}: {
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
@@ -7,23 +12,45 @@
   };
 
   home.file = {
-
     ".tool-versions" = {
       enable = true;
       recursive = true;
-      text =
-        let
-          versions = [
-            { tool = "bun"; version = "1.1.20"; }
-            { tool = "elixir"; version = "1.17.2-otp-27"; }
-            { tool = "erlang"; version = "27.0.1"; }
-            { tool = "golang"; version = "1.22.5"; }
-            { tool = "nodejs"; version = "22.5.1"; }
-            { tool = "ruby"; version = "3.2.1"; }
-            { tool = "zig"; version = "0.13.0"; }
-            { tool = "gleam"; version = "1.3.2"; }
-          ];
-        in
+      text = let
+        versions = [
+          {
+            tool = "bun";
+            version = "1.1.20";
+          }
+          {
+            tool = "elixir";
+            version = "1.17.2-otp-27";
+          }
+          {
+            tool = "erlang";
+            version = "27.0.1";
+          }
+          {
+            tool = "golang";
+            version = "1.22.5";
+          }
+          {
+            tool = "nodejs";
+            version = "22.5.1";
+          }
+          {
+            tool = "ruby";
+            version = "3.2.1";
+          }
+          {
+            tool = "zig";
+            version = "0.13.0";
+          }
+          {
+            tool = "gleam";
+            version = "1.3.2";
+          }
+        ];
+      in
         builtins.concatStringsSep "\n" (builtins.map (v: "${v.tool} ${v.version}") versions);
     };
 
@@ -51,7 +78,6 @@
         #     export WINIT_X11_SCALE_FACTOR=1.1
       '';
     };
-
   };
 
   programs = {
@@ -82,13 +108,13 @@
       options = "--delete-older-than 7d";
     };
     settings = {
-      trusted-users = [ "${username}" ];
-      allowed-users = [ "${username}" ];
-      trusted-substituters = [ "${username}" ];
+      trusted-users = ["${username}"];
+      allowed-users = ["${username}"];
+      trusted-substituters = ["${username}"];
       show-trace = true;
       auto-optimise-store = true;
       fallback = true;
-      experimental-features = [ "nix-command" "flakes" "recursive-nix" ];
+      experimental-features = ["nix-command" "flakes" "recursive-nix"];
     };
   };
 }

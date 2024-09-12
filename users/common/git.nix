@@ -1,6 +1,9 @@
-{ pkgs, nixpkgs-stable, opts, ... }:
 {
-
+  pkgs,
+  nixpkgs-stable,
+  opts,
+  ...
+}: {
   home.file = {
     ".gitattributes" = {
       enable = true;
@@ -121,5 +124,4 @@
       '';
     };
   };
-
 }

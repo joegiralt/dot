@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -29,7 +28,7 @@
         fi
         podman ps -q --filter name="$container_name" | xargs -I {} podman logs {}
       }
-      
+
     '';
     oh-my-zsh = {
       enable = true;
