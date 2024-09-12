@@ -3,7 +3,7 @@
     enable = true;
     withoutConnectionToken = true;
     user = "admin";
-    port = pkgs.lib.strings.toInt opts.ports.vscode-server;
+    port = (pkgs.lib.strings.toInt opts.ports.vscode-server);
     host = "0.0.0.0";
 
   };
