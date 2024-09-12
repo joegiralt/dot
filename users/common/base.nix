@@ -34,6 +34,7 @@
       executable = true;
       text = ''
         export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
+        export NIX_LD=/run/current-system/sw/share/nix-ld/lib/ld.so
       '';
     };
 
