@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  opts,
-  ...
+{ config
+, lib
+, pkgs
+, opts
+, ...
 }: {
   networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
     with opts.ports; [
@@ -16,11 +15,11 @@
     "ollama" = {
       autoStart = true;
       image = "ollama/ollama";
-      extraOptions = ["--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck"];
+      extraOptions = [ "--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" ];
       volumes = [
         "${opts.paths.app-data}/ollama:/root/.ollama"
       ];
-      ports = ["${opts.ports.ollama}:11434"];
+      ports = [ "${opts.ports.ollama}:11434" ];
       labels = {
         "kuma.ollama.http.name" = "Ollama";
         "kuma.ollama.http.url" = "http://${opts.lanAddress}:${opts.ports.ollama}";
@@ -43,7 +42,7 @@
       volumes = [
         "${opts.paths.app-data}/ollama-web:/app/backend/data"
       ];
-      ports = ["${opts.ports.ollama-web}:8080"];
+      ports = [ "${opts.ports.ollama-web}:8080" ];
       labels = {
         "kuma.ollama-web.http.name" = "Ollama Web";
         "kuma.ollama-web.http.url" = "http://${opts.lanAddress}:8080";

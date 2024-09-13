@@ -1,11 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  opts,
-  ...
+{ config
+, lib
+, pkgs
+, opts
+, ...
 }: {
-  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [audiobookshelf]);
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (with opts.ports; [ audiobookshelf ]);
 
   systemd.tmpfiles.rules = [
     "d ${opts.paths.audiobooks} 0755 ${opts.adminUID} ${opts.adminGID} -"
@@ -28,7 +27,7 @@
         "${opts.paths.app-data}/audiobookshelf/metadata:/metadata"
         "${opts.paths.app-data}/audiobookshelf/config:/config"
       ];
-      ports = ["${opts.ports.audiobookshelf}:80"];
+      ports = [ "${opts.ports.audiobookshelf}:80" ];
       labels = {
         "kuma.audiobookshelf.http.name" = "Audiobookshelf";
         "kuma.audiobookshelf.http.url" = "http://${opts.lanAddress}:${opts.ports.audiobookshelf}/healthcheck";

@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   imports = [
     ../common/atuin.nix
     ../common/base.nix

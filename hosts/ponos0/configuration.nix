@@ -4,25 +4,15 @@
 { config
 , opts
 , pkgs
-, age
-, hostname
 , ...
 }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../common/containers
-    ../common/services
   ];
 
-  # Secret defs
   age.secrets = {
-    athena0-admin-password.file = ../../secrets/athena0-admin-password.age;
-    tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
-    mullvad-account-number.file = ../../secrets/mullvad-account-number.age;
-    paperless-env.file = ../../secrets/paperless-env.age;
-    plex-env.file = ../../secrets/plex-env.age;
-    autokuma-env.file = ../../secrets/autokuma-env.age;
+    athena0-admin-password.file = ../../secrets/ponos0-admin-password.age;
   };
 
   # Bootloader.
@@ -34,28 +24,21 @@
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
-  boot.kernel.sysctl = {
-    "fs.inotify.max_user_watches" = "1048576";
-    "vm.swappiness" = 70;
-    "vm.dirty_ratio" = 20;
-    "vm.dirty_background_ratio" = 10;
-  };
+  # networking.hostName = "nixos"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 196 * 1024;
-      randomEncryption.enable = true;
-    }
-  ];
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  # Enable networking
   networking = {
     hostName = opts.hostname;
-    domain = opts.publicURL;
+    domain = "";
     search = [ opts.hostname ];
     defaultGateway = {
       address = "192.168.1.1";
-      interface = "enp90s0";
+      interface = "eno1";
     };
     wireless = {
       iwd = {
@@ -73,7 +56,6 @@
     };
 
     nameservers = pkgs.lib.mkForce opts.nameservers;
-
     enableIPv6 = false;
 
     firewall = {
@@ -108,7 +90,7 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-
+  services.openssh.enable = true;
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -116,35 +98,22 @@
   };
 
   # Enable CUPS to print documents.
+  services.printing.enable = true;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  security.sudo.wheelNeedsPassword = false;
-  services = {
-    flatpak.enable = false;
-    packagekit.enable = true;
-    udisks2.enable = true;
-    dbus.enable = true;
-    printing.enable = false;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
 
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      #jack.enable = true; # If you want to use JACK applications, uncomment this
-    };
-
-    openssh = {
-      enable = true;
-      allowSFTP = true;
-      settings = {
-        PermitRootLogin = "no";
-        PasswordAuthentication = true;
-        KbdInteractiveAuthentication = false;
-      };
-    };
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -152,15 +121,16 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.admin = {
-    passwordFile = config.age.secrets.athena0-admin-password.path;
+    passwordFile = config.age.secrets.ponos0-admin-password.path;
+
     isNormalUser = true;
+    description = "Admin";
     openssh.authorizedKeys.keys = with opts.publicKeys; [
       carcosa-ed25519
       macbook-ed25519
       spare-macbook-ed25519
     ];
     shell = pkgs.zsh;
-    description = "Admin";
     extraGroups = [
       "audio"
       "bluetooth"
@@ -168,10 +138,7 @@
       "docker"
       "lp"
       "networkmanager"
-      "ntfy-sh"
-      "scanner"
       "sshd"
-      "vboxusers"
       "video"
       "wheel"
     ];
@@ -181,8 +148,6 @@
   programs = {
     firefox.enable = true;
     zsh.enable = true;
-    mtr.enable = true;
-    mosh.enable = true;
     nix-ld.enable = true;
     gnupg.agent = {
       enable = true;
@@ -190,12 +155,8 @@
     };
   };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-    };
-  };
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -211,6 +172,7 @@
     fasm-bin
     fastfetch
     ffmpeg
+    gh
     git
     git-crypt
     gnumake
@@ -261,6 +223,31 @@
     })
   ];
 
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # List services that you want to enable:
+
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   nix = {
     gc = {
       automatic = true;
@@ -281,7 +268,7 @@
   };
 
   system.copySystemConfiguration = false;
+  system.stateVersion = "24.05"; # Did you read the comment?
 
-  # NOTE: DO NOT CHANGE
-  system.stateVersion = "24.05";
+  services.tailscale.enable = true;
 }

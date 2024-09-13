@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   imports = [
     ./audiobookshelf.nix
     ./filebrowser.nix

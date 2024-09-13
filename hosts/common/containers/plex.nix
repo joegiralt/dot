@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  opts,
-  ...
+{ config
+, lib
+, pkgs
+, opts
+, ...
 }: {
   networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
     with opts.ports; [
@@ -39,7 +38,7 @@
         "kuma.plex.http.name" = "Plex";
         "kuma.plex.http.url" = "http://${opts.lanAddress}:${opts.ports.plex}/identity";
       };
-      environmentFiles = [config.age.secrets.plex-env.path];
+      environmentFiles = [ config.age.secrets.plex-env.path ];
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;
