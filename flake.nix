@@ -47,7 +47,7 @@
           };
         };
 
-      mkHome = pkgs: system: username: host:
+      mkHome = pkgs: system: username:
         home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs.legacyPackages."${system}";
           modules = [
@@ -55,8 +55,8 @@
             ./users/${username}
           ];
           extraSpecialArgs = {
-            inherit system username host;
-            opts = opts // (import ./hosts/${host}/opts.nix) // (import ./users/${username}/opts.nix);
+            inherit system username;
+            opts = opts // (import ./users/${username}/opts.nix);
           };
         };
     in
@@ -72,7 +72,7 @@
 
       # HomeManager Configurations
       homeConfigurations = {
-        admin = mkHome nixpkgs systems.x86 "admin" "athena0";
+        admin = mkHome nixpkgs systems.x86 "admin";
       };
     };
 }
