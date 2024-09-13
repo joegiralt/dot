@@ -12,7 +12,7 @@
   ];
 
   age.secrets = {
-    athena0-admin-password.file = ../../secrets/ponos0-admin-password.age;
+    ponos0-admin-password.file = ../../secrets/ponos0-admin-password.age;
   };
 
   # Bootloader.

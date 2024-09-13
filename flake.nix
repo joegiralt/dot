@@ -67,6 +67,7 @@
       # NixOS Configurations
       nixosConfigurations = {
         athena0 = mkSystem nixpkgs systems.x86 "athena0";
+        ponos0 = mkSystem nixpkgs systems.x86 "ponos0";
       };
 
       # HomeManager Configurations
