@@ -24,17 +24,25 @@
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_watches" = "1048576";
+    "vm.swappiness" = 70;
+    "vm.dirty_ratio" = 20;
+    "vm.dirty_background_ratio" = 10;
+  };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 128 * 1024;
+      randomEncryption.enable = true;
+    }
+  ];
 
   # Enable networking
   networking = {
     hostName = opts.hostname;
-    domain = "";
+    domain = opts.hostname;
     search = [ opts.hostname ];
     defaultGateway = {
       address = "192.168.1.1";
