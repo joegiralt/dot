@@ -198,6 +198,7 @@
     iwd
     kexec-tools
     lshw
+    libffi
     man
     mosh
     mullvad
