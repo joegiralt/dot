@@ -7,6 +7,7 @@
     aria2
     asciinema
     asciinema-agg
+    asdf-vm
     aspell
     aspellDicts.en
     aspellDicts.en-computers

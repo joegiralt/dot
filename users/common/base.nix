@@ -35,11 +35,23 @@
             }
             {
               tool = "nodejs";
+              version = "18.15.0";
+            }
+            {
+              tool = "nodejs";
               version = "22.5.1";
+            }
+            {
+              tool = "yarn";
+              version = "1.22.19";
             }
             {
               tool = "ruby";
               version = "3.2.1";
+            }
+            {
+              tool = "ruby";
+              version = "3.0.7";
             }
             {
               tool = "zig";

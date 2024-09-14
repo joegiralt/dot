@@ -29,6 +29,8 @@
         podman ps -q --filter name="$container_name" | xargs -I {} podman logs {}
       }
       eval "$(direnv hook zsh)"
+      . "${pkgs.asdf-vm}/share/asdf-vm/asdf.sh"
+      . "${pkgs.asdf-vm}/share/asdf-vm/completions/asdf.zsh"
     '';
     oh-my-zsh = {
       enable = true;
