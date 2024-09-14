@@ -179,6 +179,7 @@
     curl
     dhcpcd
     direnv
+    docker_26
     fasm-bin
     fastfetch
     ffmpeg
