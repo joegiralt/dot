@@ -28,7 +28,7 @@
         fi
         podman ps -q --filter name="$container_name" | xargs -I {} podman logs {}
       }
-
+      eval "$(direnv hook zsh)"
     '';
     oh-my-zsh = {
       enable = true;
