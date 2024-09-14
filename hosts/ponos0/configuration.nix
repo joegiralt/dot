@@ -179,7 +179,7 @@
     clang
     cmake
     cryptsetup
-    curl
+    curlFull
     dhcpcd
     direnv
     docker_26
@@ -289,6 +289,6 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
   services.tailscale.enable = true;
-  
+
   virtualisation.docker.enable = true;
 }
