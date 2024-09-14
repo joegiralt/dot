@@ -197,6 +197,7 @@
     mullvad
     mullvad-vpn
     netcat-gnu
+    nvme-cli
     openresolv
     openssl
     openvpn
