@@ -243,7 +243,7 @@
   ];
 
   environment.variables = {
-    LD_LIBRARY_PATH = "${pkgs.libcurl.out}/lib";
+    LD_LIBRARY_PATH = "${pkgs.curlFull.out}/lib";
   };
 
 
