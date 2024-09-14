@@ -183,6 +183,7 @@
     dhcpcd
     direnv
     docker_26
+    docker-compose
     fasm-bin
     fastfetch
     ffmpeg
