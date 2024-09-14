@@ -5,6 +5,7 @@
 , lib
 , pkgs
 , modulesPath
+, opts
 , ...
 }: {
   imports = [
