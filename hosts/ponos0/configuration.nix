@@ -182,6 +182,7 @@
     fasm-bin
     fastfetch
     ffmpeg
+    gcc
     gh
     git
     git-crypt
