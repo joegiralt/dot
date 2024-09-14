@@ -171,6 +171,10 @@
   environment.systemPackages = with pkgs; [
     alsa-utils
     # awscli2
+    libsndfile
+    libmysqlclient
+    unixODBC
+    libcurl
     bcc
     busybox
     clang
