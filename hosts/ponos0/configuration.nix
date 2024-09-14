@@ -177,6 +177,7 @@
     cryptsetup
     curl
     dhcpcd
+    direnv
     fasm-bin
     fastfetch
     ffmpeg

@@ -24,7 +24,17 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/CA58-92DF";
     fsType = "vfat";
-    options = [ "fmask=0077" "dmask=0077" ];
+    options = [ "ext4" ];
+  };
+
+  fileSystems."/work" = {
+    device = "/dev/disk/by-uuid/afc1a06c-781b-4119-8d85-f929dd138ba1";
+    fsType = "ext4";
+  };
+
+  fileSystems."/misc" = {
+    device = "/dev/disk/by-uuid/66E0-3145";
+    fsType = "exfat";
   };
 
   swapDevices = [ ];
