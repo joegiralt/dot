@@ -170,7 +170,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     alsa-utils
-    awscli2
+    # awscli2
     bcc
     busybox
     clang
