@@ -17,32 +17,27 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/aa315142-3a07-46be-8aa3-f4453f3426bd";
-    fsType = "ext4";
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/46ae4e0b-6bd4-401d-8187-749bfcd07717";
+      fsType = "ext4";
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/CA58-92DF";
-    fsType = "vfat";
-    options = [ "ext4" ];
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/A63D-3B6E";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
 
-  fileSystems."/work" = {
-    device = "/dev/disk/by-uuid/afc1a06c-781b-4119-8d85-f929dd138ba1";
-    fsType = "ext4";
-  };
-
-  fileSystems."/misc" = {
-    device = "/dev/disk/by-uuid/66E0-3145";
-    fsType = "exfat";
-  };
+  # fileSystems."/misc" = {
+  #   device = "/dev/disk/by-uuid/66E0-3145";
+  #   fsType = "exfat";
+  # };
 
   swapDevices = [ ];
 
   networking = {
     useDHCP = lib.mkDefault false;
-    hostId = "0ec79991";
+    hostId = "0ec79992";
     # consider moving to systemd.network.netdev
     interfaces = {
       eno1 = {
