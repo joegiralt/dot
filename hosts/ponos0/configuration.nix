@@ -216,6 +216,7 @@
     zip
     zmap
     zsh
+    zlib
     (vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions;
         [
