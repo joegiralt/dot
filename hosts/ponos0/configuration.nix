@@ -174,7 +174,6 @@
     libsndfile
     libmysqlclient
     unixODBC
-    libcurl
     bcc
     busybox
     clang
