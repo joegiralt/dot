@@ -242,6 +242,11 @@
     })
   ];
 
+  environment.variables = {
+    LD_LIBRARY_PATH = "${pkgs.libcurl.out}/lib";
+  };
+
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
