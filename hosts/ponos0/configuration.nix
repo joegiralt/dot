@@ -171,6 +171,7 @@
   environment.systemPackages = with pkgs; [
     alsa-utils
     # awscli2
+    mysql2
     libsndfile
     libmysqlclient
     unixODBC
