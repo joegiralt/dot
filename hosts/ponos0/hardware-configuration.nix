@@ -55,6 +55,24 @@
         useDHCP = lib.mkDefault true;
       };
     };
+    extraHosts = ''
+      127.0.0.1 localhost, development.tunecore.local
+      127.0.0.1 localhost, development.ca.tunecore.local
+      127.0.0.1 localhost, development.tunecore.local.ca
+      127.0.0.1 localhost, development.tunecore.local.uk
+      127.0.0.1 localhost, development.tunecore.local.au
+      127.0.0.1 localhost, development.tunecore.local.de
+      127.0.0.1 localhost, development.tunecore.local.it
+      127.0.0.1 localhost, development.tunecore.local.fr
+      127.0.0.1 localhost, development.tunecore.local.in
+      127.0.0.1 localhost, crt.tunecore.local
+      127.0.0.1 localhost, stats.tunecore.local
+      127.0.0.1 localhost, development.tunecore.local
+      127.0.0.1 localhost, social.tunecore.local
+      127.0.0.1 localhost, api.tunecore.local
+      127.0.0.1 db 
+      127.0.0.1 redis
+    ''
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
