@@ -72,7 +72,7 @@
       127.0.0.1 localhost, api.tunecore.local
       127.0.0.1 db 
       127.0.0.1 redis
-    ''
+    '';
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
