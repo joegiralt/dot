@@ -201,7 +201,7 @@
     lshw
     libffi
     man
-    make
+    gnumake
     mosh
     mullvad
     mullvad-vpn
