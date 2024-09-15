@@ -183,6 +183,7 @@
     curlFull
     dhcpcd
     direnv
+    devenv
     docker_26
     docker-compose
     fasm-bin
