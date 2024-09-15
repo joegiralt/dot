@@ -201,6 +201,7 @@
     lshw
     libffi
     man
+    make
     mosh
     mullvad
     mullvad-vpn
