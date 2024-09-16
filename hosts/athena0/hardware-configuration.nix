@@ -85,18 +85,7 @@
       powerManagement.finegrained = false;
 
       # Open Source Kernel Module
-      open = true;
-
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "525.116.04";
-        sha256_64bit = "sha256-hhDsgkR8/3LLXxizZX7ppjSlFRZiuK2QHrgfTE+2F/4=";
-        sha256_aarch64 = "sha256-k7k22z5PYZdBVfuYXVcl9SFUMqZmK4qyxoRwlYyRdgU=";
-        openSha256 = "sha256-dktHCoESqoNfu5M73aY5MQGROlZawZwzBqs3RkOyfoQ=";
-        settingsSha256 = "sha256-qNjfsT9NGV151EHnG4fgBonVFSKc4yFEVomtXg9uYD4=";
-        persistencedSha256 = "sha256-ci86XGlno6DbHw6rkVSzBpopaapfJvk0+lHcR4LDq50=";
-
-        ibtSupport = true;
-      };
+      open = false;
 
       # NVIDIA Settings Menu
       nvidiaSettings = true;
