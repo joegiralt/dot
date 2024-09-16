@@ -68,7 +68,10 @@
 	hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 		graphics.enable = true;
-		nvidia-container-toolkit.enable = true;
+		nvidia-container-toolkit = {
+      enable = true;
+      mount-nvidia-executables = true;
+    };
 		nvidia = {
 			# Modesetting is required.
 			modesetting.enable = true;
