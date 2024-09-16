@@ -77,7 +77,7 @@
 
     # Enable NVIDIA support
     nvidia = {
-      enable = true;
+      # enable = true;
       modesetting.enable = true;
       package = pkgs.nvidia_x11;
 
