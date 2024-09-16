@@ -77,7 +77,7 @@
 		graphics.enable = true;
 		nvidia-container-toolkit = {
       enable = true;
-      # mount-nvidia-executables = true;
+      mount-nvidia-executables = true;
     };
 		nvidia = {
 
