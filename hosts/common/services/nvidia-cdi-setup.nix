@@ -14,7 +14,7 @@
     "C+ /etc/cdi 0755 root root - -"
   ];
 
-  services.nvidia-cdi-setup = {
+  systemd.services.nvidia-cdi-setup = {
     description = "NVIDIA CDI Setup";
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
