@@ -81,7 +81,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  
+  initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ]
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     graphics.enable = true;
@@ -100,6 +100,11 @@
 
       # NVIDIA Settings Menu
       nvidiaSettings = true;
+      prime = { 
+        # Make sure to use the correct Bus ID values for your system!
+        intelBusId = "PCI:00:02.0";
+        nvidiaBusId = "PCI:01:00.0";
+	    };
     };
 
     # NVIDIA Container Toolkit
