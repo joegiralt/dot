@@ -16,7 +16,6 @@
     ./hardware-configuration.nix
     ../common/containers
     ../common/services
-    # Other imports...
   ];
 
   # Secret definitions
@@ -198,10 +197,6 @@
     };
   };
 
-  nixpkgs.overlays = [
-    # No NVIDIA overlay needed
-  ];
-
   # System Packages
   environment.systemPackages = with pkgs; [
     alsa-utils
@@ -230,7 +225,6 @@
     mullvad-vpn
     netcat-gnu
     nvidia-container-toolkit
-    linuxKernel.packages.linux_hardened.nvidia_x11
     openresolv
     openssl
     openvpn
