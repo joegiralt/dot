@@ -18,7 +18,7 @@
   boot.kernelModules = ["kvm-intel"];
   boot.kernelParams = ["nohibernate"];
   boot.extraModulePackages = [];
-  
+
   boot.blacklistedKernelModules = [ "nouveau" ];
 
   fileSystems."/" = {
@@ -80,7 +80,7 @@
       # Enable modesetting (optional but can improve performance)
       modesetting.enable = true;
       open = true;
-      cdi.enable = true;
+      # cdi.enable = true; 3doesn't exist
 
       # Enable the NVIDIA persistence daemon (optional)
       # nvidiaPersistenced.enable = true;
