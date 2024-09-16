@@ -1,6 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# /etc/nixos/configuration.nix
 {
   config,
   opts,
@@ -9,39 +7,19 @@
   hostname,
   ...
 }: {
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
-  #       postInstall = oldAttrs.postInstall or "" + ''
-  #         wrapProgram $out/bin/nvidia-ctk \
-  #           --set LD_LIBRARY_PATH "${config.boot.kernelPackages.nvidiaPackages.stable}/lib:${config.boot.kernelPackages.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
-  #       '';
-  #     });
-  #   })
-  # ];
+  # Define overlays first (if any)
+  nixpkgs.overlays = [
+    # No NVIDIA overlay needed
+  ];
 
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     nvidiaPackages = prev.nvidiaPackages // {
-  #       stable = prev.nvidiaPackages.stable.overrideAttrs (old: {
-  #         postInstall = (old.postInstall or "") + ''
-  #           wrapProgram $out/bin/nvidia-ctk \
-  #             --set LD_LIBRARY_PATH "${prev.nvidiaPackages.stable}/lib:${prev.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
-  #         '';
-  #       });
-  #     };
-  #   })
-  # ];
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../common/containers
     ../common/services
-    # "${pkgs.path}/nixos/modules/hardware/video/nvidia.nix"
-    # "${pkgs.path}/nixos/modules/services/hardware/nvidia-container-toolkit/default.nix"
+    # Other imports...
   ];
 
-  # Secret defs
+  # Secret definitions
   age.secrets = {
     athena0-admin-password.file = ../../secrets/athena0-admin-password.age;
     tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
@@ -51,17 +29,20 @@
     autokuma-env.file = ../../secrets/autokuma-env.age;
   };
 
-  # Bootloader.
+  # Bootloader configuration
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Systemd targets
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
+  # Virtualization
   virtualisation.podman.enable = true;
 
+  # Kernel sysctl
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = "1048576";
     "vm.swappiness" = 70;
@@ -69,6 +50,7 @@
     "vm.dirty_background_ratio" = 10;
   };
 
+  # Swap Devices
   swapDevices = [
     {
       device = "/var/lib/swapfile";
@@ -77,6 +59,7 @@
     }
   ];
 
+  # Networking
   networking = {
     hostName = opts.hostname;
     domain = ""; # TODO: get domain name!
@@ -89,8 +72,8 @@
       iwd = {
         enable = true;
         settings = {
-          IPV6 = {Enabled = false;};
-          Settings = {AutoConnect = true;};
+          IPV6 = { Enabled = false; };
+          Settings = { AutoConnect = true; };
         };
       };
     };
@@ -99,11 +82,8 @@
       wifi.backend = "iwd";
       insertNameservers = opts.nameservers;
     };
-
     nameservers = pkgs.lib.mkForce opts.nameservers;
-
     enableIPv6 = false;
-
     firewall = {
       enable = true;
       allowPing = false;
@@ -112,12 +92,11 @@
     };
   };
 
-  # Set your time zone.
+  # Timezone
   time.timeZone = opts.timeZone;
 
-  # Select internationalisation properties.
+  # Internationalization
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = opts.locale;
     LC_IDENTIFICATION = opts.locale;
@@ -130,24 +109,17 @@
     LC_TIME = opts.locale;
   };
 
-  # Enable the X11 windowing system.
+  # X11 and Desktop Environment
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
-
-  # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound with pipewire.
+  # Sound and Audio
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   security.sudo.wheelNeedsPassword = false;
@@ -177,10 +149,7 @@
     };
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # User Accounts
   users.users.admin = {
     passwordFile = config.age.secrets.athena0-admin-password.path;
     isNormalUser = true;
@@ -208,6 +177,7 @@
     packages = with pkgs; [];
   };
 
+  # Programs
   programs = {
     firefox.enable = true;
     zsh.enable = true;
@@ -220,14 +190,19 @@
     };
   };
 
+  # Nixpkgs Configuration
   nixpkgs.config = {
     allowUnfree = true;
     packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
     };
   };
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+
+  nixpkgs.overlays = [
+    # No NVIDIA overlay needed
+  ];
+
+  # System Packages
   environment.systemPackages = with pkgs; [
     alsa-utils
     bcc
@@ -292,6 +267,7 @@
     })
   ];
 
+  # Nix Settings
   nix = {
     gc = {
       automatic = true;
@@ -313,7 +289,6 @@
 
   system.copySystemConfiguration = false;
 
-
-  # NOTE: DO NOT CHANGE
+  # State Version
   system.stateVersion = "24.05";
 }

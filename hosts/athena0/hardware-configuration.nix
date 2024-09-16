@@ -1,6 +1,8 @@
+# hardware-configuration.nix
 # Minisforum MS-01 
 # w/ NVIDIA RTX 2000 / 2000E Ada Generation
 # w/ 12th Gen Intel(R) Core(TM) i5-12600H (16) @ 4.50 GHz
+
 {
   config,
   opts,
@@ -68,29 +70,32 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-
-  # environment.variables.LD_LIBRARY_PATH = "${pkgs.nvidiaPackages.stable}/lib:${pkgs.nvidiaPackages.stable}/lib64";
-
-	hardware = {
+  hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     opengl.enable = true;
-		graphics.enable = true;
-		nvidia-container-toolkit = {
+    graphics.enable = true;
+
+    # Enable NVIDIA support
+    nvidia = {
+      enable = true;
+      modesetting.enable = true;
+      package = pkgs.nvidia_x11;
+
+      # Power Management Settings
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+
+      # Open Source Kernel Module
+      open = false;
+
+      # NVIDIA Settings Menu
+      nvidiaSettings = true;
+    };
+
+    # NVIDIA Container Toolkit
+    nvidia-container-toolkit = {
       enable = true;
       mount-nvidia-executables = true;
     };
-		nvidia = {
-      enable = true;
-      modesetting.enable = true;
-
-      # Use the standard nvidia_x11 package
-      package = pkgs.nvidia_x11;
-
-      # Additional configurations remain unchanged
-      powerManagement.enable = false;
-      powerManagement.finegrained = false;
-      open = false;
-      nvidiaSettings = true;
-    };
-	};
+  };
 }
