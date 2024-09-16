@@ -22,6 +22,10 @@
     containers.cdi.dynamic.nvidia.enable = true;
     podman = {
       enable = true;
+      extraConfig = ''
+        [engine]
+        hooks_dir = ["/etc/containers/oci/hooks.d"]
+      '';
       enableNvidia = true;
       dockerCompat = true;
       dockerSocket.enable = true;

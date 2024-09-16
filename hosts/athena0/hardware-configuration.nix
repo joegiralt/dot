@@ -65,24 +65,27 @@
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
 	hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    opengl.enable = true;
 		graphics.enable = true;
-		nvidia-container-toolkit = {
-      enable = true;
-      mount-nvidia-executables = true;
-    };
+		# nvidia-container-toolkit = {
+    #   enable = true;
+    #   mount-nvidia-executables = true;
+    # };
 		nvidia = {
-			# Modesetting is required.
-			modesetting.enable = true;
-			powerManagement = {
-				enable = false;
-				finegrained = false;
-			};
-			open = lib.mkOverride 990 (config.hardware.nvidia.package ? open && config.hardware.nvidia.package ? firmware);
-			nvidiaSettings = true;
-			nvidiaPersistenced = true;
-			package = config.boot.kernelPackages.nvidiaPackages.stable;
-		};
+      # Enable modesetting
+      modesetting.enable = true;
+
+      # Enable the NVIDIA persistence daemon (optional but recommended)
+      nvidiaPersistenced.enable = true;
+
+      # Use the latest NVIDIA driver package
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
+
+      # Enable the NVIDIA Container Toolkit
+      nvidiaContainerToolkit.enable = true;
+    };
 	};
 }
