@@ -202,6 +202,17 @@
     };
   };
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
+        postInstall = oldAttrs.postInstall or "" + ''
+          wrapProgram $out/bin/nvidia-ctk \
+            --set LD_LIBRARY_PATH "${config.boot.kernelPackages.nvidiaPackages.latest}/lib:${config.boot.kernelPackages.nvidiaPackages.latest}/lib64:\$LD_LIBRARY_PATH"
+        '';
+      });
+    })
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
