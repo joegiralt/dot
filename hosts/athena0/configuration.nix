@@ -9,6 +9,29 @@
   hostname,
   ...
 }: {
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
+  #       postInstall = oldAttrs.postInstall or "" + ''
+  #         wrapProgram $out/bin/nvidia-ctk \
+  #           --set LD_LIBRARY_PATH "${config.boot.kernelPackages.nvidiaPackages.stable}/lib:${config.boot.kernelPackages.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
+  #       '';
+  #     });
+  #   })
+  # ];
+
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     nvidiaPackages = prev.nvidiaPackages // {
+  #       stable = prev.nvidiaPackages.stable.overrideAttrs (old: {
+  #         postInstall = (old.postInstall or "") + ''
+  #           wrapProgram $out/bin/nvidia-ctk \
+  #             --set LD_LIBRARY_PATH "${prev.nvidiaPackages.stable}/lib:${prev.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
+  #         '';
+  #       });
+  #     };
+  #   })
+  # ];
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -203,34 +226,6 @@
       vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
     };
   };
-
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
-  #       postInstall = oldAttrs.postInstall or "" + ''
-  #         wrapProgram $out/bin/nvidia-ctk \
-  #           --set LD_LIBRARY_PATH "${config.boot.kernelPackages.nvidiaPackages.stable}/lib:${config.boot.kernelPackages.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
-  #       '';
-  #     });
-  #   })
-  # ];
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      nvidiaPackages = prev.nvidiaPackages // {
-        stable = prev.nvidiaPackages.stable.overrideAttrs (old: {
-          postInstall = (old.postInstall or "") + ''
-            wrapProgram $out/bin/nvidia-ctk \
-              --set LD_LIBRARY_PATH "${prev.nvidiaPackages.stable}/lib:${prev.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
-          '';
-        });
-      };
-    })
-  ];
-
-
-
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -260,7 +255,7 @@
     mullvad-vpn
     netcat-gnu
     nvidia-container-toolkit
-    nvidiaPackages.stable
+    nvidia_x11
     openresolv
     openssl
     openvpn
