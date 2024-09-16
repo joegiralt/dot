@@ -41,8 +41,10 @@
   systemd.targets.hybrid-sleep.enable = false;
 
   # Virtualization
-  virtualisation.podman.enable = true;
-
+  virtualisation.podman = {
+    enable = true;
+    extraOptions = "--cdi-spec-dir /run/cdi";
+  };
   # Kernel sysctl
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = "1048576";
