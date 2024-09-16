@@ -79,7 +79,7 @@
 				enable = false;
 				finegrained = false;
 			};
-			open = false;
+			open = lib.mkOverride 990 (config.hardware.nvidia.package ? open && config.hardware.nvidia.package ? firmware);
 			nvidiaSettings = true;
 			nvidiaPersistenced = true;
 			package = config.boot.kernelPackages.nvidiaPackages.stable;
