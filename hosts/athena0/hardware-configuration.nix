@@ -68,14 +68,17 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
+
+  environment.variables.LD_LIBRARY_PATH = "${config.hardware.opengl.driver.out}/lib:${config.hardware.opengl.driver.out}/lib64";
+
 	hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     opengl.enable = true;
 		graphics.enable = true;
-		# nvidia-container-toolkit = {
-    #   enable = true;
-    #   mount-nvidia-executables = true;
-    # };
+		nvidia-container-toolkit = {
+      enable = true;
+      # mount-nvidia-executables = true;
+    };
 		nvidia = {
 
       # Modesetting is required.
