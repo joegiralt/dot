@@ -12,6 +12,8 @@
   #   # No NVIDIA overlay needed
   # ];
 
+  nixpkgs.config.cudaSupport = true;
+
   imports = [
     ./hardware-configuration.nix
     ../common/containers
@@ -225,7 +227,6 @@
     mullvad-vpn
     netcat-gnu
     nvidia-container-toolkit
-    cudaPackages_12_6.cudatoolkit
     openresolv
     openssl
     openvpn
