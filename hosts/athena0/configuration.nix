@@ -230,7 +230,7 @@
     mullvad-vpn
     netcat-gnu
     nvidia-container-toolkit
-    nvidia_x11
+    linuxKernel.packages.linux_hardened.nvidia_x11
     openresolv
     openssl
     openvpn

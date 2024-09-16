@@ -79,7 +79,7 @@
     nvidia = {
       # enable = true;
       modesetting.enable = true;
-      package = pkgs.nvidia_x11;
+      package = pkgs.linuxKernel.packages.linux_hardened.nvidia_x11;
 
       # Power Management Settings
       powerManagement.enable = false;
