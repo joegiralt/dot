@@ -22,15 +22,16 @@
     containers.cdi.dynamic.nvidia.enable = true;
     podman = {
       enable = true;
-      extraConfig = ''
-        [engine]
-        hooks_dir = ["/etc/containers/oci/hooks.d"]
-      '';
       enableNvidia = true;
       dockerCompat = true;
       dockerSocket.enable = true;
       defaultNetwork.settings.dns_enabled = false;
       autoPrune.enable = true;
+      settings = {
+        engine = {
+          hooks_dir = [ "/etc/containers/oci/hooks.d" ];
+        };
+      };
     };
   };
 
