@@ -79,7 +79,7 @@
       modesetting.enable = true;
 
       # Enable the NVIDIA persistence daemon (optional)
-      nvidiaPersistenced.enable = true;
+      # nvidiaPersistenced.enable = true;
 
       # Use the latest NVIDIA driver package
       package = config.boot.kernelPackages.nvidiaPackages.latest;
