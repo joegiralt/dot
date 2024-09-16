@@ -18,17 +18,13 @@
     ./uptime-kuma.nix
   ];
 
-  # virtualisation = {
-  #   containers.cdi.dynamic.nvidia.enable = true;
-  #   podman = {
-  #     enable = true;
-  #     enableNvidia = true;
-  #     dockerCompat = true;
-  #     dockerSocket.enable = true;
-  #     defaultNetwork.settings.dns_enabled = false;
-  #     autoPrune.enable = true;
-  #   };
-  # };
+  virtualisation = {
+    containers.cdi.dynamic.nvidia.enable = true;
+    podman = {
+      enable = true;
+      enableNvidia = true;
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     dive
