@@ -28,7 +28,7 @@
   #     defaultNetwork.settings.dns_enabled = false;
   #     autoPrune.enable = true;
   #   };
-  };
+  # };
 
   environment.systemPackages = with pkgs; [
     dive
