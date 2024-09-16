@@ -15,6 +15,7 @@
   ];
 
   systemd.services.nvidia-cdi-setup = {
+    
     description = "NVIDIA CDI Setup";
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
