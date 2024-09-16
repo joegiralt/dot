@@ -7,10 +7,10 @@
 {
   services.xserver.videoDrivers = ["nvida"];
 
-  services.nvidia-container-toolkit = {
-    enable = true;
-    # drivers = [ "nvidia-container-toolkit" ];
-  };
+#   services.nvidia-container-toolkit = {
+#     enable = true;
+#     # drivers = [ "nvidia-container-toolkit" ];
+#   };
 
   systemd.tmpfiles.rules = [
     "C+ /etc/cdi 0755 root root - -"
