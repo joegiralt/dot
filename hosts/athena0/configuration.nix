@@ -260,7 +260,7 @@
     mullvad-vpn
     netcat-gnu
     nvidia-container-toolkit
-    # nvidia-podman
+    nvidiaPackages.stable
     openresolv
     openssl
     openvpn
