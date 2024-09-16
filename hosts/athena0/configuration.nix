@@ -317,7 +317,7 @@
 
   system.copySystemConfiguration = false;
 
-  virtualisation.containers.cdi.dynamic.nvidia.enable
+  virtualisation.containers.cdi.dynamic.nvidia.enable = true;
 
   # NOTE: DO NOT CHANGE
   system.stateVersion = "24.05";
