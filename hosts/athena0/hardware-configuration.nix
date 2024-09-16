@@ -11,6 +11,16 @@
   modulesPath,
   ...
 }: {
+    nixpkgs.overlays = [
+    (final: prev: {
+      nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
+        postInstall = oldAttrs.postInstall or "" + ''
+          wrapProgram $out/bin/nvidia-ctk \
+            --set LD_LIBRARY_PATH "${config.boot.kernelPackages.nvidiaPackages.stable}/lib:${config.boot.kernelPackages.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
+        '';
+      });
+    })
+  ];
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
