@@ -85,7 +85,7 @@
       powerManagement.finegrained = false;
 
       # Open Source Kernel Module
-      open = false;
+      open = true;
 
       # NVIDIA Settings Menu
       nvidiaSettings = true;
