@@ -19,14 +19,15 @@
   ];
 
   virtualisation = {
-  containers.cdi.dynamic.nvidia.enable = true;
-  podman = {
-    enable = true;
-    enableNvidia = true;
-    dockerCompat = true;
-    dockerSocket.enable = true;
-    defaultNetwork.settings.dns_enabled = false;
-    autoPrune.enable = true;
+    containers.cdi.dynamic.nvidia.enable = true;
+    podman = {
+      enable = true;
+      enableNvidia = true;
+      dockerCompat = true;
+      dockerSocket.enable = true;
+      defaultNetwork.settings.dns_enabled = false;
+      autoPrune.enable = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [
