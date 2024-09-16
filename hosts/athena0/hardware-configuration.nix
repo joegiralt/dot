@@ -11,16 +11,16 @@
   modulesPath,
   ...
 }: {
-    nixpkgs.overlays = [
-    (final: prev: {
-      nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
-        postInstall = oldAttrs.postInstall or "" + ''
-          wrapProgram $out/bin/nvidia-ctk \
-            --set LD_LIBRARY_PATH "${config.boot.kernelPackages.nvidiaPackages.stable}/lib:${config.boot.kernelPackages.nvidiaPackages.stable}/lib64:/run/opengl-driver/lib:/run/opengl-driver-32/lib:$LD_LIBRARY_PATH"
-        '';
-      });
-    })
-  ];
+  #   nixpkgs.overlays = [
+  #   (final: prev: {
+  #     nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
+  #       postInstall = oldAttrs.postInstall or "" + ''
+  #         wrapProgram $out/bin/nvidia-ctk \
+  #           --set LD_LIBRARY_PATH "${config.boot.kernelPackages.nvidiaPackages.stable}/lib:${config.boot.kernelPackages.nvidiaPackages.stable}/lib64:/run/opengl-driver/lib:/run/opengl-driver-32/lib:$LD_LIBRARY_PATH"
+  #       '';
+  #     });
+  #   })
+  # ];
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -82,27 +82,27 @@
 
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    opengl.enable = true;
-    graphics.enable = true;
+    # opengl.enable = true;
+    # graphics.enable = true;
 
-    # Enable NVIDIA support
-    nvidia = {
-      modesetting.enable = true;
-      # Power Management Settings
-      powerManagement.enable = false;
-      powerManagement.finegrained = false;
+    # # Enable NVIDIA support
+    # nvidia = {
+    #   modesetting.enable = true;
+    #   # Power Management Settings
+    #   powerManagement.enable = false;
+    #   powerManagement.finegrained = false;
 
-      # Open Source Kernel Module
-      open = false;
+    #   # Open Source Kernel Module
+    #   open = false;
 
-      # NVIDIA Settings Menu
-      nvidiaSettings = true;
-    };
+    #   # NVIDIA Settings Menu
+    #   nvidiaSettings = true;
+    # };
 
-    # NVIDIA Container Toolkit
-    nvidia-container-toolkit = {
-      enable = true;
-      mount-nvidia-executables = true;
-    };
+    # # NVIDIA Container Toolkit
+    # nvidia-container-toolkit = {
+    #   enable = true;
+    #   mount-nvidia-executables = true;
+    # };
   };
 }

@@ -43,7 +43,6 @@
   # Virtualization
   virtualisation.podman = {
     enable = true;
-    extraOptions = "--cdi-spec-dir /run/cdi";
   };
   # Kernel sysctl
   boot.kernel.sysctl = {
@@ -228,7 +227,7 @@
     mullvad
     mullvad-vpn
     netcat-gnu
-    nvidia-container-toolkit
+    # nvidia-container-toolkit
     openresolv
     openssl
     openvpn
