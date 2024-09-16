@@ -80,15 +80,15 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-
-  boot.kernelPackages = pkgs.linuxPackages_xanmod;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     graphics.enable = true;
 
     # Enable NVIDIA support
     nvidia = {
-      package = pkgs.linuxPackages_xanmod.nvidia_x11;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       modesetting.enable = true;
       # Power Management Settings
       powerManagement.enable = false;
