@@ -65,6 +65,21 @@
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.nvidia-container-toolkit.enable = true;
+	hardware = {
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+		graphics.enable = true;
+		nvidia-container-toolkit.enable = true;
+		nvidia = {
+			# Modesetting is required.
+			modesetting.enable = true;
+			powerManagement = {
+				enable = false;
+				finegrained = false;
+			};
+			open = false;
+			nvidiaSettings = true;
+			nvidiaPersistenced = true;
+			package = config.boot.kernelPackages.nvidiaPackages.stable;
+		};
+	};
 }
