@@ -78,7 +78,6 @@
     # Enable NVIDIA support
     nvidia = {
       modesetting.enable = true;
-      cudatoolkit = pkgs.cudatoolkit; 
       # Power Management Settings
       powerManagement.enable = false;
       powerManagement.finegrained = false;
