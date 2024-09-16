@@ -14,8 +14,8 @@
     ./hardware-configuration.nix
     ../common/containers
     ../common/services
-    "${pkgs.path}/nixos/modules/hardware/video/nvidia.nix"
-    "${pkgs.path}/nixos/modules/services/hardware/nvidia-container-toolkit/default.nix"
+    # "${pkgs.path}/nixos/modules/hardware/video/nvidia.nix"
+    # "${pkgs.path}/nixos/modules/services/hardware/nvidia-container-toolkit/default.nix"
   ];
 
   # Secret defs
@@ -204,14 +204,27 @@
     };
   };
 
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
+  #       postInstall = oldAttrs.postInstall or "" + ''
+  #         wrapProgram $out/bin/nvidia-ctk \
+  #           --set LD_LIBRARY_PATH "${config.boot.kernelPackages.nvidiaPackages.stable}/lib:${config.boot.kernelPackages.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
+  #       '';
+  #     });
+  #   })
+  # ];
+
   nixpkgs.overlays = [
     (final: prev: {
-      nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
-        postInstall = oldAttrs.postInstall or "" + ''
-          wrapProgram $out/bin/nvidia-ctk \
-            --set LD_LIBRARY_PATH "${config.boot.kernelPackages.nvidiaPackages.stable}/lib:${config.boot.kernelPackages.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
-        '';
-      });
+      nvidiaPackages = prev.nvidiaPackages // {
+        stable = prev.nvidiaPackages.stable.overrideAttrs (old: {
+          postInstall = old.postInstall or "" + ''
+            wrapProgram $out/bin/nvidia-ctk \
+              --set LD_LIBRARY_PATH "${final.hardware.opengl.driver.out}/lib:${final.hardware.opengl.driver.out}/lib64:$LD_LIBRARY_PATH"
+          '';
+        });
+      };
     })
   ];
 
