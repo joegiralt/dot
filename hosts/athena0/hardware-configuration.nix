@@ -77,6 +77,7 @@
 		nvidia = {
       # Enable modesetting (optional but can improve performance)
       modesetting.enable = true;
+      open = true;
 
       # Enable the NVIDIA persistence daemon (optional)
       # nvidiaPersistenced.enable = true;
