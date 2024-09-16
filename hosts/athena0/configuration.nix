@@ -215,18 +215,18 @@
   #   })
   # ];
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      nvidiaPackages = prev.nvidiaPackages // {
-        stable = prev.nvidiaPackages.stable.overrideAttrs (old: {
-          postInstall = old.postInstall or "" + ''
-            wrapProgram $out/bin/nvidia-ctk \
-              --set LD_LIBRARY_PATH "${prev.nvidiaPackages.stable}/lib:${prev.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
-          '';
-        });
-      };
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     nvidiaPackages = prev.nvidiaPackages // {
+  #       stable = prev.nvidiaPackages.stable.overrideAttrs (old: {
+  #         postInstall = old.postInstall or "" + ''
+  #           wrapProgram $out/bin/nvidia-ctk \
+  #             --set LD_LIBRARY_PATH "${prev.nvidiaPackages.stable}/lib:${prev.nvidiaPackages.stable}/lib64:$LD_LIBRARY_PATH"
+  #         '';
+  #       });
+  #     };
+  #   })
+  # ];
 
 
 
