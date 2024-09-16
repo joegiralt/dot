@@ -85,8 +85,10 @@
       # Enable the NVIDIA persistence daemon (optional)
       # nvidiaPersistenced.enable = true;
 
-      # Use the latest NVIDIA driver package
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      # Use the stable NVIDIA driver package
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      #package = config.boot.kernelPackages.nvidiaPackages.latest;
+
     };
 	};
 }
