@@ -225,6 +225,7 @@
     mullvad-vpn
     netcat-gnu
     nvidia-container-toolkit
+    cudaPackages_12_6.cudatoolkit
     openresolv
     openssl
     openvpn
