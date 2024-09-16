@@ -75,17 +75,14 @@
     #   mount-nvidia-executables = true;
     # };
 		nvidia = {
-      # Enable modesetting
+      # Enable modesetting (optional but can improve performance)
       modesetting.enable = true;
 
-      # Enable the NVIDIA persistence daemon (optional but recommended)
+      # Enable the NVIDIA persistence daemon (optional)
       nvidiaPersistenced.enable = true;
 
       # Use the latest NVIDIA driver package
       package = config.boot.kernelPackages.nvidiaPackages.latest;
-
-      # Enable the NVIDIA Container Toolkit
-      nvidiaContainerToolkit.enable = true;
     };
 	};
 }
