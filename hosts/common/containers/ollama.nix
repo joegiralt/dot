@@ -16,7 +16,11 @@
     "ollama" = {
       autoStart = true;
       image = "ollama/ollama";
-      extraOptions = ["--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck"];
+      extraOptions = [
+        "--gpus=all"
+        "--add-host=${opts.hostname}:${opts.lanAddress}" 
+        "--no-healthcheck" 
+        ];      
       volumes = [
         "${opts.paths.app-data}/ollama:/root/.ollama"
       ];
