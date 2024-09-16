@@ -27,11 +27,6 @@
       dockerSocket.enable = true;
       defaultNetwork.settings.dns_enabled = false;
       autoPrune.enable = true;
-      settings = {
-        engine = {
-          hooks_dir = [ "/etc/containers/oci/hooks.d" ];
-        };
-      };
     };
   };
 

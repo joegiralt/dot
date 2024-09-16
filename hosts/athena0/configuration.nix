@@ -35,6 +35,8 @@
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
+  virtualisation.podman.enable = true;
+
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = "1048576";
     "vm.swappiness" = 70;
