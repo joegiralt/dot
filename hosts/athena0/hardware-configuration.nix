@@ -82,27 +82,26 @@
 
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    # opengl.enable = true;
-    # graphics.enable = true;
+    graphics.enable = true;
 
-    # # Enable NVIDIA support
-    # nvidia = {
-    #   modesetting.enable = true;
-    #   # Power Management Settings
-    #   powerManagement.enable = false;
-    #   powerManagement.finegrained = false;
+    # Enable NVIDIA support
+    nvidia = {
+      modesetting.enable = true;
+      # Power Management Settings
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
 
-    #   # Open Source Kernel Module
-    #   open = false;
+      # Open Source Kernel Module
+      open = false;
 
-    #   # NVIDIA Settings Menu
-    #   nvidiaSettings = true;
-    # };
+      # NVIDIA Settings Menu
+      nvidiaSettings = true;
+    };
 
-    # # NVIDIA Container Toolkit
-    # nvidia-container-toolkit = {
-    #   enable = true;
-    #   mount-nvidia-executables = true;
-    # };
+    # NVIDIA Container Toolkit
+    nvidia-container-toolkit = {
+      enable = true;
+      mount-nvidia-executables = true;
+    };
   };
 }
