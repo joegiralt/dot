@@ -69,7 +69,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
 
-  environment.variables.LD_LIBRARY_PATH = "${config.boot.kernelPackages.nvidiaPackages.stable.driver}/lib:${config.boot.kernelPackages.nvidiaPackages.stable.driver}/lib64";
+  environment.variables.LD_LIBRARY_PATH = "${pkgs.nvidiaPackages.stable}/lib:${pkgs.nvidiaPackages.stable}/lib64";
 
 	hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
