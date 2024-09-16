@@ -226,7 +226,8 @@
     mullvad
     mullvad-vpn
     netcat-gnu
-    nvidia-container-toolkit
+    # nvidia-container-toolkit
+    nvidia-podman
     openresolv
     openssl
     openvpn
