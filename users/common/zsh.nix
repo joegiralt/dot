@@ -28,7 +28,7 @@
         fi
         podman ps -q --filter name="$container_name" | xargs -I {} podman logs {}
       }
-
+      export LD_LIBRARY_PATH=/run/opengl-driver/lib
     '';
     oh-my-zsh = {
       enable = true;
