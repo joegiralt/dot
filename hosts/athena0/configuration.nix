@@ -8,9 +8,9 @@
   ...
 }: {
   # Define overlays first (if any)
-  nixpkgs.overlays = [
-    # No NVIDIA overlay needed
-  ];
+  # nixpkgs.overlays = [
+  #   # No NVIDIA overlay needed
+  # ];
 
   imports = [
     ./hardware-configuration.nix
