@@ -218,9 +218,12 @@
   nixpkgs.overlays = [
     (final: prev: {
       nvidiaPackages = prev.nvidiaPackages // {
-        stable = prev.nvidiaPackages.stable.override {
-          cudaSupport = true;
-        };
+        stable = prev.nvidiaPackages.stable.overrideAttrs (old: {
+          postInstall = old.postInstall or "" + ''
+            wrapProgram $out/bin/nvidia-ctk \
+              --set LD_LIBRARY_PATH "${final.hardware.opengl.driver.out}/lib:${final.hardware.opengl.driver.out}/lib64:$LD_LIBRARY_PATH"
+          '';
+        });
       };
     })
   ];
