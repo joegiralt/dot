@@ -20,8 +20,8 @@
 
   virtualisation.podman = {
     enable = true;
+    enableNvidia = true;
     dockerCompat = true;
-    virtualisation.podman.enableNvidia = true;
     dockerSocket.enable = true;
     defaultNetwork.settings.dns_enabled = false;
     autoPrune.enable = true;
