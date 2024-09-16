@@ -18,7 +18,9 @@
     ./uptime-kuma.nix
   ];
 
-  virtualisation.podman = {
+  virtualisation = {
+  containers.cdi.dynamic.nvidia.enable = true;
+  podman = {
     enable = true;
     enableNvidia = true;
     dockerCompat = true;
