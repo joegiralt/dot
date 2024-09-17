@@ -44,6 +44,8 @@
         TZ = opts.timeZone;
         PUID = opts.adminUID;
         PGID = opts.adminGID;
+        NVIDIA_VISIBLE_DEVICES = "all";
+			  NVIDIA_DRIVER_CAPABILITIES = "all";
       };
     };
   };
