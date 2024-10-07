@@ -95,7 +95,6 @@
       powerManagement.finegrained = false;
 
       # Open Source Kernel Module
-      # open = lib.mkOverride 990 (config.hardware.nvidia.package ? open && config.hardware.nvidia.package ? firmware);
       open = false;
 
       # NVIDIA Settings Menu
