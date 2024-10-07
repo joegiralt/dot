@@ -15,7 +15,7 @@
   virtualisation.oci-containers.containers = {
     "ollama" = {
       autoStart = true;
-      image = "ollama/ollama";
+      image = "ollama/ollama:latest";
       extraOptions = [
         "--gpus=all"
         "--add-host=${opts.hostname}:${opts.lanAddress}" 
