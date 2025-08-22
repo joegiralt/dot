@@ -1,11 +1,11 @@
 # /etc/nixos/configuration.nix
-{
-  config,
-  opts,
-  pkgs,
-  age,
-  hostname,
-  ...
+{ config
+, opts
+, pkgs
+, age
+, hostname
+, unstable
+, ...
 }: {
   # Define overlays first (if any)
   # nixpkgs.overlays = [
@@ -65,7 +65,7 @@
   networking = {
     hostName = opts.hostname;
     domain = ""; # TODO: get domain name!
-    search = [opts.hostname];
+    search = [ opts.hostname ];
     defaultGateway = {
       address = "192.168.1.1";
       interface = "enp90s0";
@@ -89,8 +89,8 @@
     firewall = {
       enable = true;
       allowPing = false;
-      allowedTCPPorts = [21 443 22];
-      allowedUDPPorts = [21 443 22];
+      allowedTCPPorts = [ 21 443 22 ];
+      allowedUDPPorts = [ 21 443 22 ];
     };
   };
 
@@ -131,6 +131,10 @@
     udisks2.enable = true;
     dbus.enable = true;
     printing.enable = false;
+    openvscode-server = {
+      enable = true;
+      package = unstable.openvscode-server;
+    };
 
     pipewire = {
       enable = true;
@@ -176,7 +180,7 @@
       "video"
       "wheel"
     ];
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
   };
 
   # Programs
@@ -274,7 +278,7 @@
     settings = {
       warn-dirty = true;
       auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [ "nix-command" "flakes" ];
     };
     package = pkgs.nixVersions.stable;
   };
