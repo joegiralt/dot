@@ -3,8 +3,8 @@
 
   inputs = {
     # Track the 25.05 release branch (stable)
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05?shallow=1";
-    unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable?shallow=1";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable&shallow=1";
+    unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable&shallow=1";
 
     # Keep Home Manager in lockstep with the OS release
     home-manager = {

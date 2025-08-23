@@ -34,6 +34,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  environment.etc = { 
+    "avahi/avahi-daemon.conf" = {
+      enable = true;
+      text = ""; 
+    };
+  };
   # Systemd targets
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
@@ -285,7 +291,6 @@
 
   system.switch = {
     enable = false;
-    enableNg = true;
   };
 
   system.copySystemConfiguration = false;
