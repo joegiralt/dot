@@ -45,6 +45,12 @@
   systemd.targets.suspend.enable = false;
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
+  
+  # Systemd.maskedServices
+  systemd.maskedServices = [
+    "avahi-daemon.service"
+    "avahi-daemon.socket"
+  ];
 
   # Virtualization
   virtualisation.podman = {
@@ -137,11 +143,12 @@
     udisks2.enable = true;
     dbus.enable = true;
     printing.enable = false;
+    avahi.enable = false;
     openvscode-server = {
       enable = true;
       package = unstable.openvscode-server;
     };
-
+    
     pipewire = {
       enable = true;
       alsa.enable = true;
