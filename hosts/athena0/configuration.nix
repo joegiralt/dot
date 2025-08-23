@@ -297,7 +297,7 @@
   };
 
   system.switch = {
-    enable = false;
+    enable = true;
   };
 
   system.copySystemConfiguration = false;
