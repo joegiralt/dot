@@ -47,10 +47,10 @@
   systemd.targets.hybrid-sleep.enable = false;
   
   # Systemd.maskedServices
-  systemd.maskedServices = [
-    "avahi-daemon.service"
-    "avahi-daemon.socket"
-  ];
+  # systemd.maskedServices = [
+  #   "avahi-daemon.service"
+  #   "avahi-daemon.socket"
+  # ];
 
   # Virtualization
   virtualisation.podman = {
