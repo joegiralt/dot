@@ -29,7 +29,7 @@ in
 
   virtualisation.oci-containers.containers."archiveteam-warrior" = {
     autoStart = true;
-    image = "archiveteam/warrior-dockerfile:latest";
+    image = "atdr.meo.ws/archiveteam/warrior-dockerfile:latest";
 
     extraOptions = [
       "--no-healthcheck"
