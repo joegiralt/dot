@@ -7,9 +7,9 @@
   adminGID = "100";
   locale = "en_US.UTF-8";
   nameservers = [
-    "9.9.9.9" # Quad9
+    "9.9.9.9"         # Quad9
     "149.112.112.112" # Quad9
-    "194.242.2.5" # Mullvad
+    "194.242.2.5"     # Mullvad
   ];
 
   paths = {
@@ -63,5 +63,11 @@
     livebook = "9012";
     livebook-alt = "9013";
     vscode-server = "2345";
+    warrior = "8010";
   };
+
+  # Warrior-specific opts
+  warriorDownloader = "joegiralt";   # shows on leaderboard
+  warriorProject = "auto";           # or pin a slug
+  warriorConcurrent = 4;             # tune concurrency
 }

@@ -16,6 +16,7 @@
     ./telemetry.nix
     ./qbittorrent.nix
     ./uptime-kuma.nix
+    ./archive-warrior.nix
   ];
 
   virtualisation = {
