@@ -1,11 +1,19 @@
 { config, lib, pkgs, opts, ... }:
 let
-  wgetAtShim = pkgs.writeTextFile {
-    name = "warrior-wget-at";
+  wgetAtWrapper = pkgs.writeTextFile {
+    name = "warrior-wget-at-wrapper";
     executable = true;
     text = ''
       #!/bin/sh
-      exec /usr/local/bin/wget-lua "$@"
+      real=/usr/local/bin/wget-lua
+      case "$1" in
+        -V|--version)
+          "$real" -V | sed '1s/^GNU Wget/Wget+AT/'
+          ;;
+        *)
+          exec "$real" "$@"
+          ;;
+      esac
     '';
   };
 in
@@ -32,9 +40,9 @@ in
 
     volumes = [
       "${opts.paths.app-data}/archiveteam-warrior:/data"
-      "${wgetAtShim}:/usr/local/bin/wget-at:ro"
-      "${wgetAtShim}:/usr/bin/wget-at:ro"
-      "${wgetAtShim}:/usr/bin/wget-lua:ro"
+      "${wgetAtWrapper}:/usr/local/bin/wget-at:ro"
+      "${wgetAtWrapper}:/usr/bin/wget-at:ro"
+      "${wgetAtWrapper}:/usr/bin/wget-lua:ro"
     ];
 
     ports = [ "${toString opts.ports.warrior}:8001" ];
