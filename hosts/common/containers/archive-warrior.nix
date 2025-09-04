@@ -1,7 +1,6 @@
 { config, lib, pkgs, opts, ... }:
 let
-  # tiny shim so Seesaw finds wget-lua at /usr/bin/wget-lua inside the container
-  wgetLuaShim = pkgs.writeScript "warrior-wget-lua-shim" ''
+  wgetAtShim = pkgs.writeScript "warrior-wget-at" ''
     #!${pkgs.runtimeShell}
     exec /usr/local/bin/wget-lua "$@"
   '';
@@ -14,6 +13,7 @@ in
     "d ${opts.paths.app-data}/archiveteam-warrior 0755 ${toString opts.adminUID} ${toString opts.adminGID} -"
   ];
 
+  virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers."archiveteam-warrior" = {
     autoStart = true;
     image = "archiveteam/warrior-dockerfile:latest";
@@ -27,8 +27,8 @@ in
 
     volumes = [
       "${opts.paths.app-data}/archiveteam-warrior:/data"
-      # provide wget-lua where Seesaw expects it
-      "${wgetLuaShim}:/usr/bin/wget-lua:ro"
+      "${wgetAtShim}:/usr/local/bin/wget-at:ro"
+      "${wgetAtShim}:/usr/bin/wget-at:ro"
     ];
 
     ports = [ "${toString opts.ports.warrior}:8001" ];
@@ -47,7 +47,6 @@ in
       SELECTED_PROJECT = opts.warriorProject    or "auto";
       CONCURRENT_ITEMS = toString (opts.warriorConcurrent or 4);
 
-      # optional hint some pipelines read
       WGET_AT = "/usr/local/bin/wget-lua";
     };
   };
