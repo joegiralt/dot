@@ -1,19 +1,46 @@
-{
-  config,
-  pkgs,
-  opts,
-  ...
+{ config
+, pkgs
+, opts
+, ...
 }: {
-  networking.firewall.allowedTCPPorts = [53 3000];
-  networking.firewall.allowedUDPPorts = [53];
+  networking.firewall.allowedTCPPorts = [ 53 3000 ];
+  networking.firewall.allowedUDPPorts = [ 53 ];
   services.adguardhome = {
     enable = true;
     host = "0.0.0.0";
     port = 3000;
     mutableSettings = false;
     openFirewall = true;
-    extraArgs = [];
+    extraArgs = [ ];
     settings = {
+      clients = {
+        persistent = [
+          {
+            name = "apollo"; # kids machine
+            ids = [ "192.168.1.55" ];
+
+            use_global_blocked_services = false;
+
+            blocked_services = {
+              ids = [ "youtube" ];
+
+              schedule = {
+                time_zone = "Europe/Madrid";
+
+                mon = { start = "17h"; end = "19h"; };
+                tue = { start = "17h"; end = "19h"; };
+                wed = { start = "17h"; end = "19h"; };
+                thu = { start = "17h"; end = "19h"; };
+                fri = { start = "17h"; end = "19h"; };
+
+                # Sat–Sun allow 9:00–11:00
+                sat = { start = "9h"; end = "11h"; };
+                sun = { start = "9h"; end = "11h"; };
+              };
+            };
+          }
+        ];
+      };
       statistics = {
         interval = "48h";
         enabled = true;
@@ -118,7 +145,7 @@
         cache_ttl_min = 3600;
         cache_ttl_max = 86400;
         cache_optimistic = true;
-        bootstrap_dns = ["9.9.9.9" "1.1.1.1" "1.0.0.1"];
+        bootstrap_dns = [ "9.9.9.9" "1.1.1.1" "1.0.0.1" ];
         ratelimit = 500;
         upstream_dns = [
           "https://extended.dns.mullvad.net/dns-query"
