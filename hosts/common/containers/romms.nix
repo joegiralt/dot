@@ -22,7 +22,7 @@
 
   virtualisation.oci-containers.containers = {
     romm-app = {
-      autoStart = opts.autostart-non-essential-services;
+      autoStart = true;
       image = "rommapp/romm:latest";
       ports = [ "${opts.ports.romm-app}:8080" ];
       extraOptions = [
