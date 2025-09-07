@@ -18,6 +18,7 @@
     ./uptime-kuma.nix
     ./archive-warrior.nix
     ./portainer.nix
+    ./romms.nix
   ];
 
   virtualisation = {
