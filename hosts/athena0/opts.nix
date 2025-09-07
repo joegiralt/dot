@@ -57,7 +57,7 @@ rec {
     qbittorrent-web = "8001";
     stirling-pdf = "3456";
     romm-app = "9041";
-    romms-db = "9042";
+    romm-db = "9042";
     grafana = "2200";
     netdata = "19999";
     prometheus-app = "9001";
