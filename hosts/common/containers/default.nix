@@ -17,6 +17,7 @@
     ./qbittorrent.nix
     ./uptime-kuma.nix
     ./archive-warrior.nix
+    ./portainer.nix
   ];
 
   virtualisation = {
