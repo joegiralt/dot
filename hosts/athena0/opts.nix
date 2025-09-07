@@ -1,4 +1,4 @@
-{
+rec {
   hostname = "athena0";
   lanAddress = "192.168.1.32";
   publicURL = "nothing.ltd";
@@ -7,9 +7,9 @@
   adminGID = "100";
   locale = "en_US.UTF-8";
   nameservers = [
-    "9.9.9.9"         # Quad9
+    "9.9.9.9" # Quad9
     "149.112.112.112" # Quad9
-    "194.242.2.5"     # Mullvad
+    "194.242.2.5" # Mullvad
   ];
 
   paths = {
@@ -67,7 +67,14 @@
   };
 
   # Warrior-specific opts
-  warriorDownloader = "joegiralt";   # shows on leaderboard
-  warriorProject = "auto";           # or pin a slug
-  warriorConcurrent = 4;             # tune concurrency
+  warriorDownloader =
+    let
+      env = builtins.getEnv "joegiralt";
+      seed = if env != "" then env else hostname;
+      hex = builtins.hashString "sha256" seed; # 64 hex chars
+    in
+    "wr-" + builtins.substring 0 12 hex; # shows on leaderboard/Public!
+
+  warriorProject = "auto"; # or pin a slug
+  warriorConcurrent = 6; # tune concurrency
 }

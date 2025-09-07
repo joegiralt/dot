@@ -57,7 +57,7 @@ in
       PUID = toString opts.adminUID;
       PGID = toString opts.adminGID;
 
-      DOWNLOADER       = opts.warriorDownloader or "joegiralt";
+      DOWNLOADER       = opts.warriorDownloader or "Hastur";
       SELECTED_PROJECT = opts.warriorProject    or "auto";
       CONCURRENT_ITEMS = toString (opts.warriorConcurrent or 4);
 
