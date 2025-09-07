@@ -49,9 +49,9 @@ rec {
     paperless-web = "9001";
     paperless-db = "3306";
     paperless-redis = "6379";
-    portainer_misc = "9002";
-    portainer_web = "9003";
-    portainer_web_secure = "9004";
+    portainer_misc = "9020";
+    portainer_web = "9030";
+    portainer_web_secure = "9040";
     plex = "32400";
     qbittorrent-nox = "6881";
     qbittorrent-web = "8001";
