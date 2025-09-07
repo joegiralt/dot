@@ -13,4 +13,5 @@ in {
   "paperless-env.age" = {publicKeys = users ++ systems;};
   "plex-env.age" = {publicKeys = users ++ systems;};
   "autokuma-env.age" = {publicKeys = users ++ systems;};
+  "romms-env.age" = {publicKeys = users ++ systems;};
 }

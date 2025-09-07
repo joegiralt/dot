@@ -28,16 +28,17 @@
     paperless-env.file = ../../secrets/paperless-env.age;
     plex-env.file = ../../secrets/plex-env.age;
     autokuma-env.file = ../../secrets/autokuma-env.age;
+    romm_env.file = ../../secrets/romms-env.age;
   };
 
   # Bootloader configuration
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  environment.etc = { 
+  environment.etc = {
     "avahi/avahi-daemon.conf" = {
       enable = true;
-      text = ""; 
+      text = "";
     };
   };
   # Systemd targets
@@ -45,12 +46,6 @@
   systemd.targets.suspend.enable = false;
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
-  
-  # Systemd.maskedServices
-  # systemd.maskedServices = [
-  #   "avahi-daemon.service"
-  #   "avahi-daemon.socket"
-  # ];
 
   # Virtualization
   virtualisation.podman = {
@@ -148,7 +143,7 @@
       enable = true;
       package = unstable.openvscode-server;
     };
-    
+
     pipewire = {
       enable = true;
       alsa.enable = true;
