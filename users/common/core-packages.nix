@@ -18,7 +18,6 @@
     beanstalkd
     bingrep
     broot
-    btop
     cava
     clang
     cmake
