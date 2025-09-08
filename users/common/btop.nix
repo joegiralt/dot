@@ -5,6 +5,6 @@
 }: {
   programs.btop = {
     enable = true;
-    package = pkgs.btop.override {withNvml = true;};
+    package = pkgs.btop.override { withNvml = true; };
   };
 }
