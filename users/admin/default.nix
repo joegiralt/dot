@@ -6,6 +6,7 @@
     ../common/core-packages.nix
     ../common/git.nix
     ../common/github.nix
+    ../common/vscode.nix
     ../common/zsh.nix
   ];
 }
