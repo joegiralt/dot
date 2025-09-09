@@ -4,9 +4,11 @@
   pkgs,
   opts,
   ...
-}: {
+}:
+{
   networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
-    with opts.ports; [
+    with opts.ports;
+    [
       plex
     ]
   );
@@ -39,13 +41,13 @@
         "kuma.plex.http.name" = "Plex";
         "kuma.plex.http.url" = "http://${opts.lanAddress}:${opts.ports.plex}/identity";
       };
-      environmentFiles = [config.age.secrets.plex-env.path];
+      environmentFiles = [ config.age.secrets.plex-env.path ];
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;
         PGID = opts.adminGID;
         NVIDIA_VISIBLE_DEVICES = "all";
-			  NVIDIA_DRIVER_CAPABILITIES = "all";
+        NVIDIA_DRIVER_CAPABILITIES = "all";
       };
     };
   };

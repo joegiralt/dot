@@ -2,9 +2,11 @@
   pkgs,
   opts,
   ...
-}: {
+}:
+{
   networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
-    with opts.ports; [
+    with opts.ports;
+    [
       grafana
       netdata
       prometheus-app
@@ -16,7 +18,7 @@
     enable = true;
     port = pkgs.lib.strings.toInt opts.ports.prometheus-node;
     # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/nixos/modules/services/monitoring/prometheus/exporters.nix
-    enabledCollectors = ["systemd"];
+    enabledCollectors = [ "systemd" ];
     # /nix/store/zgsw0yx18v10xa58psanfabmg95nl2bb-node_exporter-1.8.1/bin/node_exporter  --help
     extraFlags = [
       "--collector.ethtool"
@@ -82,8 +84,12 @@
     "prometheus" = {
       autoStart = true;
       image = "prom/prometheus";
-      extraOptions = ["--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" "--user=${opts.adminUID}"];
-      ports = ["${opts.ports.prometheus-app}:9090"];
+      extraOptions = [
+        "--add-host=${opts.hostname}:${opts.lanAddress}"
+        "--no-healthcheck"
+        "--user=${opts.adminUID}"
+      ];
+      ports = [ "${opts.ports.prometheus-app}:9090" ];
       labels = {
         "kuma.prometheus.http.name" = "Prometheus";
         "kuma.prometheus.http.url" = "http://${opts.lanAddress}:${opts.ports.prometheus-app}";
@@ -92,7 +98,7 @@
         "/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
         "${opts.paths.app-data}/prometheus/data:/prometheus"
       ];
-      cmd = ["--config.file=/etc/prometheus/prometheus.yml"];
+      cmd = [ "--config.file=/etc/prometheus/prometheus.yml" ];
       environment = {
         TZ = opts.timeZone;
         PUID = opts.adminUID;
@@ -103,8 +109,12 @@
     "grafana" = {
       autoStart = true;
       image = "grafana/grafana";
-      extraOptions = ["--add-host=${opts.hostname}:${opts.lanAddress}" "--no-healthcheck" "--user=${opts.adminUID}"];
-      ports = ["${opts.ports.grafana}:3000"];
+      extraOptions = [
+        "--add-host=${opts.hostname}:${opts.lanAddress}"
+        "--no-healthcheck"
+        "--user=${opts.adminUID}"
+      ];
+      ports = [ "${opts.ports.grafana}:3000" ];
       labels = {
         "kuma.grafana.http.name" = "Grafana";
         "kuma.grafana.http.url" = "http://${opts.lanAddress}:${opts.ports.grafana}";

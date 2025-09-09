@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./adguard.nix
     # ./nvidia-cdi-setup.nix

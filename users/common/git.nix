@@ -3,7 +3,8 @@
   nixpkgs-stable,
   opts,
   ...
-}: {
+}:
+{
   home.file = {
     ".gitattributes" = {
       enable = true;

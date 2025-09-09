@@ -27,7 +27,7 @@
       home-manager,
       agenix,
       ...
-    } @ inputs:
+    }@inputs:
     let
       opts = import ./opts.nix;
 
@@ -64,7 +64,12 @@
             ./users/${username}
           ];
           extraSpecialArgs = {
-            inherit inputs system username host;
+            inherit
+              inputs
+              system
+              username
+              host
+              ;
             opts = opts // (import ./hosts/${host}/opts.nix) // (import ./users/${username}/opts.nix);
           };
         };

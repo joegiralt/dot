@@ -1,7 +1,8 @@
-{ pkgs
-, opts
-, config
-, ...
+{
+  pkgs,
+  opts,
+  config,
+  ...
 }:
 {
   systemd.tmpfiles.rules = [
