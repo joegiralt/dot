@@ -1,5 +1,5 @@
 # hardware-configuration.nix
-# Minisforum MS-01 
+# Minisforum MS-01
 # w/ NVIDIA RTX 2000 / 2000E Ada Generation
 # w/ 12th Gen Intel(R) Core(TM) i5-12600H (16) @ 4.50 GHz
 
@@ -10,7 +10,8 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   #   nixpkgs.overlays = [
   #   (final: prev: {
   #     nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
@@ -25,11 +26,18 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "usbhid" "sd_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
-  boot.kernelParams = ["nohibernate"];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "thunderbolt"
+    "nvme"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelParams = [ "nohibernate" ];
+  boot.extraModulePackages = [ ];
 
   boot.blacklistedKernelModules = [ "nouveau" ];
 
@@ -41,7 +49,10 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/6111-BE56";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   fileSystems."/mnt/data" = {
@@ -54,7 +65,7 @@
     fsType = "ext4";
   };
 
-  swapDevices = [];
+  swapDevices = [ ];
 
   networking = {
     useDHCP = lib.mkDefault false;

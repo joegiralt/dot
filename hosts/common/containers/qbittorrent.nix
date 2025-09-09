@@ -4,7 +4,8 @@
   pkgs,
   opts,
   ...
-}: let
+}:
+let
   vuetorrentSrc = builtins.fetchGit {
     name = "vuetorrent";
     url = "https://github.com/VueTorrent/VueTorrent";
@@ -12,7 +13,8 @@
     ref = "latest-release";
     shallow = true;
   };
-in {
+in
+{
   environment.etc = {
     "vuetorrent" = {
       enable = true;
@@ -25,7 +27,7 @@ in {
     8001
   ];
 
-  networking.firewall.allowedUDPPorts = [6881];
+  networking.firewall.allowedUDPPorts = [ 6881 ];
 
   virtualisation.oci-containers.containers = {
     # qBittorrent P2P Torrent Client

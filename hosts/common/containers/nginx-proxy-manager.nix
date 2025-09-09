@@ -1,5 +1,10 @@
-{opts, ...}: {
-  networking.firewall.allowedTCPPorts = [80 81 443];
+{ opts, ... }:
+{
+  networking.firewall.allowedTCPPorts = [
+    80
+    81
+    443
+  ];
   virtualisation.oci-containers.containers = {
     "nginx-proxy-manager" = {
       autoStart = true;

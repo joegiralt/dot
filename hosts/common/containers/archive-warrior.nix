@@ -1,4 +1,10 @@
-{ config, lib, pkgs, opts, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  opts,
+  ...
+}:
 let
   wgetAtWrapper = pkgs.writeTextFile {
     name = "warrior-wget-at-wrapper";
@@ -18,8 +24,9 @@ let
   };
 in
 {
-  networking.firewall.allowedTCPPorts =
-    builtins.map pkgs.lib.strings.toInt (with opts.ports; [ warrior ]);
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
+    with opts.ports; [ warrior ]
+  );
 
   systemd.tmpfiles.rules = [
     "d ${opts.paths.app-data}/archiveteam-warrior 0755 ${toString opts.adminUID} ${toString opts.adminGID} -"
@@ -49,19 +56,19 @@ in
 
     labels = {
       "kuma.archiveteam-warrior.http.name" = "ArchiveTeam Warrior";
-      "kuma.archiveteam-warrior.http.url"  = "http://${opts.lanAddress}:${toString opts.ports.warrior}";
+      "kuma.archiveteam-warrior.http.url" = "http://${opts.lanAddress}:${toString opts.ports.warrior}";
     };
 
     environment = {
-      TZ   = opts.timeZone;
+      TZ = opts.timeZone;
       PUID = toString opts.adminUID;
       PGID = toString opts.adminGID;
 
-      DOWNLOADER       = opts.warriorDownloader or "Hastur";
-      SELECTED_PROJECT = opts.warriorProject    or "auto";
+      DOWNLOADER = opts.warriorDownloader or "Hastur";
+      SELECTED_PROJECT = opts.warriorProject or "auto";
       CONCURRENT_ITEMS = toString (opts.warriorConcurrent or 4);
 
-      WGET_AT  = "/usr/local/bin/wget-at";
+      WGET_AT = "/usr/local/bin/wget-at";
       WGET_LUA = "/usr/local/bin/wget-lua";
     };
   };

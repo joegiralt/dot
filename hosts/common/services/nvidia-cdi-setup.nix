@@ -1,9 +1,12 @@
+# NOTE: empty files are invalid in nix, so adding an empty attribute set to satisfy nix fmt
+{
+}
 # {
 #   config,
 #   pkgs,
 #   opts,
 #   ...
-# }: 
+# }:
 # {
 #   services.xserver.videoDrivers = ["nvida"];
 
@@ -17,7 +20,7 @@
 #   ];
 
 #   systemd.services.nvidia-cdi-setup = {
-    
+
 #     description = "NVIDIA CDI Setup";
 #     wantedBy = [ "multi-user.target" ];
 #     serviceConfig = {
