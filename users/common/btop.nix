@@ -1,9 +1,11 @@
+{ pkgs
+, config
+, ...
+}:
 {
-  pkgs,
-  opts,
-  ...
-}: {
   programs.btop = {
+    enable = true;
+    package = (config.lib.nixGL.wrapOffload pkgs.btop);
     settings = {
       color_theme = "tty";
       truecolor = true;
@@ -81,8 +83,5 @@
       custom_gpu_name4 = "";
       custom_gpu_name5 = "";
     };
-    enable = true;
-        package = pkgs.btop.override {
-      cudaSupport = true; };
   };
 }
