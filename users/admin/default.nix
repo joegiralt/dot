@@ -4,7 +4,7 @@
     ../common/atuin.nix
     ../common/base.nix
     ../common/btop.nix
-    ../common/core-packages.nix
+    ../common/core-max.nix
     ../common/git.nix
     ../common/github.nix
     ../common/vscode.nix
