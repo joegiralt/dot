@@ -9,6 +9,7 @@
     ../common/github.nix
     ../common/vscode.nix
     ../common/zsh.nix
+    ../common/beets.nix
   ];
 
   nixGL = {
