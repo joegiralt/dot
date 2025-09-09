@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./audiobookshelf.nix
     ./filebrowser.nix
@@ -21,11 +22,10 @@
     ./romms.nix
   ];
 
+  hardware.nvidia-container-toolkit.enable = true;
   virtualisation = {
-    containers.cdi.dynamic.nvidia.enable = true;
     podman = {
       enable = true;
-      enableNvidia = true;
     };
   };
 

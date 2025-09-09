@@ -1,35 +1,18 @@
 # /etc/nixos/configuration.nix
-{ config
-, opts
-, pkgs
-, age
-, hostname
-, unstable
-, ...
-}: {
-  # Define overlays first (if any)
-  # nixpkgs.overlays = [
-  #   # No NVIDIA overlay needed
-  # ];
-
+{
+  config,
+  opts,
+  pkgs,
+  ...
+}:
+{
   nixpkgs.config.cudaSupport = true;
-
   imports = [
     ./hardware-configuration.nix
     ../common/containers
     ../common/services
+    ../../secmap.nix
   ];
-
-  # Secret definitions
-  age.secrets = {
-    athena0-admin-password.file = ../../secrets/athena0-admin-password.age;
-    tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
-    mullvad-account-number.file = ../../secrets/mullvad-account-number.age;
-    paperless-env.file = ../../secrets/paperless-env.age;
-    plex-env.file = ../../secrets/plex-env.age;
-    autokuma-env.file = ../../secrets/autokuma-env.age;
-    romm_env.file = ../../secrets/romms-env.age;
-  };
 
   # Bootloader configuration
   boot.loader.systemd-boot.enable = true;
@@ -81,8 +64,12 @@
       iwd = {
         enable = true;
         settings = {
-          IPV6 = { Enabled = false; };
-          Settings = { AutoConnect = true; };
+          IPV6 = {
+            Enabled = false;
+          };
+          Settings = {
+            AutoConnect = true;
+          };
         };
       };
     };
@@ -96,8 +83,16 @@
     firewall = {
       enable = true;
       allowPing = false;
-      allowedTCPPorts = [ 21 443 22 ];
-      allowedUDPPorts = [ 21 443 22 ];
+      allowedTCPPorts = [
+        21
+        443
+        22
+      ];
+      allowedUDPPorts = [
+        21
+        443
+        22
+      ];
     };
   };
 
@@ -121,15 +116,15 @@
   # X11 and Desktop Environment
   services.xserver.enable = false;
   # services.xserver.videoDrivers = [ "nvidia" ];
-  services.xserver.displayManager.gdm.enable = false;
-  services.xserver.desktopManager.gnome.enable = false;
+  services.displayManager.gdm.enable = false;
+  services.desktopManager.gnome.enable = false;
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
   # Sound and Audio
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   security.sudo.wheelNeedsPassword = false;
   services = {
@@ -141,7 +136,7 @@
     avahi.enable = false;
     openvscode-server = {
       enable = true;
-      package = unstable.openvscode-server;
+      package = pkgs.openvscode-server;
     };
 
     pipewire = {
@@ -165,6 +160,8 @@
 
   # User Accounts
   users.users.admin = {
+    # FIX: THIS OPTION IS DEPRECATED, USE `hashedPassword` instead.
+    #      THE `hashedPassword` can be generated using the `mkpasswd` command on nixos
     passwordFile = config.age.secrets.athena0-admin-password.path;
     isNormalUser = true;
     openssh.authorizedKeys.keys = with opts.publicKeys; [
@@ -257,23 +254,6 @@
     zip
     zmap
     zsh
-    (vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions;
-        [
-          bbenoist.nix
-          ms-python.python
-          ms-azuretools.vscode-docker
-          ms-vscode-remote.remote-ssh
-        ]
-        ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-          {
-            name = "remote-ssh-edit";
-            publisher = "ms-vscode-remote";
-            version = "0.47.2";
-            sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
-          }
-        ];
-    })
   ];
 
   # Nix Settings
@@ -286,7 +266,10 @@
     settings = {
       warn-dirty = true;
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
     package = pkgs.nixVersions.stable;
   };
