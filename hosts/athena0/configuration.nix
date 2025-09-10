@@ -162,7 +162,7 @@
   users.users.admin = {
     # FIX: THIS OPTION IS DEPRECATED, USE `hashedPassword` instead.
     #      THE `hashedPassword` can be generated using the `mkpasswd` command on nixos
-    passwordFile = config.age.secrets.athena0-admin-password.path;
+    hashedPasswordFile = config.age.secrets.athena0-admin-password.path;
     isNormalUser = true;
     openssh.authorizedKeys.keys = with opts.publicKeys; [
       carcosa-ed25519
