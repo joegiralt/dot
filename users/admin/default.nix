@@ -3,13 +3,13 @@
   imports = [
     ../common/atuin.nix
     ../common/base.nix
+    ../common/beets.nix
     ../common/btop.nix
     ../common/core-max.nix
     ../common/git.nix
     ../common/github.nix
     ../common/vscode.nix
     ../common/zsh.nix
-    ../common/beets.nix
   ];
 
   nixGL = {
