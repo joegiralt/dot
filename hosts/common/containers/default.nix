@@ -8,6 +8,7 @@
     ./homer.nix
     ./jackett.nix
     ./jellyfin.nix
+    ./lidarr.nix
     ./livebook.nix
     ./navidrome.nix
     ./nginx-proxy-manager.nix
@@ -15,9 +16,10 @@
     ./paperless.nix
     ./plex.nix
     ./portainer.nix
+    ./prowlarr.nix
     ./qbittorrent.nix
+    ./radarr.nix
     ./romms.nix
-    ./servarr.nix
     ./sonarr.nix
     ./stirling-pdf.nix
     ./telemetry.nix
