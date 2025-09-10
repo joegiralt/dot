@@ -8,6 +8,8 @@
     ./homer.nix
     ./jackett.nix
     ./jellyfin.nix
+    ./jellyseer.nix
+    ./kavita.nix
     ./lidarr.nix
     ./livebook.nix
     ./navidrome.nix
@@ -16,7 +18,6 @@
     ./paperless.nix
     ./plex.nix
     ./portainer.nix
-    ./kavita.nix
     ./prowlarr.nix
     ./qbittorrent.nix
     ./radarr.nix
