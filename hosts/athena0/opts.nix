@@ -44,6 +44,7 @@ rec {
     homer = "83";
     jackett = "9117";
     jellyfin = "8096";
+    kavita = "5000";
     lidarr = "8686";
     livebook = "9012";
     livebook-alt = "9013";
