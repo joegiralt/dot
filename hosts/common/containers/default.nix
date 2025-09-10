@@ -18,6 +18,7 @@
     ./qbittorrent.nix
     ./romms.nix
     ./servarr.nix
+    ./sonarr.nix
     ./stirling-pdf.nix
     ./telemetry.nix
     ./uptime-kuma.nix

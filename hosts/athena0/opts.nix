@@ -67,6 +67,7 @@ rec {
     radarr = "7878";
     romm-app = "9041";
     romm-db = "9042";
+    sonarr = "8989";
     stirling-pdf = "3456";
     uptime-kuma = "9011";
     vscode-server = "2345";
