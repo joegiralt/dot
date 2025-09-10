@@ -1,0 +1,182 @@
+---
+# Homepage configuration
+# See https://fontawesome.com/v6/search for icons options
+
+title: "Athena-zero dashboard"
+subtitle: "Nothing limited"
+logo: "assets/tools/athena.png"
+# icon: "fas fa-owl" # Optional icon
+
+header: true
+footer: '<p>Created with <span class="has-text-danger">❤️</span> with <a href="https://bulma.io/">bulma</a>, <a href="https://vuejs.org/">vuejs</a> & <a href="https://fontawesome.com/">font awesome</a> // Fork me on <a href="https://github.com/bastienwirtz/homer"><i class="fab fa-github-alt"></i></a></p>' # set false if you want to hide it.
+
+# Optional theme customization
+theme: default
+
+stylesheet:
+  - "assets/custom.css"
+
+# Optional theme customization (color overrrides)
+# overrrides can also be done using CSS vars 
+colors:
+  light:
+    highlight-primary: "#fff5f2"
+    highlight-secondary: "#fff5f2"
+    highlight-hover: "#bebebe"
+    background: "#12152B"
+    card-background: "rgba(255, 245, 242, 0.8)"
+    text: "#ffffff"
+    text-header: "#fafafa"
+    text-title: "#000000"
+    text-subtitle: "#111111"
+    card-shadow: rgba(0, 0, 0, 0.5)
+    link: "#3273dc"
+    link-hover: "#2e4053"
+    background-image: "../assets/tools/wallpaper-light.jpeg"
+  dark:
+    highlight-primary: "#181C3A"
+    highlight-secondary: "#181C3A"
+    highlight-hover: "#1F2347"
+    background: "#12152B"
+    card-background: "rgba(24, 28, 58, 0.8)"
+    text: "#eaeaea"
+    text-header: "#7C71DD"
+    text-title: "#fafafa"
+    text-subtitle: "#8B8D9C"
+    card-shadow: rgba(0, 0, 0, 0.5)
+    link: "#c1c1c1"
+    link-hover: "#fafafa"
+    background-image: "../assets/tools/wallpaper.jpeg"
+
+# Optional navbar
+# links: [] # Allows for navbar (dark mode, layout, and search) without any links
+links:
+  - name: "github.com/joegiralt/dot"
+    icon: "fab fa-github"
+    url: "https://github.com/joegiralt/dot"
+    target: "_blank" # optional html a tag target attribute
+  # this will link to a second homer page that will load config from additional-page.yml and keep default config values as in config.yml file
+  # see url field and assets/additional-page.yml.dist used in this example:
+  #- name: "another page!"
+  #  icon: "fas fa-file-alt"
+  #  url: "#additional-page" 
+
+# Services
+# First level array represent a group.
+# Leave only a "items" key if not using group (group name, icon & tagstyle are optional, section separation will not be displayed).
+services:
+  - name: "Media"
+    icon: "fas fa-shield-heart"
+    items:
+      - name: "Plex"
+        logo: "assets/tools/plex.jpg"
+        subtitle: "Media Client"
+        url: "https://plex.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Jellyfin"
+        logo: "assets/tools/jellyfin.png"
+        subtitle: "Self Hosted Media Client"
+        url: "https://jellyfin.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Audio Book Shelf"
+        logo: "assets/tools/audiobookshelf.svg"
+        subtitle: "Audiobooks & Podcasts"
+        url: "https://abs.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+
+  - name: "Applications"
+    icon: "fas fa-shield-heart"
+    items:
+      - name: "Ollama Interface"
+        logo: "assets/tools/ollama.png"
+        subtitle: "AI Model Management Interface"
+        url: "https://ollama.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Livebook"
+        logo: "assets/tools/livebook.png"
+        subtitle: " Elixir Collaborative Code Notebook"
+        url: "https://livebook.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Archive Warrior"
+        logo: "assets/tools/warrior-logo.png"
+        subtitle: "Crowd-powered web archiving appliance"
+        url: "https://archive-warrior.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Paperless"
+        logo: "assets/tools/paperless.png"
+        subtitle: "Document Management"
+        url: "https://paperless.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Stirling PDF"
+        logo: "assets/tools/stirling.svg"
+        subtitle: "PDF Utility Tool"
+        tag: "app"
+        keywords: ""
+        url: "https://stirling-pdf.nothing.ltd"
+        target: "_blank" # optional html a tag target attribute
+      - name: "Qbittorrent"
+        logo: "assets/tools/qbittorrent.png"
+        subtitle: "Torrenter"
+        url: "https://qbt.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Radarr"
+        logo: "assets/tools/radarr.png"
+        subtitle: "Film Collection Manager "
+        url: "https://radarr.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+  - name: "Monitoring & Utilites"
+    icon: "fas fa-shield-heart"
+    items:
+      - name: "Portainer"
+        logo: "assets/tools/portainer.svg"
+        subtitle: "Advanced Container Monitoring"
+        url: "https://portainer.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "VsCode"
+        logo: "assets/tools/vscode.svg"
+        subtitle: "Web-Based Code Editor"
+        url: "https://code.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Filebrowser"
+        logo: "assets/tools/filebrowser.svg"
+        subtitle: "Web-Based FileSystem"
+        url: "https://filebrowser.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Uptime Kuma"
+        logo: "assets/tools/uptime-kuma.svg"
+        subtitle: "Monitoring & Uptime Tool"
+        url: "https://uptime-kuma.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Grafana"
+        logo: "assets/tools/grafana.png"
+        subtitle: "Data Visualization & Monitoring"
+        url: "https://grafana.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "Nginx Proxy Manager"
+        logo: "assets/tools/nginx.png"
+        subtitle: "Web Server Management"
+        url: "https://nginx.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+      - name: "AdGuard"
+        logo: "assets/tools/adguard.png"
+        subtitle: "Network-wide Ad Blocking"
+        tag: "app"
+        keywords: ""
+        url: "https://adguard.nothing.ltd"
+        target: "_blank" # optional html a tag target attribute
+      
