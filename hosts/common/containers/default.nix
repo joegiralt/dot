@@ -16,6 +16,7 @@
     ./paperless.nix
     ./plex.nix
     ./portainer.nix
+    ./kavita.nix
     ./prowlarr.nix
     ./qbittorrent.nix
     ./radarr.nix
