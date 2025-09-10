@@ -72,16 +72,4 @@ rec {
     vscode-server = "2345";
     warrior = "8010";
   };
-
-  # Warrior-specific opts
-  warriorDownloader =
-    let
-      env = builtins.getEnv "joegiralt";
-      seed = if env != "" then env else hostname;
-      hex = builtins.hashString "sha256" seed; # 64 hex chars
-    in
-    "wr-" + builtins.substring 0 12 hex; # shows on leaderboard/Public!
-
-  warriorProject = "auto"; # or pin a slug
-  warriorConcurrent = 6; # tune concurrency
 }
