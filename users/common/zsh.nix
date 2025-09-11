@@ -12,7 +12,7 @@
     shellAliases = {
       v = "vim";
     };
-    initExtra = ''
+    initContent = ''
       unalias 9
       autoload -U down-line-or-beginning-search
       autoload -U up-line-or-beginning-search
