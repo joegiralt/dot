@@ -98,7 +98,7 @@ services:
     items:
       - name: "Jellyseerr"
         logo: "assets/tools/jellyfin.png"
-        subtitle: "AI Model Management Interface"
+        subtitle: "Media Management"
         url: "https://jellyseer.nothing.ltd"
         tag: "app"
         target: "_blank"
