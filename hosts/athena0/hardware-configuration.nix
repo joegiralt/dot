@@ -11,18 +11,7 @@
   modulesPath,
   ...
 }:
-{
-  #   nixpkgs.overlays = [
-  #   (final: prev: {
-  #     nvidia-container-toolkit = prev.nvidia-container-toolkit.overrideAttrs (oldAttrs: {
-  #       postInstall = oldAttrs.postInstall or "" + ''
-  #         wrapProgram $out/bin/nvidia-ctk \
-  #           --set LD_LIBRARY_PATH "${config.boot.kernelPackages.nvidiaPackages.stable}/lib:${config.boot.kernelPackages.nvidiaPackages.stable}/lib64:/run/opengl-driver/lib:/run/opengl-driver-32/lib:$LD_LIBRARY_PATH"
-  #       '';
-  #     });
-  #   })
-  # ];
-  imports = [
+{  imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
