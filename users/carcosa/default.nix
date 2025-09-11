@@ -6,7 +6,6 @@
 }:
 
 let
-  # move these to utilitis
   onlyIf = cond: xs: if cond then xs else [];
   gl     = pkg: config.lib.nixGL.wrap pkg;
   gloff  = pkg: config.lib.nixGL.wrapOffload pkg;
@@ -31,7 +30,10 @@ in
         (onlyIf (pkgs.system == "x86_64-linux") [
           (gl pkgs.slack)
         ])
-        (gl pkgs.zed-editor-fhs)
+        (onlyIf (pkgs.system == "x86_64-linux") [
+          (gl pkgs.zed-editor-fhs)
+        ])
+        
       ];
 
       cli-packages = with pkgs; [
