@@ -11,6 +11,7 @@ networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
   [
     nextcloud
     nextcloud-db
+    "444"
   ]
   );
   virtualisation.oci-containers.containers = {
@@ -45,6 +46,7 @@ networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
       ];
       ports = [
         "${opts.ports.nextcloud}:80"
+        "444:443"
       ];
       environment = {
         TZ = opts.timeZone;
