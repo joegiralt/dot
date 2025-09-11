@@ -2,7 +2,7 @@
 {
 
   # NOTE: mise is a better alternative to asdf-vm
-  #       to use this module, please remove asdf 
+  #       to use this module, please remove asdf
   #       and import this into users's "default.nix" module.
   #       this is not necessary for admin as you won't need
   #       these tools on the home server box, but its useful

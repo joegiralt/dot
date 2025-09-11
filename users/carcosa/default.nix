@@ -6,9 +6,9 @@
 }:
 
 let
-  onlyIf = cond: xs: if cond then xs else [];
-  gl     = pkg: config.lib.nixGL.wrap pkg;
-  gloff  = pkg: config.lib.nixGL.wrapOffload pkg;
+  onlyIf = cond: xs: if cond then xs else [ ];
+  gl = pkg: config.lib.nixGL.wrap pkg;
+  glOff = pkg: config.lib.nixGL.wrapOffload pkg;
 in
 {
   imports = [
@@ -20,7 +20,10 @@ in
     defaultWrapper = "mesa";
     offloadWrapper = "nvidia";
     vulkan.enable = true;
-    installScripts = [ "mesa" "nvidia" ];
+    installScripts = [
+      "mesa"
+      "nvidia"
+    ];
   };
 
   home.packages =
@@ -31,11 +34,9 @@ in
           (gl pkgs.slack)
         ])
         (onlyIf (pkgs.system == "x86_64-linux") [
-          (gl pkgs.zed-editor-fhs.override {
-            withVulkan = false;
-          })
+          (gl pkgs.zed-editor-fhs)
         ])
-        
+
       ];
 
       cli-packages = with pkgs; [
@@ -57,7 +58,9 @@ in
       LogLevel = "ERROR";
     };
     matchBlocks = {
-      "*" = { userKnownHostsFile = "/dev/null"; };
+      "*" = {
+        userKnownHostsFile = "/dev/null";
+      };
       # "github.com" = {
       #   hostname = "github.com";
       #   user = "git";

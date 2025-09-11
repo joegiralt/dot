@@ -17,14 +17,14 @@
 
   virtualisation.oci-containers.containers."archiveteam-warrior" = {
     autoStart = true;
-    image   = "atdr.meo.ws/archiveteam/warrior-dockerfile:latest";
+    image = "atdr.meo.ws/archiveteam/warrior-dockerfile:latest";
     volumes = [ "${opts.paths.app-data}/archiveteam-warrior:/data" ];
-    ports   = [ "${toString opts.ports.warrior}:8001" ];
-    labels  = {
-      "kuma.${opts.hostname}.group.name"     = "${opts.hostname}";
+    ports = [ "${toString opts.ports.warrior}:8001" ];
+    labels = {
+      "kuma.${opts.hostname}.group.name" = "${opts.hostname}";
       "kuma.archivewarrior.http.parent_name" = "${opts.hostname}";
-      "kuma.archivewarrior.http.name"        = "ArchiveWarrior";
-      "kuma.archivewarrior.http.url"         = "http://${opts.lanAddress}:${opts.ports.warrior}";
+      "kuma.archivewarrior.http.name" = "ArchiveWarrior";
+      "kuma.archivewarrior.http.url" = "http://${opts.lanAddress}:${opts.ports.warrior}";
     };
 
     extraOptions = [
@@ -36,11 +36,11 @@
 
     environment = {
       CONCURRENT_ITEMS = "6";
-      DOWNLOADER       = hostname;
-      PGID             = opts.adminGID;
-      PUID             = opts.adminUID;
+      DOWNLOADER = hostname;
+      PGID = opts.adminGID;
+      PUID = opts.adminUID;
       SELECTED_PROJECT = "auto";
-      TZ               = opts.timeZone;
+      TZ = opts.timeZone;
     };
   };
 }

@@ -264,7 +264,10 @@
       options = "--delete-older-than 7d";
     };
     settings = {
-      trusted-users = [ "root" "admin" ];
+      trusted-users = [
+        "root"
+        "admin"
+      ];
       warn-dirty = true;
       auto-optimise-store = true;
       experimental-features = [
@@ -272,9 +275,9 @@
         "flakes"
       ];
       trusted-substituters = [
-          "https://cache.nixos.org"
-          # add other caches later, maybe?
-        ];
+        "https://cache.nixos.org"
+        # add other caches later, maybe?
+      ];
     };
     package = pkgs.nixVersions.stable;
   };
@@ -284,24 +287,24 @@
   };
 
   system.copySystemConfiguration = false;
-  
+
   # HACK: i keep having to do this manually.
   system.activationScripts.fixHomeOwnership = {
-      text = ''
-        # set owners + perms (no -R, on purpose)
-        chown root:root /
-        chmod 0755 /
-  
-        chown root:root /home
-        chmod 0755 /home
-  
-        # adjust to your login/group
-        if [ -d /home/admin ]; then
-          chown admin:users /home/admin
-          chmod 0700 /home/admin
-        fi
-      '';
-    };
+    text = ''
+      # set owners + perms (no -R, on purpose)
+      chown root:root /
+      chmod 0755 /
+
+      chown root:root /home
+      chmod 0755 /home
+
+      # adjust to your login/group
+      if [ -d /home/admin ]; then
+        chown admin:users /home/admin
+        chmod 0700 /home/admin
+      fi
+    '';
+  };
 
   # State Version
   system.stateVersion = "24.05";
