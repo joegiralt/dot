@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   opts,
   ...
@@ -15,7 +14,7 @@ networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
   ]
   );
   virtualisation.oci-containers.containers = {
-    "nextcloud-db" = {
+    nextcloud-db = {
       autoStart = true;
       image = "postgres:latest";
       volumes = [ "/mnt/data/databases/nextcloud:/var/lib/postgresql/data" ];
@@ -32,7 +31,7 @@ networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
       };
     };
 
-    "nextcloud" = {
+    nextcloud = {
       autoStart = true;
       image = "lscr.io/linuxserver/nextcloud:latest";
       dependsOn = [ "nextcloud-db" ];
