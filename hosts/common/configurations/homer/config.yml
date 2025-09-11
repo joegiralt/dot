@@ -96,6 +96,12 @@ services:
   - name: "Applications"
     icon: "fas fa-shield-heart"
     items:
+      - name: "Jellyseerr"
+        logo: "assets/tools/jellyfin.png"
+        subtitle: "AI Model Management Interface"
+        url: "https://jellyseer.nothing.ltd"
+        tag: "app"
+        target: "_blank"
       - name: "Ollama Interface"
         logo: "assets/tools/ollama.png"
         subtitle: "AI Model Management Interface"
