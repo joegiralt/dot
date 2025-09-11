@@ -31,7 +31,9 @@ in
           (gl pkgs.slack)
         ])
         (onlyIf (pkgs.system == "x86_64-linux") [
-          (gl pkgs.zed-editor-fhs)
+          (gl pkgs.zed-editor-fhs.override {
+            withVulkan = false;
+          })
         ])
         
       ];
