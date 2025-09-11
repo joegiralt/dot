@@ -3,10 +3,7 @@
   programs.vscode = {
     enable = true;
 
-    # new-style API
     profiles.default = {
-      enable = true;
-
       # combine official nixpkgs extensions with marketplace ones
       extensions =
         (with pkgs.vscode-extensions; [
