@@ -51,6 +51,8 @@ rec {
     livebook-alt = "9013";
     navidrome = "4533";
     netdata = "19999";
+    nextcloud = "8011";
+    nextcloud-db = "8012";
     ollama = "11434";
     ollama-web = "8080";
     paperless-app = "9000";
@@ -74,7 +76,5 @@ rec {
     uptime-kuma = "9011";
     vscode-server = "2345";
     warrior = "8010";
-    nextcloud = "8011";
-    nextcloud-db = "8012";
   };
 }
