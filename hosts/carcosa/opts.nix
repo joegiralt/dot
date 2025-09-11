@@ -1,3 +1,3 @@
 {
-  hostname = "carcosa";
+  hostname = "popos";
 }

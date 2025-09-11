@@ -86,6 +86,7 @@
       # HomeManager Configurations
       homeConfigurations = {
         admin = mkHome nixpkgs systems.x86 "admin" "athena0";
+        hastur = mkHome nixpkgs systems.x86 "carcosa" "popos";
       };
     };
 }
