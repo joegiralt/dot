@@ -34,9 +34,8 @@ in
           (gl pkgs.slack)
         ])
         (onlyIf (pkgs.system == "x86_64-linux") [
-          (gl pkgs.zed-editor-fhs)
+          (pkgs.zed-editor)
         ])
-
       ];
 
       cli-packages = with pkgs; [

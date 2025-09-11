@@ -40,4 +40,7 @@ in
   "secrets/romms-env.age" = {
     publicKeys = users ++ systems;
   };
+  "secrets/nextcloud-env.age" = {
+    publicKeys = users ++ systems;
+  };
 }

@@ -74,5 +74,7 @@ rec {
     uptime-kuma = "9011";
     vscode-server = "2345";
     warrior = "8010";
+    nextcloud = "8011";
+    nextcloud-db = "8012";
   };
 }

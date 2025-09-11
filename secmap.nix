@@ -8,5 +8,6 @@
     plex-env.file = ./secrets/plex-env.age;
     autokuma-env.file = ./secrets/autokuma-env.age;
     romm_env.file = ./secrets/romms-env.age;
+    nextcloud-env.file = ../../secrets/nextcloud-env.age;
   };
 }
