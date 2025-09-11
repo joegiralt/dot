@@ -284,6 +284,24 @@
   };
 
   system.copySystemConfiguration = false;
+  
+  # HACK: i keep having to do this manually.
+  system.activationScripts.fixHomeOwnership = {
+      text = ''
+        # set owners + perms (no -R, on purpose)
+        chown root:root /
+        chmod 0755 /
+  
+        chown root:root /home
+        chmod 0755 /home
+  
+        # adjust to your login/group
+        if [ -d /home/admin ]; then
+          chown admin:users /home/admin
+          chmod 0700 /home/admin
+        fi
+      '';
+    };
 
   # State Version
   system.stateVersion = "24.05";
