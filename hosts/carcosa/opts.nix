@@ -1,3 +1,3 @@
 {
-  hostname = "popos";
+  hostname = "pop-os";
 }
