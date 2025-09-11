@@ -81,12 +81,13 @@
       # NixOS Configurations
       nixosConfigurations = {
         athena0 = mkSystem nixpkgs systems.x86 "athena0";
+        pop-os = mkSystem nixpkgs systems.x86 "pop-os";
       };
 
       # HomeManager Configurations
       homeConfigurations = {
         admin = mkHome nixpkgs systems.x86 "admin" "athena0";
-        hastur = mkHome nixpkgs systems.x86 "carcosa" "pop-os";
+        carcosa = mkHome nixpkgs systems.x86 "carcosa" "pop-os";
       };
     };
 }
