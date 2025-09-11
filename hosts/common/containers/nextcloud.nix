@@ -34,7 +34,7 @@ networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
     nextcloud = {
       autoStart = true;
       image = "lscr.io/linuxserver/nextcloud:latest";
-      dependsOn = [ nextcloud-db ];
+      dependsOn = [ "nextcloud-db" ];
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
