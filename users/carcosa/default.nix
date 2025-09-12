@@ -40,6 +40,7 @@ in
 
       cli-packages = with pkgs; [
         tokei
+        agenix
       ];
     in
     builtins.concatLists [

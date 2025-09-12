@@ -61,6 +61,7 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs.legacyPackages."${system}";
           modules = [
+            agenix.homeManagerModules.age
             ./users/${username}
           ];
           extraSpecialArgs = {
