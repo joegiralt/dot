@@ -58,7 +58,7 @@
         "${opts.paths.app-data}/nextcloud/data:/data"
       ];
       ports = [
-        "${opts.ports.nextcloud}:80"
+        "${opts.ports.nextcloud-http}:80"
         "${opts.ports.nextcloud-https}:443"
       ];
       environment = {
