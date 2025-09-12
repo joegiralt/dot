@@ -13,6 +13,8 @@ in
 {
   imports = [
     ../common/base.nix
+    ../common/mise.nix
+    ../common/wezterm.nix
   ];
 
   nixGL = {
