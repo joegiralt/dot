@@ -22,6 +22,7 @@
     ./prowlarr.nix
     ./qbittorrent.nix
     ./radarr.nix
+    ./readarr.nix
     ./romms.nix
     ./sonarr.nix
     ./stirling-pdf.nix
