@@ -77,5 +77,6 @@ rec {
     uptime-kuma = "9011";
     vscode-server = "2345";
     warrior = "8010";
+    readarr = "8787";
   };
 }
