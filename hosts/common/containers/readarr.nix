@@ -8,7 +8,7 @@
     "d ${opts.paths.books}              0755 ${opts.adminUID} ${opts.adminGID} -"
     "d ${opts.paths.audiobooks}         0755 ${opts.adminUID} ${opts.adminGID} -"
     "d ${opts.paths.downloads}          0755 ${opts.adminUID} ${opts.adminGID} -"
-    "d ${opts.app-data}/readarr:/config 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d ${opts.paths.app-data}/readarr:/config 0755 ${opts.adminUID} ${opts.adminGID} -"
   ];
 
   virtualisation.oci-containers.containers = {
@@ -20,7 +20,7 @@
         "--no-healthcheck"
       ];
       volumes = [
-        "${opts.app-data}/readarr:/config"
+        "${opts.paths.app-data}/readarr:/config"
         "${opts.paths.books}:/books"
         "${opts.paths.audiobooks}:/audiobooks"
         "${opts.paths.downloads}:/downloads"
