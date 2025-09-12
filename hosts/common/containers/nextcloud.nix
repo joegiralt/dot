@@ -2,24 +2,37 @@
   config,
   pkgs,
   opts,
+  username,
   ...
 }:
 {
 
-networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
-  with opts.ports;
-  [
-    nextcloud
-    nextcloud-db
-    "444"
-  ]
+  networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
+    with opts.ports;
+    [
+      nextcloud-db
+      nextcloud-http
+      nextcloud-https
+    ]
   );
+
+  systemd.tmpfiles.rules = [
+    "d ${opts.paths.app-data}/nextcloud        0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d ${opts.paths.app-data}/nextcloud/config 0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d ${opts.paths.app-data}/nextcloud/data   0755 ${opts.adminUID} ${opts.adminGID} -"
+    "d ${opts.paths.app-dbs}/nextcloud         0755 ${opts.adminUID} ${opts.adminGID} -"
+  ];
+
   virtualisation.oci-containers.containers = {
     nextcloud-db = {
       autoStart = true;
       image = "postgres:latest";
-      volumes = [ "/mnt/data/databases/nextcloud:/var/lib/postgresql/data" ];
-      ports = [ "${opts.ports.nextcloud-db}:5432" ];
+      volumes = [
+        "${opts.paths.app-dbs}/nextcloud:/var/lib/postgresql/data"
+      ];
+      ports = [
+        "${opts.ports.nextcloud-db}:5432"
+      ];
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
@@ -41,12 +54,12 @@ networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
         "--no-healthcheck"
       ];
       volumes = [
-        "/mnt/data/appdata/nextcloud/config:/config"
-        "/mnt/data/appdata/nextcloud/data:/data"
+        "${opts.paths.app-data}/nextcloud/config:/config"
+        "${opts.paths.app-data}/nextcloud/data:/data"
       ];
       ports = [
         "${opts.ports.nextcloud}:80"
-        "444:443"
+        "${opts.ports.nextcloud-https}:443"
       ];
       environment = {
         TZ = opts.timeZone;

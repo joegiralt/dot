@@ -37,6 +37,7 @@ rec {
   };
 
   ports = {
+    nextcloud-https = "444";
     audiobookshelf = "13378";
     filebrowser = "9008";
     flare-solverr = "8191";
@@ -51,7 +52,7 @@ rec {
     livebook-alt = "9013";
     navidrome = "4533";
     netdata = "19999";
-    nextcloud = "8011";
+    nextcloud-http = "8011";
     nextcloud-db = "8012";
     ollama = "11434";
     ollama-web = "8080";
