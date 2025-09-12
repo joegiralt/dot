@@ -4,6 +4,11 @@ namespace :nix do
     sh('nix fmt')
   end
 
+  desc "take out the trash(GC)"
+  task :gc do
+    sh('nix-collect-garbage -d')
+  end
+
   namespace :flake do
     desc "update nix flake.lock"
     task :update do 
