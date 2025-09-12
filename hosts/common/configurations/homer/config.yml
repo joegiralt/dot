@@ -93,6 +93,7 @@ services:
         url: "https://nextcloud.nothing.ltd"
         tag: "app"
         target: "_blank"
+        type: Nextcloud
       - name: "Jellyseerr"
         logo: "assets/tools/jellyfin.png"
         subtitle: "Media Management"
@@ -211,7 +212,6 @@ services:
         url: "https://adguard.nothing.ltd"
         tag: "app"
         target: "_blank"
-
 #  - name: "Applications"
 #    icon: "fas fa-layer-group"
 #    items:
