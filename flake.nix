@@ -59,7 +59,10 @@
       mkHome =
         pkgs: system: username: host:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs.legacyPackages."${system}";
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = import ./users/overlays { inherit inputs; };
+          };
           modules = [
             agenix.homeManagerModules.age
             ./users/${username}
