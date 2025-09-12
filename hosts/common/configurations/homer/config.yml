@@ -145,6 +145,27 @@ services:
         url: "https://radarr.nothing.ltd"
         tag: "app"
         target: "_blank"
+      - name: "Readarr"
+        logo: "assets/tools/readarr.avif"
+        subtitle: "Books Searching & Indexing"
+        tag: "app"
+        keywords: ""
+        url: "https://readarr.nothing.ltd"
+        target: "_blank" # optional html a tag target attribute
+      - name: "Prowlarr"
+        logo: "assets/tools/prowlarr.avif"
+        subtitle: "Indexers Management"
+        tag: "app"
+        keywords: ""
+        url: "https://prowlarr.nothing.ltd"
+        target: "_blank" # optional html a tag target attribute
+      - name: "Sonarr"
+        logo: "assets/tools/sonarr.avif"
+        subtitle: "TV Searching & Indexing"
+        tag: "app"
+        keywords: ""
+        url: "https://prowlarr.nothing.ltd"
+        target: "_blank" # optional html a tag target attribute
   - name: "Monitoring & Utilites"
     icon: "fas fa-shield-heart"
     items:
