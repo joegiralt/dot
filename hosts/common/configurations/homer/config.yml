@@ -1,14 +1,14 @@
 ---
 # Homepage configuration
-# See https://fontawesome.com/v6/search for icons options
+# See https://fontawesome.com/v6/search for icon options
 
 title: "Athena-zero dashboard"
-subtitle: "Nothing limited"
+subtitle: "Nothing Limited"
 logo: "assets/tools/athena.png"
 # icon: "fas fa-owl" # Optional icon
 
 header: true
-footer: '<p>Created with <span class="has-text-danger">❤️</span> with <a href="https://bulma.io/">bulma</a>, <a href="https://vuejs.org/">vuejs</a> & <a href="https://fontawesome.com/">font awesome</a> // Fork me on <a href="https://github.com/bastienwirtz/homer"><i class="fab fa-github-alt"></i></a></p>' # set false if you want to hide it.
+footer: '<p>Created with <span class="has-text-danger">\u2764\ufe0f</span> with <a href="https://bulma.io/">bulma</a>, <a href="https://vuejs.org/">vuejs</a> & <a href="https://fontawesome.com/">font awesome</a> // Fork me on <a href="https://github.com/bastienwirtz/homer"><i class="fab fa-github-alt"></i></a></p>' # set false if you want to hide it.
 
 # Optional theme customization
 theme: default
@@ -16,8 +16,7 @@ theme: default
 stylesheet:
   - "assets/custom.css"
 
-# Optional theme customization (color overrrides)
-# overrrides can also be done using CSS vars 
+# Optional theme customization (color overrides)
 colors:
   light:
     highlight-primary: "#fff5f2"
@@ -49,24 +48,16 @@ colors:
     background-image: "../assets/tools/wallpaper.jpeg"
 
 # Optional navbar
-# links: [] # Allows for navbar (dark mode, layout, and search) without any links
 links:
   - name: "github.com/joegiralt/dot"
     icon: "fab fa-github"
     url: "https://github.com/joegiralt/dot"
-    target: "_blank" # optional html a tag target attribute
-  # this will link to a second homer page that will load config from additional-page.yml and keep default config values as in config.yml file
-  # see url field and assets/additional-page.yml.dist used in this example:
-  #- name: "another page!"
-  #  icon: "fas fa-file-alt"
-  #  url: "#additional-page" 
+    target: "_blank"
 
 # Services
-# First level array represent a group.
-# Leave only a "items" key if not using group (group name, icon & tagstyle are optional, section separation will not be displayed).
 services:
   - name: "Media"
-    icon: "fas fa-shield-heart"
+    icon: "fas fa-photo-film" # free FA6 icon
     items:
       - name: "Plex"
         logo: "assets/tools/plex.jpg"
@@ -86,7 +77,7 @@ services:
         url: "https://jellyfin.nothing.ltd"
         tag: "app"
         target: "_blank"
-      - name: "Audio Book Shelf"
+      - name: "Audiobookshelf"
         logo: "assets/tools/audiobookshelf.svg"
         subtitle: "Audiobooks & Podcasts"
         url: "https://abs.nothing.ltd"
@@ -94,11 +85,11 @@ services:
         target: "_blank"
 
   - name: "Applications"
-    icon: "fas fa-shield-heart"
+    icon: "fas fa-layer-group"
     items:
       - name: "Nextcloud"
         logo: "assets/tools/logo_nextcloud.svg"
-        subtitle: "Our Personal Clound"
+        subtitle: "Our Personal Cloud"
         url: "https://nextcloud.nothing.ltd"
         tag: "app"
         target: "_blank"
@@ -116,7 +107,7 @@ services:
         target: "_blank"
       - name: "Livebook"
         logo: "assets/tools/livebook.png"
-        subtitle: " Elixir Collaborative Code Notebook"
+        subtitle: "Elixir Collaborative Code Notebook"
         url: "https://livebook.nothing.ltd"
         tag: "app"
         target: "_blank"
@@ -135,10 +126,9 @@ services:
       - name: "Stirling PDF"
         logo: "assets/tools/stirling.svg"
         subtitle: "PDF Utility Tool"
-        tag: "app"
-        keywords: ""
         url: "https://stirling-pdf.nothing.ltd"
-        target: "_blank" # optional html a tag target attribute
+        tag: "app"
+        target: "_blank"
       - name: "Qbittorrent"
         logo: "assets/tools/qbittorrent.png"
         subtitle: "Torrenter"
@@ -147,33 +137,37 @@ services:
         target: "_blank"
       - name: "Radarr"
         logo: "assets/tools/radarr.png"
-        subtitle: "Film Collection Manager "
+        subtitle: "Film Collection Manager"
         url: "https://radarr.nothing.ltd"
         tag: "app"
         target: "_blank"
       - name: "Readarr"
         logo: "assets/tools/readarr.avif"
         subtitle: "Books Searching & Indexing"
-        tag: "app"
-        keywords: ""
         url: "https://readarr.nothing.ltd"
-        target: "_blank" # optional html a tag target attribute
+        tag: "app"
+        target: "_blank"
       - name: "Prowlarr"
         logo: "assets/tools/prowlarr.avif"
         subtitle: "Indexers Management"
-        tag: "app"
-        keywords: ""
         url: "https://prowlarr.nothing.ltd"
-        target: "_blank" # optional html a tag target attribute
+        tag: "app"
+        target: "_blank"
       - name: "Sonarr"
         logo: "assets/tools/sonarr.avif"
         subtitle: "TV Searching & Indexing"
+        url: "https://sonarr.nothing.ltd"
         tag: "app"
-        keywords: ""
-        url: "https://prowlarr.nothing.ltd"
-        target: "_blank" # optional html a tag target attribute
-  - name: "Monitoring & Utilites"
-    icon: "fas fa-shield-heart"
+        target: "_blank"
+      - name: "Lidarr"
+        logo: "assets/tools/lidarr.png"
+        subtitle: "Music Searching & Indexing"
+        url: "https://lidarr.nothing.ltd"
+        tag: "app"
+        target: "_blank"
+
+  - name: "Monitoring & Utilities"
+    icon: "fas fa-screwdriver-wrench"
     items:
       - name: "Portainer"
         logo: "assets/tools/portainer.svg"
@@ -181,7 +175,7 @@ services:
         url: "https://portainer.nothing.ltd"
         tag: "app"
         target: "_blank"
-      - name: "VsCode"
+      - name: "VS Code"
         logo: "assets/tools/vscode.svg"
         subtitle: "Web-Based Code Editor"
         url: "https://code.nothing.ltd"
@@ -214,8 +208,30 @@ services:
       - name: "AdGuard"
         logo: "assets/tools/adguard.png"
         subtitle: "Network-wide Ad Blocking"
-        tag: "app"
-        keywords: ""
         url: "https://adguard.nothing.ltd"
-        target: "_blank" # optional html a tag target attribute
-      
+        tag: "app"
+        target: "_blank"
+
+#  - name: "Applications"
+#    icon: "fas fa-layer-group"
+#    items:
+#      - name: "Bazarr"
+#        logo: "assets/tools/bazarr.png"
+#        subtitle: "Subtitles Automation"
+#        url: "https://bazarr.nothing.ltd"
+#        tag: "app"
+#        target: "_blank"
+#      - name: "Tdarr"
+#        logo: "assets/tools/tdarr.png"
+#        subtitle: "Transcode/Optimize Library"
+#        url: "https://tdarr.nothing.ltd"
+#        tag: "app"
+#        target: "_blank"
+
+#  - name: "Monitoring & Utilities"
+#    icon: "fas fa-screwdriver-wrench"
+#    items:
+#      - name: "Prometheus"
+#        logo: "assets/tools/prometheus.svg"
+#        subtitle: "Metrics Source"
+#        url: "http
