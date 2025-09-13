@@ -15,6 +15,7 @@ in
     ../common/base.nix
     ../common/mise.nix
     ../common/wezterm.nix
+    ../common/stylix.nix
   ];
 
   nixGL = {
