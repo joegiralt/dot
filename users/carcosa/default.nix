@@ -4,12 +4,6 @@
   inputs,
   ...
 }:
-
-let
-  onlyIf = cond: xs: if cond then xs else [ ];
-  gl = pkg: config.lib.nixGL.wrap pkg;
-  glOff = pkg: config.lib.nixGL.wrapOffload pkg;
-in
 {
   imports = [
     ../common/base.nix
@@ -30,14 +24,11 @@ in
 
   home.packages =
     let
-      gui-packages = builtins.concatLists [
-        # Slack is x86_64-linux only; wrap with nixGL
-        (onlyIf (pkgs.system == "x86_64-linux") [
-          (gl pkgs.slack)
-        ])
-        (onlyIf (pkgs.system == "x86_64-linux") [
-          (pkgs.zed-editor)
-        ])
+      # NOTE: nixGL.wrap is intel and nixGL.wrapOffload is nvidia
+      #       I recommend choosing one or the other when install gui apps
+      gui-packages = [
+        (config.lib.nixGL.wrap pkgs.slack)
+        (config.lib.nixGL.wrap pkgs.zed-editor)
       ];
 
       cli-packages = with pkgs; [
