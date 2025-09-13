@@ -9,6 +9,7 @@
     ../common/base.nix
     ../common/mise.nix
     ../common/wezterm.nix
+    ../common/core-max.nix
   ];
 
   nixGL = {
