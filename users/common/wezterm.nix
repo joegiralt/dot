@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   config,
   ...
@@ -13,7 +12,7 @@ in
     enable = true;
     enableZshIntegration = true;
 
-    package = gl inputs.wezterm.packages.${pkgs.system}.default;
+    package = gl pkgs.wezterm;
 
     extraConfig = ''
       return {
