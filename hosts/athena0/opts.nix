@@ -39,6 +39,7 @@ rec {
   ports = {
     nextcloud-https = "444";
     audiobookshelf = "13378";
+    atuin-server = "8888";
     filebrowser = "9008";
     flare-solverr = "8191";
     grafana = "2200";
