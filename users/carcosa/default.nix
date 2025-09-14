@@ -33,8 +33,9 @@
       ];
 
       cli-packages = with pkgs; [
-        curl
         agenix
+        curl
+        jq
         tokei
       ];
     in
