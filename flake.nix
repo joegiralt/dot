@@ -49,8 +49,8 @@
         ) { } (nixpkgs.lib.attrValues systemsl);
 
       mkSystem =
-        pkgs: system: hostname:
-        pkgs.lib.nixosSystem {
+        system: hostname:
+        nixpkgs.lib.nixosSystem {
           system = system;
           modules = [
             agenix.nixosModules.default
@@ -63,7 +63,7 @@
         };
 
       mkHome =
-        pkgs: system: username: host:
+        system: username: host:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             inherit system;
@@ -90,14 +90,14 @@
 
       # NixOS Configurations
       nixosConfigurations = {
-        athena0 = mkSystem nixpkgs systems.x86 "athena0";
-        pop-os = mkSystem nixpkgs systems.x86 "pop-os";
+        athena0 = mkSystem systems.x86 "athena0";
+        pop-os = mkSystem systems.x86 "pop-os";
       };
 
       # HomeManager Configurations
       homeConfigurations = {
-        admin = mkHome nixpkgs systems.x86 "admin" "athena0";
-        carcosa = mkHome nixpkgs systems.x86 "carcosa" "pop-os";
+        admin = mkHome systems.x86 "admin" "athena0";
+        carcosa = mkHome systems.x86 "carcosa" "pop-os";
       };
     };
 }

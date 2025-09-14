@@ -1,20 +1,13 @@
 {
-  inputs,
   pkgs,
   config,
   ...
 }:
-
-let
-  gl = config.lib.nixGL.wrap;
-in
 {
   programs.wezterm = {
     enable = true;
     enableZshIntegration = true;
-
-    package = gl inputs.wezterm.packages.${pkgs.system}.default;
-
+    package = config.lib.nixGL.wrapOffload pkgs.wezterm;
     extraConfig = ''
       return {
         front_end = "WebGpu",
