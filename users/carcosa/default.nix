@@ -41,8 +41,9 @@ in
       ];
 
       cli-packages = with pkgs; [
-        tokei
+        curl
         agenix
+        tokei
       ];
     in
     builtins.concatLists [

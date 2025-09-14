@@ -32,6 +32,7 @@
           golang = "latest";
           nodejs = "22.5.1";
           zig = "latest";
+          yarn = "13.1.0";          
         };
       };
     };
