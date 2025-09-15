@@ -8,10 +8,10 @@
 {
   nixpkgs.config.cudaSupport = true;
   imports = [
-    ./hardware-configuration.nix
+    ../../secmap.nix
     ../common/containers
     ../common/services
-    ../../secmap.nix
+    ./hardware-configuration.nix
   ];
 
   # Bootloader configuration
