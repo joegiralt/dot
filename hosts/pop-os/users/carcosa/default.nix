@@ -13,6 +13,7 @@
     ../../../../common/hm/mise.nix
     ../../../../common/hm/wezterm.nix
     ../../../../common/hm/zathura.nix
+    ../../../../common/hm/brave.nix
   ];
 
   nixGL = {
