@@ -34,8 +34,6 @@
 
       cli-packages = with pkgs; [
         agenix
-        curl
-        jq
         tokei
       ];
     in
@@ -57,12 +55,6 @@
       "*" = {
         userKnownHostsFile = "/dev/null";
       };
-      # "github.com" = {
-      #   hostname = "github.com";
-      #   user = "git";
-      #   identitiesOnly = true;
-      #   identityFile = "~/.ssh/id_ed25519";
-      # };
     };
   };
 }

@@ -17,5 +17,6 @@
     unrar # rar archives utility
     wget # cli downloader
     zoxide # faster cd
+    curl # curl
   ];
 }
