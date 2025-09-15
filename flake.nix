@@ -20,7 +20,7 @@
     };
 
     nixgl = {
-      url = "github:nix-community/nixGL";
+      url = "github:sreedevk/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
