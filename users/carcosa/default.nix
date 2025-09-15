@@ -10,6 +10,7 @@
     ../common/mise.nix
     ../common/wezterm.nix
     ../common/core-max.nix
+    ../common/firefox
   ];
 
   nixGL = {
