@@ -13,6 +13,7 @@
     ../common/keybase.nix
     ../common/mise.nix
     ../common/wezterm.nix
+    ../common/zathura.nix
   ];
 
   nixGL = {
