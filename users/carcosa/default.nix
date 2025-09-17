@@ -7,10 +7,11 @@
 {
   imports = [
     ../common/base.nix
+    ../common/core-max.nix
+    ../common/fastfetch.nix
+    ../common/firefox
     ../common/mise.nix
     ../common/wezterm.nix
-    ../common/core-max.nix
-    ../common/firefox
   ];
 
   nixGL = {
