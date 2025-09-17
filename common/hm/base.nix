@@ -1,7 +1,6 @@
-{
-  pkgs,
-  username,
-  ...
+{ pkgs
+, username
+, ...
 }:
 {
   home = {
@@ -12,6 +11,13 @@
   };
 
   home.file = {
+
+    ".config" = {
+      enable = true;
+      source = ../../stowed/.config;
+      recursive = true;
+    };
+
     ".profile" = {
       enable = true;
       recursive = false;
