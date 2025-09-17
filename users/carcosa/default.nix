@@ -10,6 +10,7 @@
     ../common/core-max.nix
     ../common/fastfetch.nix
     ../common/firefox
+    ../common/keybase.nix
     ../common/mise.nix
     ../common/wezterm.nix
   ];
