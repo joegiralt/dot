@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake (NixOS 25.05)";
+  description = "Joe's Nix Flakes";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable&shallow=1";
@@ -88,21 +88,41 @@
             opts = opts // (import ./hosts/${host}/opts.nix) // (import ./users/${username}/opts.nix);
           };
         };
+
+      mkHomes =
+        list:
+        builtins.listToAttrs (
+          map (x: {
+            name = "${x.user}@${x.host}";
+            value = mkHome x.system x.user x.host;
+          }) list
+        );
+
+      mkSystems =
+        list:
+        builtins.listToAttrs (
+          map (x: {
+            name = x.host;
+            value = mkSystem x.system x.host;
+          }) list
+        );
     in
     {
       # Formatters for all systems
       formatter = mkFormatters systems;
 
       # NixOS Configurations
-      nixosConfigurations = {
-        athena0 = mkSystem systems.x86 "athena0";
-        pop-os = mkSystem systems.x86 "pop-os";
-      };
+      nixosConfigurations = 
+        mkSystems [
+          { host = "athena0";   system = systems.x86;   }
+          { host = "pop-os";    system = systems.x86;   }
+        ];
 
       # HomeManager Configurations
-      homeConfigurations = {
-        admin = mkHome systems.x86 "admin" "athena0";
-        carcosa = mkHome systems.x86 "carcosa" "pop-os";
-      };
+      homeConfigurations = 
+        mkHomes [
+          { user = "admin";   host = "athena0";   system = systems.x86;   }
+          { user = "carcosa"; host = "pop-os";    system = systems.x86;   }
+        ];
     };
 }
