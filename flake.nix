@@ -72,20 +72,15 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             inherit system;
-            overlays = import ./users/overlays { inherit inputs; };
+            overlays = import ./common/overlays { inherit inputs; };
           };
           modules = [
             agenix.homeManagerModules.age
-            ./users/${username}
+            ./hosts/${host}/users/${username}
           ];
           extraSpecialArgs = {
-            inherit
-              inputs
-              system
-              username
-              host
-              ;
-            opts = opts // (import ./hosts/${host}/opts.nix) // (import ./users/${username}/opts.nix);
+            inherit inputs system username host;
+            opts = opts // (import ./hosts/${host}/opts.nix) // (import ./hosts/${host}/users/${username}/opts.nix);
           };
         };
 
