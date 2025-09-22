@@ -1,19 +1,18 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }:
 {
   imports = [
-    ../common/base.nix
-    ../common/core-max.nix
-    ../common/fastfetch.nix
-    ../common/firefox
-    ../common/keybase.nix
-    ../common/mise.nix
-    ../common/wezterm.nix
-    ../common/zathura.nix
+    ../../../../common/hm/base.nix
+    ../../../../common/hm/core-max.nix
+    ../../../../common/hm/fastfetch.nix
+    ../../../../common/hm/firefox
+    ../../../../common/hm/keybase.nix
+    ../../../../common/hm/mise.nix
+    ../../../../common/hm/wezterm.nix
+    ../../../../common/hm/zathura.nix
   ];
 
   nixGL = {
@@ -29,8 +28,6 @@
 
   home.packages =
     let
-      # NOTE: nixGL.wrap is intel and nixGL.wrapOffload is nvidia
-      #       I recommend choosing one or the other when install gui apps
       gui-packages = [
         (config.lib.nixGL.wrap pkgs.slack)
         (config.lib.nixGL.wrap pkgs.zed-editor)
