@@ -83,22 +83,23 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware = {
-    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.intel.updateMicrocode = true;
     graphics.enable = true;
+    opengl = {
+      enable = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [ vulkan-loader ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [ vulkan-loader ];
+    };
 
-    # Enable NVIDIA support
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       modesetting.enable = true;
-      # Power Management Settings
       powerManagement.enable = false;
       powerManagement.finegrained = false;
-
-      # Open Source Kernel Module
       open = false;
-
-      # NVIDIA Settings Menu
       nvidiaSettings = true;
+      nvidiaPersistenced = true;
     };
 
     # NVIDIA Container Toolkit
