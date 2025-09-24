@@ -31,6 +31,7 @@
       gui-packages = [
         (config.lib.nixGL.wrap pkgs.slack)
         (config.lib.nixGL.wrap pkgs.zed-editor)
+        (config.lib.nixGL.wrapOffload pkgs.upscayl)
       ];
 
       cli-packages = with pkgs; [
