@@ -16,15 +16,15 @@
           quiet = true;
         };
         tools = {
-          bun    = "latest";
+          bun = "latest";
           elixir = "latest";
-          elm    = "latest";
+          elm = "latest";
           erlang = "latest";
-          gleam  = "latest";
+          gleam = "latest";
           golang = "latest";
           nodejs = "22.5.1";
-          zig    = "latest";
-          yarn   = "13.1.0";
+          zig = "latest";
+          yarn = "13.1.0";
         };
       };
     };

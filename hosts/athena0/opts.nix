@@ -1,100 +1,100 @@
 rec {
-  hostname   = "athena0";
+  hostname = "athena0";
   lanAddress = "192.168.1.32";
-  publicURL  = "nothing.ltd";
-  timeZone   = "Europe/Madrid";
-  adminUID   = "1000";
-  adminGID   = "100";
-  locale     = "en_US.UTF-8";
+  publicURL = "nothing.ltd";
+  timeZone = "Europe/Madrid";
+  adminUID = "1000";
+  adminGID = "100";
+  locale = "en_US.UTF-8";
   nameservers = [
-    "9.9.9.9"         # Quad9
+    "9.9.9.9" # Quad9
     "149.112.112.112" # Quad9
-    "194.242.2.5"     # Mullvad
+    "194.242.2.5" # Mullvad
   ];
   addresses = {
     lan = {
       carcosa = "192.168.1.27";
-      apollo  = "192.168.1.103";
+      apollo = "192.168.1.103";
       athena0 = "192.168.1.32";
-      fedora  = "192.168.1.122";
+      fedora = "192.168.1.122";
       cube-xx = "192.168.1.111";
     };
 
     tailscale = {
       carcosa = "100.77.165.90";
-      apollo  = "100.78.243.14";
+      apollo = "100.78.243.14";
       athena0 = "100.77.68.128";
-      fedora  = "100.104.158.88";
-      cube-xx  = "100.119.159.119";
+      fedora = "100.104.158.88";
+      cube-xx = "100.119.159.119";
     };
   };
 
   paths = {
-    app-data         = "/mnt/data/appdata";
+    app-data = "/mnt/data/appdata";
     app-data-archive = "/mnt/data/appdata/files";
-    app-dbs          = "/mnt/data/appdata/databases";
-    app-dbs-archive  = "/mnt/data/appdata/databases";
-    audiobooks       = "/mnt/data/media/audiobooks";
-    books            = "/mnt/data/media/books";
-    dbs              = "/mnt/data/databases";
-    documents        = "/mnt/data/personal/documents";
-    downloads        = "/mnt/data/downloads";
-    images           = "/mnt/data/media/images";
+    app-dbs = "/mnt/data/appdata/databases";
+    app-dbs-archive = "/mnt/data/appdata/databases";
+    audiobooks = "/mnt/data/media/audiobooks";
+    books = "/mnt/data/media/books";
+    dbs = "/mnt/data/databases";
+    documents = "/mnt/data/personal/documents";
+    downloads = "/mnt/data/downloads";
+    images = "/mnt/data/media/images";
     llama-cpp-models = "/mnt/data/resources/llms/llama-cpp-models";
-    magazines        = "/mnt/data/media/magazines";
-    film             = "/mnt/data2/media/film";
-    music            = "/mnt/data/media/music";
-    other            = "/mnt/data/other";
-    podcasts         = "/mnt/data/media/podcasts";
-    podman-socket    = "/var/run/podman/podman.sock";
-    qbt-images       = "/mnt/data/media/photos/other";
-    tv               = "/mnt/data2/media/tv";
-    torrents         = "/mnt/data/downloads/torrents";
-    videos           = "/mnt/data2/media/videos";
+    magazines = "/mnt/data/media/magazines";
+    film = "/mnt/data2/media/film";
+    music = "/mnt/data/media/music";
+    other = "/mnt/data/other";
+    podcasts = "/mnt/data/media/podcasts";
+    podman-socket = "/var/run/podman/podman.sock";
+    qbt-images = "/mnt/data/media/photos/other";
+    tv = "/mnt/data2/media/tv";
+    torrents = "/mnt/data/downloads/torrents";
+    videos = "/mnt/data2/media/videos";
   };
 
   ports = {
-    audiobookshelf       = "13378";
-    filebrowser          = "9008";
-    flare-solverr        = "8191";
-    grafana              = "2200";
-    homer                = "83";
-    jackett              = "9117";
-    jellyfin             = "8096";
-    jellyseer            = "5055";
-    kavita               = "5000";
-    lidarr               = "8686";
-    livebook             = "9012";
-    livebook-alt         = "9013";
-    navidrome            = "4533";
-    netdata              = "19999";
-    nextcloud-db         = "8012";
-    nextcloud-http       = "8011";
-    nextcloud-https      = "444";
-    ollama               = "11434";
-    ollama-web           = "8080";
-    paperless-app        = "9000";
-    paperless-db         = "3306";
-    paperless-redis      = "6379";
-    paperless-web        = "9001";
-    plex                 = "32400";
-    portainer_misc       = "9020";
-    portainer_web        = "9030";
+    audiobookshelf = "13378";
+    filebrowser = "9008";
+    flare-solverr = "8191";
+    grafana = "2200";
+    homer = "83";
+    jackett = "9117";
+    jellyfin = "8096";
+    jellyseer = "5055";
+    kavita = "5000";
+    lidarr = "8686";
+    livebook = "9012";
+    livebook-alt = "9013";
+    navidrome = "4533";
+    netdata = "19999";
+    nextcloud-db = "8012";
+    nextcloud-http = "8011";
+    nextcloud-https = "444";
+    ollama = "11434";
+    ollama-web = "8080";
+    paperless-app = "9000";
+    paperless-db = "3306";
+    paperless-redis = "6379";
+    paperless-web = "9001";
+    plex = "32400";
+    portainer_misc = "9020";
+    portainer_web = "9030";
     portainer_web_secure = "9040";
-    prometheus-app       = "9001";
-    prometheus-node      = "9002";
-    prowlarr             = "9696";
-    qbittorrent-nox      = "6881";
-    qbittorrent-web      = "8001";
-    radarr               = "7878";
-    readarr              = "8787";
-    romm-app             = "9041";
-    romm-db              = "9042";
-    sonarr               = "8989";
-    stirling-pdf         = "3456";
-    unbound_dns          = "5053";
-    uptime-kuma          = "9011";
-    vscode-server        = "2345";
-    warrior              = "8010";
+    prometheus-app = "9001";
+    prometheus-node = "9002";
+    prowlarr = "9696";
+    qbittorrent-nox = "6881";
+    qbittorrent-web = "8001";
+    radarr = "7878";
+    readarr = "8787";
+    romm-app = "9041";
+    romm-db = "9042";
+    sonarr = "8989";
+    stirling-pdf = "3456";
+    unbound_dns = "5053";
+    uptime-kuma = "9011";
+    vscode-server = "2345";
+    warrior = "8010";
   };
 }

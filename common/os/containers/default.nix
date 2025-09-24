@@ -34,7 +34,7 @@
   virtualisation = {
     podman = {
       enable = true;
-      enableNvidia =  true;
+      enableNvidia = true;
     };
   };
 

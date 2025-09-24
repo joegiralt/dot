@@ -79,8 +79,14 @@
             ./hosts/${host}/users/${username}
           ];
           extraSpecialArgs = {
-            inherit inputs system username host;
-            opts = opts // (import ./hosts/${host}/opts.nix) // (import ./hosts/${host}/users/${username}/opts.nix);
+            inherit
+              inputs
+              system
+              username
+              host
+              ;
+            opts =
+              opts // (import ./hosts/${host}/opts.nix) // (import ./hosts/${host}/users/${username}/opts.nix);
           };
         };
 
@@ -107,17 +113,29 @@
       formatter = mkFormatters systems;
 
       # NixOS Configurations
-      nixosConfigurations = 
-        mkSystems [
-          { host = "athena0";   system = systems.x86;   }
-          { host = "pop-os";    system = systems.x86;   }
-        ];
+      nixosConfigurations = mkSystems [
+        {
+          host = "athena0";
+          system = systems.x86;
+        }
+        {
+          host = "pop-os";
+          system = systems.x86;
+        }
+      ];
 
       # HomeManager Configurations
-      homeConfigurations = 
-        mkHomes [
-          { user = "admin";   host = "athena0";   system = systems.x86;   }
-          { user = "carcosa"; host = "pop-os";    system = systems.x86;   }
-        ];
+      homeConfigurations = mkHomes [
+        {
+          user = "admin";
+          host = "athena0";
+          system = systems.x86;
+        }
+        {
+          user = "carcosa";
+          host = "pop-os";
+          system = systems.x86;
+        }
+      ];
     };
 }
