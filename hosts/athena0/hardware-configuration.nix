@@ -7,6 +7,7 @@
   config,
   opts,
   lib,
+  pkgs,
   modulesPath,
   ...
 }:
