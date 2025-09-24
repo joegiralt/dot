@@ -11,6 +11,23 @@ rec {
     "149.112.112.112" # Quad9
     "194.242.2.5"     # Mullvad
   ];
+  addresses = {
+    lan = {
+      carcosa = "192.168.1.27";
+      apollo  = "192.168.1.103";
+      athena0 = "192.168.1.32";
+      fedora  = "192.168.1.122";
+      cube-xx = "192.168.1.111";
+    };
+
+    tailscale = {
+      carcosa = "100.77.165.90";
+      apollo  = "100.78.243.14";
+      athena0 = "100.77.68.128";
+      fedora  = "100.104.158.88";
+      cube-xx  = "100.119.159.119";
+    };
+  };
 
   paths = {
     app-data         = "/mnt/data/appdata";
