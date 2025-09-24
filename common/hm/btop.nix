@@ -6,8 +6,7 @@
 {
   programs.btop = {
     enable = true;
-    # package = (config.lib.nixGL.wrapOffload pkgs.btop);
-    package = pkgs.btop;
+    package = (config.lib.nixGL.wrapOffload pkgs.btop);
     settings = {
       color_theme = "tty";
       truecolor = true;
@@ -21,7 +20,7 @@
       graph_symbol_mem = "default";
       graph_symbol_net = "default";
       graph_symbol_proc = "default";
-      shown_boxes = "cpu mem net proc";
+      shown_boxes = "cpu mem net gpu proc";
       update_ms = 2000;
       proc_sorting = "user";
       proc_reversed = false;
@@ -37,7 +36,7 @@
       proc_aggregate = false;
       cpu_graph_upper = "Auto";
       cpu_graph_lower = "Auto";
-      show_gpu_info = "Auto";
+      show_gpu_info = "On";
       cpu_invert_lower = true;
       cpu_single_graph = false;
       cpu_bottom = false;
