@@ -37,6 +37,7 @@
       cli-packages = with pkgs; [
         agenix
         tokei
+        nur.repos.charmbracelet.crush
       ];
     in
     builtins.concatLists [
