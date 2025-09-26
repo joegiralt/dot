@@ -28,21 +28,27 @@
 
   home.packages =
     let
+      ai-coding-agent-packages = with pkgs; [
+        # goose-cli
+        nur.repos.charmbracelet.crush
+      ];
+
+      cli-packages = with pkgs; [
+        agenix
+        tokei
+      ];
+
       gui-packages = [
         (config.lib.nixGL.wrap pkgs.slack)
         (config.lib.nixGL.wrap pkgs.zed-editor)
         (config.lib.nixGL.wrapOffload pkgs.upscayl)
       ];
 
-      cli-packages = with pkgs; [
-        agenix
-        tokei
-        nur.repos.charmbracelet.crush
-      ];
     in
     builtins.concatLists [
-      gui-packages
+      ai-coding-agent-packages
       cli-packages
+      gui-packages
     ];
 
   services.ssh-agent.enable = true;
