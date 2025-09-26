@@ -13,7 +13,7 @@
       sync = {
         # Configure automatic synchronization
         enabled = false;
-        # address = "https://sync.youratuinserver.com"; # Change this to your Atuin server address
+        address = "https://atuin.nothing.ltd";
         # auth_key = "your-auth-key-here"; # Your authentication key
       };
     };
