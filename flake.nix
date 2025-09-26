@@ -37,6 +37,7 @@
       nixpkgs,
       home-manager,
       agenix,
+      nur,
       ...
     }@inputs:
     let
@@ -76,6 +77,7 @@
           };
           modules = [
             agenix.homeManagerModules.age
+            # nur.repos.charmbracelet.modules.crush
             ./hosts/${host}/users/${username}
           ];
           extraSpecialArgs = {
