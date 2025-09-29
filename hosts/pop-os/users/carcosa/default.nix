@@ -29,7 +29,7 @@
   home.packages =
     let
       ai-coding-agent-packages = with pkgs; [
-        # goose-cli
+        goose-cli
         nur.repos.charmbracelet.crush
       ];
 
