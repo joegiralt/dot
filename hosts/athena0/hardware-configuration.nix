@@ -3,12 +3,13 @@
 # w/ NVIDIA RTX 2000 / 2000E Ada Generation
 # w/ 12th Gen Intel(R) Core(TM) i5-12600H (16) @ 4.50 GHz
 
-{ config
-, opts
-, lib
-, pkgs
-, modulesPath
-, ...
+{
+  config,
+  opts,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
 }:
 {
   imports = [
@@ -84,10 +85,11 @@
 
   hardware = {
     cpu.intel.updateMicrocode = true;
-    graphics.enable = true;
     opengl = {
-      enable = true;
       driSupport32Bit = true;
+    };
+    graphics = {
+      enable = true;
       extraPackages = with pkgs; [ vulkan-loader ];
       extraPackages32 = with pkgs.pkgsi686Linux; [ vulkan-loader ];
     };
