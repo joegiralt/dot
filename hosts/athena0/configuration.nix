@@ -274,10 +274,9 @@
         "nix-command"
         "flakes"
       ];
-      trusted-substituters = [
-        "https://cache.nixos.org"
-        # add other caches later, maybe?
-      ];
+      substituters = [ "https://cache.nixos.org/" ];
+      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+      trusted-substituters = [ "https://cache.nixos.org" ];
     };
     package = pkgs.nixVersions.stable;
   };
