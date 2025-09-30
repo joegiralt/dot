@@ -64,9 +64,11 @@
       trusted-users = [ "${username}" ];
       http2 = false;
       allowed-users = [ "${username}" ];
-      trusted-substituters = [ "${username}" ];
+      trusted-substituters = [ "https://cache.nixos.org/" ];
+      substituters = [ "https://cache.nixos.org/" ];
       show-trace = true;
       auto-optimise-store = true;
+      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
       fallback = true;
       experimental-features = [
         "nix-command"
