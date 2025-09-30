@@ -3,13 +3,12 @@
 # w/ NVIDIA RTX 2000 / 2000E Ada Generation
 # w/ 12th Gen Intel(R) Core(TM) i5-12600H (16) @ 4.50 GHz
 
-{
-  config,
-  opts,
-  lib,
-  pkgs,
-  modulesPath,
-  ...
+{ config
+, opts
+, lib
+, pkgs
+, modulesPath
+, ...
 }:
 {
   imports = [
