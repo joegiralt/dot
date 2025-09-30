@@ -22,4 +22,21 @@
       "nvidia"
     ];
   };
+
+  home.file = {
+    ".config/nixpkgs/config.nix" = {
+      enable = true;
+      text = ''
+        {
+          allowUnfree = true;
+          allowBroken = true;
+          packageOverrides = pkgs: {
+            nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") {
+              inherit pkgs;
+            };
+          };
+        }
+      '';
+    };
+  };
 }
