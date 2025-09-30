@@ -1,4 +1,9 @@
-{ inputs, username, pkgs, ... }:
+{
+  inputs,
+  username,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ../../../../common/hm/atuin.nix

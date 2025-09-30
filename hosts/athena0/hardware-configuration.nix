@@ -3,12 +3,13 @@
 # w/ NVIDIA RTX 2000 / 2000E Ada Generation
 # w/ 12th Gen Intel(R) Core(TM) i5-12600H (16) @ 4.50 GHz
 
-{ config
-, opts
-, lib
-, pkgs
-, modulesPath
-, ...
+{
+  config,
+  opts,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
 }:
 {
   imports = [
@@ -59,22 +60,14 @@
   networking = {
     useDHCP = lib.mkDefault false;
     hostId = "0ec79991";
-    # consider moving to systemd.network.netdev
+
+    # IMPORTANT: slaves of the bond must NOT get IPs or DHCP
     interfaces = {
-      enp90s0 = {
-        useDHCP = lib.mkDefault true;
-        ipv4 = {
-          addresses = [
-            {
-              address = opts.lanAddress;
-              prefixLength = 24;
-            }
-          ];
-        };
-      };
-      wlan0 = {
-        useDHCP = lib.mkDefault true;
-      };
+      enp88s0.useDHCP = lib.mkDefault false;
+      enp91s0.useDHCP = lib.mkDefault false;
+
+      # Wi-Fi as emergency back door (DHCP via NetworkManager)
+      wlan0.useDHCP = lib.mkDefault true;
     };
   };
 
