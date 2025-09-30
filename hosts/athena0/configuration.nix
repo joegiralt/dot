@@ -7,6 +7,7 @@
 }:
 {
   nixpkgs.config.cudaSupport = true;
+
   imports = [
     ./hardware-configuration.nix
     ../../common/os/containers
@@ -24,6 +25,7 @@
       text = "";
     };
   };
+
   # Systemd targets
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
@@ -34,6 +36,7 @@
   virtualisation.podman = {
     enable = true;
   };
+
   # Kernel sysctl
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = "1048576";
@@ -56,10 +59,23 @@
     hostName = opts.hostname;
     domain = ""; # TODO: get domain name!
     search = [ opts.hostname ];
-    defaultGateway = {
-      address = "192.168.1.1";
-      interface = "enp90s0";
+
+    # Use systemd-networkd for wired (bond) and keep NetworkManager for Wi-Fi only
+    useNetworkd = true;
+
+    # NetworkManager: enabled for Wi-Fi; explicitly keep it off the bond/slaves
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+      insertNameservers = opts.nameservers;
+      unmanaged = [
+        "interface-name:enp88s0"
+        "interface-name:enp91s0"
+        "interface-name:bond0"
+      ];
     };
+
+    # iwd Wi-Fi stack (used by NM). keeping enabled so Wi-Fi can be safety net.
     wireless = {
       iwd = {
         enable = true;
@@ -73,13 +89,36 @@
         };
       };
     };
-    networkmanager = {
-      enable = true;
-      wifi.backend = "iwd";
-      insertNameservers = opts.nameservers;
+
+    # === Bonded 2.5GbE (LACP / 802.3ad) ===
+    bonds.bond0 = {
+      interfaces = [
+        "enp88s0"
+        "enp91s0"
+      ];
+      # if switch does NOT support LACP, replace next 4 lines with:
+      # mode = "balance-alb"; miimon = "100"; xmit_hash_policy = "layer3+4";
+      mode = "802.3ad";
+      miimon = 100;
+      lacp_rate = "fast";
+      xmit_hash_policy = "layer3+4";
     };
+
+    interfaces.bond0.ipv4.addresses = [
+      {
+        address = opts.lanAddress;
+        prefixLength = 24;
+      }
+    ];
+
+    defaultGateway = {
+      address = "192.168.1.1";
+      interface = "bond0";
+    };
+
     nameservers = pkgs.lib.mkForce opts.nameservers;
     enableIPv6 = false;
+
     firewall = {
       enable = true;
       allowPing = false;
@@ -127,6 +166,7 @@
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   security.sudo.wheelNeedsPassword = false;
+
   services = {
     flatpak.enable = false;
     packagekit.enable = true;
@@ -134,6 +174,7 @@
     dbus.enable = true;
     printing.enable = false;
     avahi.enable = false;
+
     openvscode-server = {
       enable = true;
       package = pkgs.openvscode-server;
@@ -144,7 +185,7 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      #jack.enable = true; # If you want to use JACK applications, uncomment this
+      # jack.enable = true;
     };
 
     openssh = {
@@ -160,8 +201,6 @@
 
   # User Accounts
   users.users.admin = {
-    # FIX: THIS OPTION IS DEPRECATED, USE `hashedPassword` instead.
-    #      THE `hashedPassword` can be generated using the `mkpasswd` command on nixos
     hashedPasswordFile = config.age.secrets.athena0-admin-password.path;
     isNormalUser = true;
     openssh.authorizedKeys.keys = with opts.publicKeys; [
@@ -281,10 +320,7 @@
     package = pkgs.nixVersions.stable;
   };
 
-  system.switch = {
-    enable = true;
-  };
-
+  system.switch.enable = true;
   system.copySystemConfiguration = false;
 
   # HACK: i keep having to do this manually.
