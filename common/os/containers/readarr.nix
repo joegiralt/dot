@@ -14,7 +14,7 @@
   virtualisation.oci-containers.containers = {
     readarr = {
       autoStart = true;
-      image = "ghcr.io/hotio/readarr:latest";
+      image = "ghcr.io/pennydreadful/bookshelf:softcover";
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
