@@ -33,14 +33,7 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      agenix,
-      nur,
-      ...
-    }@inputs:
+    { self, ... } @ inputs:
     let
       opts = import ./opts.nix;
       systems = {

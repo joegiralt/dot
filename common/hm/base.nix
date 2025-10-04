@@ -1,8 +1,4 @@
-{
-  pkgs,
-  username,
-  ...
-}:
+{ username, ... }:
 {
   home = {
     enableNixpkgsReleaseCheck = false;

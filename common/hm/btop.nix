@@ -7,7 +7,7 @@
   programs.btop = {
     enable = true;
     # package = pkgs.btop;
-    package = (config.lib.nixGL.wrapOffload pkgs.btop);
+    package = config.lib.nixGL.wrapOffload pkgs.btop;
     settings = {
       color_theme = "tty";
       truecolor = true;

@@ -1,9 +1,10 @@
-{ config
-, opts
-, pkgs
-, system
-, inputs
-, ...
+{
+  config,
+  opts,
+  pkgs,
+  system,
+  inputs,
+  ...
 }:
 {
   imports = [
@@ -14,8 +15,18 @@
   ];
 
   # Bootloader configuration
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    kernel.sysctl = {
+      "fs.inotify.max_user_watches" = "1048576";
+      "vm.swappiness" = 70;
+      "vm.dirty_ratio" = 20;
+      "vm.dirty_background_ratio" = 10;
+    };
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
 
   environment.etc = {
     "avahi/avahi-daemon.conf" = {
@@ -24,21 +35,18 @@
     };
   };
   # Systemd targets
-  systemd.targets.sleep.enable = false;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = false;
-  systemd.targets.hybrid-sleep.enable = false;
+  systemd = {
+    targets = {
+      sleep.enable = false;
+      suspend.enable = false;
+      hibernate.enable = false;
+      hybrid-sleep.enable = false;
+    };
+  };
 
   # Virtualization
   virtualisation.podman = {
     enable = true;
-  };
-  # Kernel sysctl
-  boot.kernel.sysctl = {
-    "fs.inotify.max_user_watches" = "1048576";
-    "vm.swappiness" = 70;
-    "vm.dirty_ratio" = 20;
-    "vm.dirty_background_ratio" = 10;
   };
 
   # Swap Devices
@@ -113,20 +121,21 @@
   };
 
   # X11 and Desktop Environment
-  services.xserver.enable = false;
-  # services.xserver.videoDrivers = [ "nvidia" ];
-  services.displayManager.gdm.enable = false;
-  services.desktopManager.gnome.enable = false;
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # Sound and Audio
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  security.sudo.wheelNeedsPassword = false;
+  security = {
+    rtkit.enable = true;
+    sudo.wheelNeedsPassword = false;
+  };
   services = {
+    xserver.enable = false;
+    displayManager.gdm.enable = false;
+    desktopManager.gnome.enable = false;
+    xserver.xkb = {
+      layout = "us";
+      variant = "";
+    };
+    pulseaudio.enable = false;
     flatpak.enable = false;
     packagekit.enable = true;
     udisks2.enable = true;
@@ -285,8 +294,29 @@
     package = pkgs.nixVersions.stable;
   };
 
-  system.switch = {
-    enable = true;
+  system = {
+    switch = {
+      enable = true;
+    };
+    stateVersion = "24.05";
+    copySystemConfiguration = false;
+    # NOTE: joe, this might be what is actaully causing the issue
+    activationScripts.fixHomeOwnership = {
+      text = ''
+        # set owners + perms (no -R, on purpose)
+        chown root:root /
+        chmod 0755 /
+
+        chown root:root /home
+        chmod 0755 /home
+
+        # adjust to your login/group
+        if [ -d /home/admin ]; then
+          chown admin:users /home/admin
+          chmod 0700 /home/admin
+        fi
+      '';
+    };
   };
 
   home-manager = {
@@ -308,27 +338,4 @@
         };
     };
   };
-
-  system.copySystemConfiguration = false;
-
-  # HACK: i keep having to do this manually.
-  system.activationScripts.fixHomeOwnership = {
-    text = ''
-      # set owners + perms (no -R, on purpose)
-      chown root:root /
-      chmod 0755 /
-
-      chown root:root /home
-      chmod 0755 /home
-
-      # adjust to your login/group
-      if [ -d /home/admin ]; then
-        chown admin:users /home/admin
-        chmod 0700 /home/admin
-      fi
-    '';
-  };
-
-  # State Version
-  system.stateVersion = "24.05";
 }

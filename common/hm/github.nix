@@ -1,8 +1,4 @@
-{
-  pkgs,
-  opts,
-  ...
-}:
+{ pkgs, ... }:
 {
   programs.gh-dash = {
     enable = true;
