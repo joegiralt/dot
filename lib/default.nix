@@ -21,7 +21,7 @@ rec {
           description = "Home Server Deployments";
           nixpkgs = import nixpkgs {
             system = "x86_64-linux";
-            overlays = import ./common/overlays { inherit inputs; };
+            overlays = import ../common/overlays { inherit inputs; };
           };
           nodeNixpkgs = builtins.mapAttrs (_: value: value.pkgs) conf;
           nodeSpecialArgs = builtins.mapAttrs (_: value: value._module.specialArgs) conf;

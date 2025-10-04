@@ -54,7 +54,7 @@
   # Networking
   networking = {
     hostName = opts.hostname;
-    domain = ""; # TODO: get domain name!
+    domain = "nothing.ltd";
     search = [ opts.hostname ];
     defaultGateway = {
       address = "192.168.1.1";
