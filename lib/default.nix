@@ -48,7 +48,7 @@ rec {
       ];
 
       specialArgs = {
-        inherit system;
+        inherit system inputs;
         opts = recurmerge [
           opts (import ../hosts/${hostname}/opts.nix)
         ];

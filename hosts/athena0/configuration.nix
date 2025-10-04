@@ -1,12 +1,11 @@
-# /etc/nixos/configuration.nix
-{
-  config,
-  opts,
-  pkgs,
-  ...
+{ config
+, opts
+, pkgs
+, system
+, inputs
+, ...
 }:
 {
-  nixpkgs.config.cudaSupport = true;
   imports = [
     ./hardware-configuration.nix
     ../../common/os/containers
@@ -185,7 +184,7 @@
       "video"
       "wheel"
     ];
-    packages = with pkgs; [ ];
+    packages = [ ];
   };
 
   # Programs
@@ -202,11 +201,16 @@
   };
 
   # Nixpkgs Configuration
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      cudaSupport = true;
+      packageOverrides = pkgs: {
+        vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+      };
     };
+    overlays = import ../../common/overlays { inherit inputs; };
   };
 
   # System Packages
@@ -283,6 +287,26 @@
 
   system.switch = {
     enable = true;
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    extraSpecialArgs = {
+      inherit system inputs;
+      opts = opts // (import ./users/admin/opts.nix);
+      username = "admin";
+      host = "athena0";
+    };
+    users = {
+      admin =
+        { ... }:
+        {
+          imports = [
+            inputs.agenix.homeManagerModules.age
+            ./users/admin
+          ];
+        };
+    };
   };
 
   system.copySystemConfiguration = false;

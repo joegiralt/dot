@@ -53,6 +53,7 @@
         mkHomes 
         mkFormatters
         mkColmenaFromNixOSConfigurations
+        forEachSystem
       ;
     in
     {
@@ -62,6 +63,14 @@
 
       # Formatters for all systems
       formatter = mkFormatters systems;
+
+      checks = forEachSystem (pkgs: {
+        lint = pkgs.runCommand "nixlint" { nativeBuildInputs = with pkgs; [ deadnix statix ]; } ''
+          deadnix --fail ${./.}
+          statix check ${./.}
+          touch $out
+        '';
+      });
 
 
       # NixOS Configurations
