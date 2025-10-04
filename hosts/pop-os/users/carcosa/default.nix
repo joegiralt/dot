@@ -36,6 +36,7 @@
       cli-packages = with pkgs; [
         agenix
         tokei
+        colmena
       ];
 
       gui-packages = [
