@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  opts,
-  ...
-}:
+{ opts, ... }:
 let
   vuetorrentSrc = builtins.fetchGit {
     name = "vuetorrent";

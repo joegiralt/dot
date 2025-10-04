@@ -1,9 +1,4 @@
-{
-  pkgs,
-  opts,
-  config,
-  ...
-}:
+{ config, ... }:
 {
   networking.firewall = {
     checkReversePath = "loose";

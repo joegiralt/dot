@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  opts,
-  ...
-}:
+{ pkgs, opts, ... }:
 let
   appData = opts.paths."app-data";
   portsList = with opts.ports; [

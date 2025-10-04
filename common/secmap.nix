@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   age.secrets = {
     athena0-admin-password.file = ../secrets/athena0-admin-password.age;

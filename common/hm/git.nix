@@ -1,9 +1,4 @@
-{
-  pkgs,
-  nixpkgs-stable,
-  opts,
-  ...
-}:
+{ pkgs, ... }:
 {
   home.file = {
     ".gitattributes" = {

@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  opts,
-  ...
-}:
+{ pkgs, opts, ... }:
 {
   services.openvscode-server = {
     enable = true;

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable&shallow=1";
+    colmena.url    = "github:zhaofengli/colmena";
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -32,112 +33,48 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      agenix,
-      nur,
-      ...
-    }@inputs:
+    { self, ... } @ inputs:
     let
       opts = import ./opts.nix;
-
       systems = {
         x86 = "x86_64-linux";
         arm64 = "aarch64-linux";
       };
 
-      mkFormatters =
-        systemsl:
-        builtins.foldl' (
-          output: sys: output // { ${sys} = nixpkgs.legacyPackages."${sys}".nixfmt-tree; }
-        ) { } (nixpkgs.lib.attrValues systemsl);
-
-      mkSystem =
-        system: hostname:
-        nixpkgs.lib.nixosSystem {
-          system = system;
-          modules = [
-            agenix.nixosModules.default
-            (import ./hosts/${hostname}/configuration.nix)
-          ];
-          specialArgs = {
-            inherit system hostname inputs;
-            opts = opts // (import ./hosts/${hostname}/opts.nix);
-          };
-        };
-
-      mkHome =
-        system: username: host:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = import ./common/overlays { inherit inputs; };
-          };
-          modules = [
-            agenix.homeManagerModules.age
-            # nur.repos.charmbracelet.modules.crush
-            ./hosts/${host}/users/${username}
-          ];
-          extraSpecialArgs = {
-            inherit
-              inputs
-              system
-              username
-              host
-              ;
-            opts =
-              opts // (import ./hosts/${host}/opts.nix) // (import ./hosts/${host}/users/${username}/opts.nix);
-          };
-        };
-
-      mkHomes =
-        list:
-        builtins.listToAttrs (
-          map (x: {
-            name = "${x.user}@${x.host}";
-            value = mkHome x.system x.user x.host;
-          }) list
-        );
-
-      mkSystems =
-        list:
-        builtins.listToAttrs (
-          map (x: {
-            name = x.host;
-            value = mkSystem x.system x.host;
-          }) list
-        );
+      inherit (import ./lib { inherit inputs opts systems; })
+        mkSystems
+        mkHomes 
+        mkFormatters
+        mkColmenaFromNixOSConfigurations
+        forEachSystem
+      ;
     in
     {
+
+      # colmena deployments
+      colmenaHive = mkColmenaFromNixOSConfigurations self.nixosConfigurations;
+
       # Formatters for all systems
       formatter = mkFormatters systems;
 
+      checks = forEachSystem (pkgs: {
+        lint = pkgs.runCommand "nixlint" { nativeBuildInputs = with pkgs; [ deadnix statix ]; } ''
+          deadnix --fail ${./.}
+          statix check ${./.}
+          touch $out
+        '';
+      });
+
+
       # NixOS Configurations
       nixosConfigurations = mkSystems [
-        {
-          host = "athena0";
-          system = systems.x86;
-        }
-        {
-          host = "pop-os";
-          system = systems.x86;
-        }
+        { host = "athena0"; system = systems.x86; }
       ];
 
       # HomeManager Configurations
       homeConfigurations = mkHomes [
-        {
-          user = "admin";
-          host = "athena0";
-          system = systems.x86;
-        }
-        {
-          user = "carcosa";
-          host = "pop-os";
-          system = systems.x86;
-        }
+        { user = "admin"; host = "athena0"; system = systems.x86; }
+        { user = "carcosa"; host = "pop-os"; system = systems.x86; }
       ];
     };
 }

@@ -1,7 +1,6 @@
 {
   pkgs,
   opts,
-  hostname,
   ...
 }:
 {
@@ -36,7 +35,7 @@
 
     environment = {
       CONCURRENT_ITEMS = "6";
-      DOWNLOADER = hostname;
+      DOWNLOADER = opts.hostname;
       PGID = opts.adminGID;
       PUID = opts.adminUID;
       SELECTED_PROJECT = "auto";
