@@ -8,3 +8,4 @@
 8. [] fix issue where ollama back end goes to sleep messing up autocomplete on remote clients
 9. [] fix allow unfree pkgs in homemanager on carcosa
 10. [] enable static dhcp lease on athena0
+11. [] fix btop on athena0 (GPUs not showing up.)

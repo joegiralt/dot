@@ -78,12 +78,6 @@
       log_level = "WARNING";
       nvml_measure_pcie_speeds = true;
       gpu_mirror_graph = true;
-      custom_gpu_name0 = "";
-      custom_gpu_name1 = "";
-      custom_gpu_name2 = "";
-      custom_gpu_name3 = "";
-      custom_gpu_name4 = "";
-      custom_gpu_name5 = "";
     };
   };
 }
