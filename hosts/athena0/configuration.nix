@@ -120,20 +120,18 @@
     LC_TIME = opts.locale;
   };
 
-  # X11 and Desktop Environment
-
   # Sound and Audio
   security = {
     rtkit.enable = true;
     sudo.wheelNeedsPassword = false;
   };
   services = {
-    xserver.enable = false;
     displayManager.gdm.enable = false;
     desktopManager.gnome.enable = false;
-    xserver.xkb = {
-      layout = "us";
-      variant = "";
+    xserver = {
+      enable = false;
+      xkb.layout = "us";
+      videoDrivers = [ "nvidia" ];
     };
     pulseaudio.enable = false;
     flatpak.enable = false;
@@ -142,6 +140,7 @@
     dbus.enable = true;
     printing.enable = false;
     avahi.enable = false;
+
     openvscode-server = {
       enable = true;
       package = pkgs.openvscode-server;
@@ -215,9 +214,7 @@
     config = {
       allowUnfree = true;
       cudaSupport = true;
-      packageOverrides = pkgs: {
-        vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-      };
+      nvidia.acceptLicense = true;
     };
     overlays = import ../../common/overlays { inherit inputs; };
   };
@@ -249,7 +246,6 @@
     mullvad
     mullvad-vpn
     netcat-gnu
-    nvidia-container-toolkit
     openresolv
     openssl
     openvpn
