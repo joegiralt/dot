@@ -16,6 +16,10 @@ in
     };
   };
 
+  systemd.services."podman-qbittorrent-nox" = {
+    restartTriggers = [ vuetorrentSrc ];
+  };
+
   networking.firewall.allowedTCPPorts = [
     6881
     8001
