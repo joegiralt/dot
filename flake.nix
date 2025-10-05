@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable&shallow=1";
-    colmena.url    = "github:zhaofengli/colmena";
+    colmena.url = "github:zhaofengli/colmena";
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -33,7 +33,7 @@
   };
 
   outputs =
-    { self, ... } @ inputs:
+    { self, ... }@inputs:
     let
       opts = import ./opts.nix;
       systems = {
@@ -43,11 +43,11 @@
 
       inherit (import ./lib { inherit inputs opts systems; })
         mkSystems
-        mkHomes 
+        mkHomes
         mkFormatters
         mkColmenaFromNixOSConfigurations
         forEachSystem
-      ;
+        ;
     in
     {
 
@@ -58,23 +58,41 @@
       formatter = mkFormatters systems;
 
       checks = forEachSystem (pkgs: {
-        lint = pkgs.runCommand "nixlint" { nativeBuildInputs = with pkgs; [ deadnix statix ]; } ''
-          deadnix --fail ${./.}
-          statix check ${./.}
-          touch $out
-        '';
+        lint =
+          pkgs.runCommand "nixlint"
+            {
+              nativeBuildInputs = with pkgs; [
+                deadnix
+                statix
+              ];
+            }
+            ''
+              deadnix --fail ${./.}
+              statix check ${./.}
+              touch $out
+            '';
       });
-
 
       # NixOS Configurations
       nixosConfigurations = mkSystems [
-        { host = "athena0"; system = systems.x86; }
+        {
+          host = "athena0";
+          system = systems.x86;
+        }
       ];
 
       # HomeManager Configurations
       homeConfigurations = mkHomes [
-        { user = "admin"; host = "athena0"; system = systems.x86; }
-        { user = "carcosa"; host = "pop-os"; system = systems.x86; }
+        {
+          user = "admin";
+          host = "athena0";
+          system = systems.x86;
+        }
+        {
+          user = "carcosa";
+          host = "pop-os";
+          system = systems.x86;
+        }
       ];
     };
 }

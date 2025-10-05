@@ -1,5 +1,4 @@
-_:
-{
+_: {
   systemd.oomd = {
     enable = true;
     enableSystemSlice = true;

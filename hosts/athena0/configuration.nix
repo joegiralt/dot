@@ -272,6 +272,7 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
+
     settings = {
       trusted-users = [
         "root"
@@ -283,10 +284,29 @@
         "nix-command"
         "flakes"
       ];
-      substituters = [ "https://cache.nixos.org/" ];
-      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
-      trusted-substituters = [ "https://cache.nixos.org" ];
+
+      # Use multiple binary caches
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+        "https://cuda-maintainers.cachix.org"
+      ];
+
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:7G2AG3Y6rK1bVVhYQq+3LZg1AHEa9LIcA8QqczkGq9k="
+        "cuda-maintainers.cachix.org-1:Ji+ZysQ8GqEtvQF3o4O5q6c3y8C3b2q9p5g6s7d8e9k="
+      ];
+
+      # If you use remote builders, let them substitute too
+      builders-use-substitutes = true;
+
+      # Optional quality-of-life
+      log-lines = 50;
+      keep-outputs = true;
+      keep-derivations = true;
     };
+
     package = pkgs.nixVersions.stable;
   };
 

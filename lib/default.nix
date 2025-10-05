@@ -1,10 +1,17 @@
-{ inputs
-, opts
-, systems
-, ...
+{
+  inputs,
+  opts,
+  systems,
+  ...
 }:
 let
-  inherit (inputs) nixpkgs agenix home-manager colmena system-manager;
+  inherit (inputs)
+    nixpkgs
+    agenix
+    home-manager
+    colmena
+    system-manager
+    ;
 in
 rec {
   pkgsFor = nixpkgs.legacyPackages;
@@ -50,7 +57,8 @@ rec {
       specialArgs = {
         inherit system inputs;
         opts = recurmerge [
-          opts (import ../hosts/${hostname}/opts.nix)
+          opts
+          (import ../hosts/${hostname}/opts.nix)
         ];
       };
     };
@@ -64,7 +72,8 @@ rec {
       extraSpecialArgs = {
         inherit system;
         opts = recurmerge [
-          opts (import ../hosts/${hostname}/opts.nix)
+          opts
+          (import ../hosts/${hostname}/opts.nix)
         ];
       };
     };

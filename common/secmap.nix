@@ -1,5 +1,4 @@
-_:
-{
+_: {
   age.secrets = {
     athena0-admin-password.file = ../secrets/athena0-admin-password.age;
     autokuma-env.file = ../secrets/autokuma-env.age;

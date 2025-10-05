@@ -70,26 +70,49 @@
 
   nix = {
     package = pkgs.nixVersions.nix_2_28;
+
     gc = {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
+
     settings = {
-      trusted-users = [ "carcosa" ];
-      http2 = false;
       allowed-users = [ "carcosa" ];
-      trusted-substituters = [ "https://cache.nixos.org/" ];
-      substituters = [ "https://cache.nixos.org/" ];
+      trusted-users = [ "carcosa" ];
+
+      http2 = false;
       show-trace = true;
       auto-optimise-store = true;
-      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+        "https://cuda-maintainers.cachix.org"
+      ];
+
+      trusted-public-keys = [
+        # Official Nix cache
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        # nix-community (Cachix)
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        # cuda-maintainers (Cachix)
+        "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+      ];
+
+      builders-use-substitutes = true;
       fallback = true;
+
       experimental-features = [
         "nix-command"
         "flakes"
         "recursive-nix"
       ];
+
+      # optional QoL
+      log-lines = 50;
+      keep-outputs = true;
+      keep-derivations = true;
     };
   };
 

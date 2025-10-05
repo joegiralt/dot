@@ -16,12 +16,28 @@ let
   ];
 in
 {
-  "secrets/athena0-admin-password.age" = { publicKeys = users ++ systems; };
-  "secrets/tailscale-auth-key.age"     = { publicKeys = users ++ systems; };
-  "secrets/mullvad-account-number.age" = { publicKeys = users ++ systems; };
-  "secrets/nextcloud-env.age"          = { publicKeys = users ++ systems; };
-  "secrets/paperless-env.age"          = { publicKeys = users ++ systems; };
-  "secrets/plex-env.age"               = { publicKeys = users ++ systems; };
-  "secrets/autokuma-env.age"           = { publicKeys = users ++ systems; };
-  "secrets/romms-env.age"              = { publicKeys = users ++ systems; };
+  "secrets/athena0-admin-password.age" = {
+    publicKeys = users ++ systems;
+  };
+  "secrets/tailscale-auth-key.age" = {
+    publicKeys = users ++ systems;
+  };
+  "secrets/mullvad-account-number.age" = {
+    publicKeys = users ++ systems;
+  };
+  "secrets/nextcloud-env.age" = {
+    publicKeys = users ++ systems;
+  };
+  "secrets/paperless-env.age" = {
+    publicKeys = users ++ systems;
+  };
+  "secrets/plex-env.age" = {
+    publicKeys = users ++ systems;
+  };
+  "secrets/autokuma-env.age" = {
+    publicKeys = users ++ systems;
+  };
+  "secrets/romms-env.age" = {
+    publicKeys = users ++ systems;
+  };
 }
