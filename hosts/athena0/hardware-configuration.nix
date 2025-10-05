@@ -80,9 +80,6 @@
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-
   hardware = {
     cpu.intel.updateMicrocode = true;
     graphics = {
@@ -93,6 +90,7 @@
     };
 
     nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
@@ -107,4 +105,10 @@
       mount-nvidia-executables = true;
     };
   };
+
+  systemd.services.nvidia-container-toolkit-cdi-generator.environment.LD_LIBRARY_PATH =
+    "${pkgs.lib.getLib config.hardware.nvidia.package}/lib";
+
+  environment.etc."cdi/nvidia-container-toolkit.json".source =
+    "/run/cdi/nvidia-container-toolkit.json";
 }
