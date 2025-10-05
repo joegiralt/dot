@@ -165,6 +165,12 @@
     };
   };
 
+  users.users.root.openssh.authorizedKeys.keys = with opts.publicKeys; [
+    carcosa-ed25519
+    macbook-ed25519
+    spare-macbook-ed25519
+  ];
+
   # User Accounts
   users.users.admin = {
     # FIX: THIS OPTION IS DEPRECATED, USE `hashedPassword` instead.
