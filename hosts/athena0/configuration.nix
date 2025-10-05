@@ -265,7 +265,6 @@
     zsh
   ];
 
-  # Nix Settings
   nix = {
     gc = {
       automatic = true;
@@ -285,7 +284,6 @@
         "flakes"
       ];
 
-      # Use multiple binary caches
       substituters = [
         "https://cache.nixos.org"
         "https://nix-community.cachix.org"
@@ -298,7 +296,7 @@
         "cuda-maintainers.cachix.org-1:Ji+ZysQ8GqEtvQF3o4O5q6c3y8C3b2q9p5g6s7d8e9k="
       ];
 
-      # If you use remote builders, let them substitute too
+      # remote builders, let them substitute too
       builders-use-substitutes = true;
 
       # Optional quality-of-life
