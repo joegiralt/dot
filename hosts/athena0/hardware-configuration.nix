@@ -73,9 +73,9 @@
           ];
         };
       };
-      wlan0 = {
-        useDHCP = lib.mkDefault true;
-      };
+      # wlan0 = {
+      #   useDHCP = lib.mkDefault true;
+      # };
     };
   };
 
