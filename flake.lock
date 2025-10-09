@@ -350,6 +350,7 @@
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_2",
         "nur": "nur",
+        "stablepkgs": "stablepkgs",
         "wezterm": "wezterm"
       }
     },
@@ -385,6 +386,22 @@
       },
       "original": {
         "owner": "NixOS",
+        "ref": "nixos-25.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "stablepkgs": {
+      "locked": {
+        "lastModified": 1759735786,
+        "narHash": "sha256-a0+h02lyP2KwSNrZz4wLJTu9ikujNsTWIC874Bv7IJ0=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "20c4598c84a671783f741e02bf05cbfaf4907cff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
         "ref": "nixos-25.05",
         "repo": "nixpkgs",
         "type": "github"
