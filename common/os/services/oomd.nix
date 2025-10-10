@@ -4,7 +4,7 @@ _: {
     enableSystemSlice = true;
     enableRootSlice = false;
     enableUserSlices = true;
-    extraConfig = {
+    settings.OOM = {
       DefaultMemoryPressureDurationSec = "30s";
       DefaultMemoryPressureLimit = "60%";
       SwapUsedLimit = "90%";
