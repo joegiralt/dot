@@ -25,12 +25,6 @@
       url = "github:sreedevk/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    wezterm = {
-      url = "github:wezterm/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
   };
 
   outputs =

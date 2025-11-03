@@ -86,18 +86,27 @@
       auto-optimise-store = true;
 
       substituters = [
-        "https://cache.nixos.org"
+        "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
         "https://cuda-maintainers.cachix.org"
+        "https://numtide.cachix.org"
+        "https://colmena.cachix.org"
+      ];
+
+      trusted-substituters = [
+        "https://cache.nixos.org/"
+        "https://nix-community.cachix.org"
+        "https://cuda-maintainers.cachix.org"
+        "https://numtide.cachix.org"
+        "https://colmena.cachix.org"
       ];
 
       trusted-public-keys = [
-        # Official Nix cache
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        # nix-community (Cachix)
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        # cuda-maintainers (Cachix)
-        "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+        "cuda-maintainers.cachix.org-1:Ji+ZysQ8GqEtvQF3o4O5q6c3y8C3b2q9p5g6s7d8e9k="
+        "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
+        "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
       ];
 
       builders-use-substitutes = true;
