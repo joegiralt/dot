@@ -463,7 +463,7 @@
         "harfbuzz": "harfbuzz",
         "libpng": "libpng",
         "nixpkgs": [
-          "stablepkgs"
+          "nixpkgs"
         ],
         "rust-overlay": "rust-overlay",
         "zlib": "zlib"
