@@ -9,17 +9,18 @@
     beets
   ];
 
-  systemd.user.tmpfiles.settings.beets = {
-    purgeOnChange = false;
-    rules = {
-      "/home/${username}/.config/beets".d = {
-        mode = "0755";
-        user = opts.adminUID;
-        group = opts.adminGID;
-        age = "-";
-      };
-    };
-  };
+  # doesn't work, 
+  # systemd.user.tmpfiles.settings.beets = {
+  #   purgeOnChange = false;
+  #   rules = {
+  #     "/home/${username}/.config/beets".d = {
+  #       mode = "0755";
+  #       user = opts.adminUID;
+  #       group = opts.adminGID;
+  #       age = "-";
+  #     };
+  #   };
+  # };
 
   home.file = {
     ".config/beets/config.yaml" = {

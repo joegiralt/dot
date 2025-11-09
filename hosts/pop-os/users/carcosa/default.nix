@@ -15,7 +15,7 @@
     ../../../../common/hm/zathura.nix
   ];
 
-  nixGL = {
+  targets.genericLinux.nixGL = {
     packages = pkgs.nixgl;
     defaultWrapper = "mesa";
     offloadWrapper = "nvidia";
