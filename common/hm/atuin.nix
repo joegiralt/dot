@@ -5,6 +5,7 @@
 {
   programs.atuin = {
     enable = true;
+    enableZshIntegration = true;
     settings = {
       # Set your preferences here
       history = {

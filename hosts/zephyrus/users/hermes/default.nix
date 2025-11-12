@@ -5,12 +5,15 @@
 }:
 {
   imports = [
+    ../../../../common/hm/atuin.nix
+    ../../../../common/hm/btop.nix
     ../../../../common/hm/base.nix
     ../../../../common/hm/core-max.nix
     ../../../../common/hm/fastfetch.nix
    # ../../../../common/hm/firefox
     ../../../../common/hm/keybase.nix
     ../../../../common/hm/mise.nix
+    ../../../../common/hm/ohmyzsh.nix
     ../../../../common/hm/wezterm.nix
     ../../../../common/hm/zathura.nix
   ];
@@ -25,7 +28,9 @@
       "nvidia"
     ];
   };
-
+  
+  programs.zsh.enable = true;
+  
   home.packages =
     let
       ai-coding-agent-packages = with pkgs; [
@@ -37,6 +42,17 @@
         agenix
         tokei
         colmena
+        
+      ];
+      
+      font-packages = with pkgs; [
+        nerd-fonts.iosevka
+        nerd-fonts.iosevka-term
+        # nerd-fonts.ibm-plex-mono
+        nerd-fonts.jetbrains-mono
+        nerd-fonts.fira-code
+        # nerd-fonts.cascadia-code
+        nerd-fonts.hack
       ];
 
       gui-packages = [
@@ -49,6 +65,7 @@
     builtins.concatLists [
       ai-coding-agent-packages
       cli-packages
+      font-packages
       gui-packages
     ];
 
