@@ -8,7 +8,7 @@
     ../../../../common/hm/base.nix
     ../../../../common/hm/core-max.nix
     ../../../../common/hm/fastfetch.nix
-    ../../../../common/hm/firefox
+   # ../../../../common/hm/firefox
     ../../../../common/hm/keybase.nix
     ../../../../common/hm/mise.nix
     ../../../../common/hm/wezterm.nix
