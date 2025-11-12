@@ -10,9 +10,10 @@
     ../../../../common/hm/base.nix
     ../../../../common/hm/core-max.nix
     ../../../../common/hm/fastfetch.nix
+    ../../../../common/hm/fzf.nix
     ../../../../common/hm/keybase.nix
     ../../../../common/hm/mise.nix
-    ../../../../common/hm/ohmyzsh.nix
+    ../../../../common/hm/zsh.nix
     ../../../../common/hm/wezterm.nix
     ../../../../common/hm/zathura.nix
   ];
@@ -28,8 +29,8 @@
     ];
   };
 
-  programs.zsh.enable = true;
-
+  home.sessionVariables.SHELL = "${pkgs.zsh}/bin/zsh";
+  
   home.packages =
     let
       ai-coding-agent-packages = with pkgs; [
@@ -47,10 +48,8 @@
       font-packages = with pkgs; [
         nerd-fonts.iosevka
         nerd-fonts.iosevka-term
-        # nerd-fonts.ibm-plex-mono
         nerd-fonts.jetbrains-mono
         nerd-fonts.fira-code
-        # nerd-fonts.cascadia-code
         nerd-fonts.hack
       ];
 
