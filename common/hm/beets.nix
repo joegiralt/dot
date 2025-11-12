@@ -9,7 +9,7 @@
     beets
   ];
 
-  # doesn't work, 
+  # doesn't work,
   # systemd.user.tmpfiles.settings.beets = {
   #   purgeOnChange = false;
   #   rules = {

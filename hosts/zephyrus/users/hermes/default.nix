@@ -10,7 +10,6 @@
     ../../../../common/hm/base.nix
     ../../../../common/hm/core-max.nix
     ../../../../common/hm/fastfetch.nix
-   # ../../../../common/hm/firefox
     ../../../../common/hm/keybase.nix
     ../../../../common/hm/mise.nix
     ../../../../common/hm/ohmyzsh.nix
@@ -28,9 +27,9 @@
       "nvidia"
     ];
   };
-  
+
   programs.zsh.enable = true;
-  
+
   home.packages =
     let
       ai-coding-agent-packages = with pkgs; [
@@ -42,9 +41,9 @@
         agenix
         tokei
         colmena
-        
+
       ];
-      
+
       font-packages = with pkgs; [
         nerd-fonts.iosevka
         nerd-fonts.iosevka-term
