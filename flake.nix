@@ -88,6 +88,11 @@
           host = "pop-os";
           system = systems.x86;
         }
+        {
+          user = "hermes";
+          host = "zephyrus";
+          system = systems.x86;
+        }
       ];
     };
 }

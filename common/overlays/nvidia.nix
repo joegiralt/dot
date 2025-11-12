@@ -1,5 +1,6 @@
 _: _: prev: {
   nixgl = prev.nixgl.override {
     nvidiaURL = "https://us.download.nvidia.com/XFree86/Linux-x86_64";
+    nvidiaVersion = "580.82.09";
   };
 }
