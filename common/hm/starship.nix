@@ -22,8 +22,8 @@
       };
 
       git_branch = {
-        format = " [$symbol$branch]($style) ";
-        symbol = " ";
+        format = "on [$symbol$branch]($style)";
+        symbol = "🌱 ";
         style = "bold purple";
       };
 
