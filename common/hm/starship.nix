@@ -95,13 +95,22 @@
         format = " [🦀 - Hello Rustacean!]($style)";
         style = "red bold";
       };
+      
+      # --- Nix ---
+      custom = {
+        nix = {
+          command = "echo nix";
+          when = "test -f flake.nix || test -f default.nix || test -d nix";
+          format = " [$output]($style)";
+          style = "green bold";
+        };
+      };
 
       # --- Ruby ---
       ruby = {
         detect_files = [
           "Gemfile"
           ".ruby-version"
-          "Rakefile"
         ];
         detect_folders = [ "gem" ];
         format = " [♦️ hello Rubyist!]($style)";
@@ -111,7 +120,7 @@
       # --- Elixir ---
       elixir = {
         detect_files = [ "mix.exs" ];
-        format = " [ex]($style)";
+        format = " [elixir]($style)";
         style = "purple bold";
       };
 
