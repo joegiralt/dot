@@ -22,7 +22,7 @@
       };
 
       git_branch = {
-        format = "on [$symbol$branch]($style)";
+        format = "on [$symbol$branch]($style) ";
         symbol = "🌱 ";
         style = "bold purple";
       };
@@ -139,9 +139,9 @@
 
       battery = {
         disabled = false;
-        full_symbol = "";
-        charging_symbol = "";
-        discharging_symbol = "";
+        full_symbol = "🔋";
+        charging_symbol = "🔌";
+        discharging_symbol = "🪫";
 
         display = [
           {
