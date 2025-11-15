@@ -23,8 +23,8 @@
           gleam = "latest";
           golang = "latest";
           nodejs = "22.5.1";
+          ruby = "latest";
           zig = "latest";
-          yarn = "13.1.0";
         };
       };
     };

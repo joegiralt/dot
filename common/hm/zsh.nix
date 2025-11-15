@@ -31,6 +31,7 @@
       zle -N up-line-or-beginning-search
 
       eval "$(atuin init zsh)"
+      eval "$(mise activate zsh)"
 
       pod-logs() {
         local container_name=$1
