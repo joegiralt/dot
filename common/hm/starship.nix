@@ -6,129 +6,156 @@
 
     settings = {
       # General layout:
-      # first line: path + git + langs + nix shell + (maybe) cmd duration
+      # first line: user/host (if remote) + dir + git + langs + nix + env info
       # second line: prompt character
       add_newline = true;
-      format = "$directory$git_branch$git_status$nodejs$python$ruby$elixir$rust$nix_shell$cmd_duration\n$character\n";
+      format = "$username$hostname$directory$git_branch$git_status$custom.nix$nodejs$python$ruby$elixir$rust$nix_shell$battery$cmd_duration$status$jobs\n$character\n";
 
-      # --- Directory ---
+      ########################
+      # Core prompt pieces   #
+      ########################
+
       directory = {
         style = "bold blue";
-        truncation_length = 2; # keep last 2 components: …/etl/app
-        truncate_to_repo = true; # don't truncate inside a git repo root
+        truncation_length = 2;
+        truncate_to_repo = true;
       };
 
-      # --- Git branch ---
       git_branch = {
         format = " [$symbol$branch]($style) ";
         symbol = " ";
         style = "bold purple";
       };
 
-      # --- Git status (compact) ---
       git_status = {
         conflicted = "✖";
-        ahead = "⇡";
-        behind = "⇣";
-        staged = "+";
-        modified = "!";
-        untracked = "?";
-        stashed = "⧉";
-        style = "yellow";
-        format = "$all_status";
+        ahead      = "⇡";
+        behind     = "⇣";
+        staged     = "+";
+        modified   = "!";
+        untracked  = "?";
+        stashed    = "⧉";
+        style      = "yellow";
+        format     = "$all_status";
       };
 
-      # --- Nix shell indicator ---
       nix_shell = {
         format = " via [$state]($style)";
-        style = "cyan bold";
+        style  = "cyan bold";
       };
 
-      # --- Command duration (only if slow) ---
       cmd_duration = {
-        min_time = 2000; # ms; only show if > 2s
-        format = " took [$duration]($style)";
-        style = "bold yellow";
+        min_time = 2000;  # ms; only show if > 2s
+        format   = " took [$duration]($style)";
+        style    = "bold yellow";
       };
 
-      # --- Prompt character (no emoji garbage) ---
+      status = {
+        disabled   = false;
+        format     = " [✖ $status]($style)";
+        style      = "bold red";
+        pipestatus = true;
+      };
+
+      jobs = {
+        threshold = 1;
+        format    = " [$symbol$number]($style)";
+        symbol    = "✦";
+        style     = "bold blue";
+      };
+
       character = {
         success_symbol = "❯";
-        error_symbol = "❯";
-        vicmd_symbol = "❮";
+        error_symbol   = "❯";
+        vicmd_symbol   = "❮";
       };
 
-      # --- Time (kept disabled, but configured) ---
       time = {
-        disabled = true;
+        disabled    = true;
         time_format = "%H:%M:%S";
-        style = "dimmed blue";
+        style       = "dimmed blue";
       };
 
-      # --- Node.js ---
+      ########################
+      # Lang / stack bits    #
+      ########################
+
       nodejs = {
-        detect_files = [
-          "package.json"
-          ".nvmrc"
-          "node_modules"
-        ];
-        detect_folders = [ "node_modules" ];
-        format = " [nodejs]($style)";
-        style = "green bold";
+        detect_files    = [ "package.json" ".nvmrc" "node_modules" ];
+        detect_folders  = [ "node_modules" ];
+        format          = " [nodejs]($style)";
+        style           = "green bold";
       };
 
-      # --- Python ---
       python = {
-        detect_files = [
-          "pyproject.toml"
-          "requirements.txt"
-          "Pipfile"
-        ];
-        format = " [py]($style)";
-        style = "yellow bold";
+        detect_files = [ "pyproject.toml" "requirements.txt" "Pipfile" ];
+        format       = " [py]($style)";
+        style        = "yellow bold";
       };
 
-      # --- Rust ---
       rust = {
-        detect_files = [ "Cargo.toml" ];
+        detect_files      = [ "Cargo.toml" ];
         detect_extensions = [ "rs" ];
-        format = " [🦀 - Hello Rustacean!]($style)";
-        style = "red bold";
+        format            = " [🦀 - Hello Rustacean!]($style)";
+        style             = "green bold";
       };
-      
-      # --- Nix ---
+
+      ruby = {
+        detect_files   = [ "Gemfile" ".ruby-version" ];
+        detect_folders = [ "gems" "vendor/bundle" ];
+        format         = " [rb]($style)";
+        style          = "red bold";
+      };
+
+      elixir = {
+        detect_files = [ "mix.exs" ];
+        format       = " [ex]($style)";
+        style        = "purple bold";
+      };
+
+      # Nix project detection via custom module
       custom = {
         nix = {
           command = "echo nix";
-          when = "test -f flake.nix || test -f default.nix || test -d nix";
-          format = " [$output]($style)";
-          style = "green bold";
+          when    = "test -f flake.nix || test -f default.nix || test -d nix";
+          format  = " [$output]($style)";
+          style   = "green bold";
         };
       };
 
-      # --- Ruby ---
-      ruby = {
-        detect_files = [
-          "Gemfile"
-          ".ruby-version"
-        ];
-        detect_folders = [ "gem" ];
-        format = " [♦️ hello Rubyist!]($style)";
-        style = "red bold";
-      };
+      ########################
+      # Env / context bits   #
+      ########################
 
-      # --- Elixir ---
-      elixir = {
-        detect_files = [ "mix.exs" ];
-        format = " [elixir]($style)";
-        style = "purple bold";
-      };
-
-      # --- Docker / Podman context ---
       docker_context = {
-        format = " docker:[$context]($style)";
-        style = "blue bold";
+        format   = " docker:[$context]($style)";
+        style    = "blue bold";
         disabled = false;
+      };
+
+      battery = {
+        disabled          = false;
+        full_symbol       = "";
+        charging_symbol   = "";
+        discharging_symbol = "";
+
+        display = [
+          { threshold = 20; style = "bold red"; }
+          { threshold = 50; style = "bold yellow"; }
+        ];
+      };
+
+      username = {
+        show_always = false;        # only show when it matters (root/ssh)
+        style_user  = "bold green";
+        style_root  = "bold red";
+        format      = "[$user]($style) ";
+      };
+
+      hostname = {
+        ssh_only = true;
+        format   = "[@$hostname]($style) ";
+        style    = "bold green";
       };
     };
   };
