@@ -14,6 +14,8 @@
     ../../../../common/hm/mise.nix
     ../../../../common/hm/wezterm.nix
     ../../../../common/hm/zathura.nix
+    ../../../../common/hm/starship.nix
+    ../../../../common/hm/zsh.nix
   ];
 
   targets.genericLinux.nixGL = {
@@ -40,6 +42,14 @@
         colmena
       ];
 
+      font-packages = with pkgs; [
+        nerd-fonts.iosevka
+        nerd-fonts.iosevka-term
+        nerd-fonts.jetbrains-mono
+        nerd-fonts.fira-code
+        nerd-fonts.hack
+      ];
+
       gui-packages = [
         (config.lib.nixGL.wrap pkgs.slack)
         (config.lib.nixGL.wrap pkgs.zed-editor)
@@ -50,6 +60,7 @@
     builtins.concatLists [
       ai-coding-agent-packages
       cli-packages
+      font-packages
       gui-packages
     ];
 
