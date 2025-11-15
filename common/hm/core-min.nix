@@ -6,7 +6,6 @@
     direnv # directory specific env
     dust # file disk space usage summary
     exiftool # rw exif information
-    eza # modern ls
     fd # modern find
     fzf # fuzzy finder
     jq # json query lang

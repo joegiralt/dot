@@ -22,7 +22,7 @@
       };
 
       git_branch = {
-        format = "on [$symbol$branch]($style)";
+        format = "on [$symbol$branch]($style) ";
         symbol = "🌱 ";
         style = "bold purple";
       };

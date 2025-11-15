@@ -1,5 +1,14 @@
 { pkgs, ... }:
 {
+
+  home.shellAliases = {
+    v = "vim";
+    ls = "eza --icons";
+    ll = "eza -l --icons";
+    la = "eza -la --icons";
+    lt = "eza --tree --icons";
+  };
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -9,14 +18,6 @@
       ignoreDups = true;
       save = 1000000;
       size = 1000000;
-    };
-
-    shellAliases = {
-      v = "vim";
-      ls = "eza";
-      ll = "eza -l";
-      la = "eza -la";
-      lt = "eza --tree";
     };
 
     initContent = ''
