@@ -9,7 +9,7 @@
       # first line: user/host (if remote) + dir + git + langs + nix + env info
       # second line: prompt character
       add_newline = true;
-      format = "$username$hostname$directory$git_branch$git_status$custom.nix$nodejs$python$ruby$elixir$rust$nix_shell$battery$cmd_duration$status$jobs\n$character\n";
+      format = "$username$hostname$directory$git_branch$git_status$nodejs$python$ruby$elixir$rust$nix_shell$battery$cmd_duration$status$jobs\n$character\n";
 
       ########################
       # Core prompt pieces   #
@@ -125,16 +125,6 @@
         detect_files = [ "mix.exs" ];
         format = " [ex]($style)";
         style = "purple bold";
-      };
-
-      # Nix project detection via custom module
-      custom = {
-        nix = {
-          command = "echo nix";
-          when = "test -f flake.nix || test -f default.nix || test -d nix";
-          format = " [$output]($style)";
-          style = "green bold";
-        };
       };
 
       ########################
