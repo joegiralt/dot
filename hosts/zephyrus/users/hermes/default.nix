@@ -13,6 +13,7 @@
     ../../../../common/hm/fzf.nix
     ../../../../common/hm/keybase.nix
     ../../../../common/hm/mise.nix
+    ../../../../common/hm/starship.nix
     ../../../../common/hm/zsh.nix
     ../../../../common/hm/wezterm.nix
     ../../../../common/hm/zathura.nix
@@ -30,7 +31,7 @@
   };
 
   home.sessionVariables.SHELL = "${pkgs.zsh}/bin/zsh";
-  
+
   home.packages =
     let
       ai-coding-agent-packages = with pkgs; [
