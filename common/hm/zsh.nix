@@ -10,6 +10,10 @@ _: {
     };
     shellAliases = {
       v = "vim";
+      ls = "eza";
+      ll = "eza -l";
+      la = "eza -la";
+      lt = "eza --tree";
     };
     initContent = ''
       unalias 9

@@ -9,6 +9,7 @@
     ../../../../common/hm/btop.nix
     ../../../../common/hm/base.nix
     ../../../../common/hm/core-max.nix
+    ../../../../common/hm/core-min.nix
     ../../../../common/hm/fastfetch.nix
     ../../../../common/hm/fzf.nix
     ../../../../common/hm/keybase.nix
@@ -42,7 +43,6 @@
         agenix
         tokei
         colmena
-
       ];
 
       font-packages = with pkgs; [

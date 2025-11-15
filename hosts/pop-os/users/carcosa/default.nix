@@ -7,6 +7,7 @@
   imports = [
     ../../../../common/hm/base.nix
     ../../../../common/hm/core-max.nix
+    ../../../../common/hm/core-min.nix
     ../../../../common/hm/fastfetch.nix
     ../../../../common/hm/firefox
     ../../../../common/hm/keybase.nix
