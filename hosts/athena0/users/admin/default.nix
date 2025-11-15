@@ -12,7 +12,7 @@
     ../../../../common/hm/zsh.nix
   ];
 
-  nixGL = {
+  targets.genericLinux.nixGL = {
     inherit (inputs.nixgl) packages;
     defaultWrapper = "mesa";
     offloadWrapper = "nvidia";
