@@ -19,6 +19,8 @@
         style = "bold blue";
         truncation_length = 2;
         truncate_to_repo = true;
+        home_symbol = "~";
+        format = " :: [$path]($style)[$read_only]($read_only_style) ";
       };
 
       git_branch = {
@@ -65,8 +67,8 @@
       };
 
       character = {
-        success_symbol = "❯";
-        error_symbol = "❯";
+        success_symbol = "[λ](bold yellow) ";
+        error_symbol = "[✗](bold red)";
         vicmd_symbol = "❮";
       };
 
@@ -156,14 +158,14 @@
       };
 
       username = {
-        show_always = false; # only show when it matters (root/ssh)
+        show_always = true; # only show when it matters (root/ssh)
         style_user = "bold green";
         style_root = "bold red";
-        format = "[$user]($style) ";
+        format = "[$user]($style)";
       };
 
       hostname = {
-        ssh_only = true;
+        # ssh_only = true;
         format = "[@$hostname]($style) ";
         style = "bold green";
       };
