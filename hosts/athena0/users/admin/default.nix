@@ -9,6 +9,7 @@
     ../../../../common/hm/git.nix
     ../../../../common/hm/github.nix
     ../../../../common/hm/mise.nix
+    ../../../../common/hm/starship.nix
     ../../../../common/hm/vscode.nix
     ../../../../common/hm/zsh.nix
   ];
