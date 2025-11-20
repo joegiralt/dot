@@ -5,17 +5,20 @@
 }:
 {
   imports = [
+    ../../../../common/hm/atuin.nix
+    ../../../../common/hm/btop.nix
     ../../../../common/hm/base.nix
     ../../../../common/hm/core-max.nix
     ../../../../common/hm/core-min.nix
+    ../../../../common/hm/eza.nix
     ../../../../common/hm/fastfetch.nix
-    ../../../../common/hm/firefox
+    ../../../../common/hm/fzf.nix
     ../../../../common/hm/keybase.nix
     ../../../../common/hm/mise.nix
-    ../../../../common/hm/wezterm.nix
-    ../../../../common/hm/zathura.nix
     ../../../../common/hm/starship.nix
     ../../../../common/hm/zsh.nix
+    ../../../../common/hm/wezterm.nix
+    ../../../../common/hm/zathura.nix
   ];
 
   targets.genericLinux.nixGL = {
@@ -52,7 +55,7 @@
 
       gui-packages = [
         (config.lib.nixGL.wrap pkgs.slack)
-        (config.lib.nixGL.wrap pkgs.zed-editor)
+        (config.lib.nixGL.wrapOffload pkgs.zed-editor)
         (config.lib.nixGL.wrapOffload pkgs.upscayl)
       ];
 
