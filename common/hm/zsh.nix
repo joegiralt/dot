@@ -44,6 +44,10 @@
 
       export LD_LIBRARY_PATH=/run/opengl-driver/lib
       export PATH="$HOME/.local/bin:$PATH"
+      # RUST AUTOLOADS
+      if [ -f "$HOME/.cargo/env" ]; then
+        . $HOME/.cargo/env
+      fi
     '';
 
     oh-my-zsh = {
