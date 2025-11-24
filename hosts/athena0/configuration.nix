@@ -298,6 +298,7 @@
         "https://cuda-maintainers.cachix.org"
         "https://numtide.cachix.org"
         "https://colmena.cachix.org"
+        "https://cache.flox.dev"
       ];
 
       trusted-public-keys = [
@@ -306,6 +307,7 @@
         "cuda-maintainers.cachix.org-1:Ji+ZysQ8GqEtvQF3o4O5q6c3y8C3b2q9p5g6s7d8e9k="
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
+        "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
       ];
 
       trusted-substituters = [
