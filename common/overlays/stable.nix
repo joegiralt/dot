@@ -2,6 +2,7 @@
 prev: _: {
   inherit (inputs.stablepkgs.legacyPackages.${prev.stdenv.hostPlatform.system})
     lmms
+    firefox-unwrapped
     jellyfin-media-player
     ledger
     libvdpau-va-gl
