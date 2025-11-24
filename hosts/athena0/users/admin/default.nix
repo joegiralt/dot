@@ -3,7 +3,7 @@
   imports = [
     ../../../../common/hm/atuin.nix
     ../../../../common/hm/base.nix
-    ../../../../common/hm/beets.nix
+    # ../../../../common/hm/beets.nix
     ../../../../common/hm/btop.nix
     ../../../../common/hm/core-max.nix
     ../../../../common/hm/git.nix

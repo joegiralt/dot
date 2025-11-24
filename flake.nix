@@ -46,7 +46,7 @@
     in
     {
 
-      # colmena deployments
+      # Colmena deployments
       colmenaHive = mkColmenaFromNixOSConfigurations self.nixosConfigurations;
 
       # Formatters for all systems
