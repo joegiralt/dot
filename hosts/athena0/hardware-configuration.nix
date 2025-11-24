@@ -100,15 +100,15 @@
     };
 
     # NVIDIA Container Toolkit
-    # nvidia-container-toolkit = {
-    #   enable = true;
-    #   mount-nvidia-executables = true;
-    # };
+    nvidia-container-toolkit = {
+      enable = true;
+      mount-nvidia-executables = true;
+    };
   };
 
-  # systemd.services.nvidia-container-toolkit-cdi-generator.environment.LD_LIBRARY_PATH =
-  #   "${pkgs.lib.getLib config.hardware.nvidia.package}/lib";
+  systemd.services.nvidia-container-toolkit-cdi-generator.environment.LD_LIBRARY_PATH =
+    "${pkgs.lib.getLib config.hardware.nvidia.package}/lib";
 
-  # environment.etc."cdi/nvidia-container-toolkit.json".source =
-  #   "/run/cdi/nvidia-container-toolkit.json";
+  environment.etc."cdi/nvidia-container-toolkit.json".source =
+    "/run/cdi/nvidia-container-toolkit.json";
 }
