@@ -5,7 +5,7 @@ prev: _: {
     jellyfin-media-player
     ledger
     libvdpau-va-gl
-    onnxruntime-1.22.2
+    onnxruntime
     sonic-pi
     awscli2
     wezterm
