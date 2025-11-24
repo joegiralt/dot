@@ -13,7 +13,7 @@
     ../../common/os/services
     ../../common/secmap.nix
   ];
-  
+
   nix.settings.download-buffer-size = 524288000;
 
   # Bootloader configuration
@@ -45,7 +45,7 @@
       hybrid-sleep.enable = false;
     };
   };
-  
+
   # Virtualization
   virtualisation.podman = {
     enable = true;

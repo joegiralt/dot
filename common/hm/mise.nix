@@ -25,6 +25,11 @@
           nodejs = "22.5.1";
           ruby = "latest";
           zig = "latest";
+          ocaml = "latest";
+          julia = "latest";
+          clojure = "latest";
+          racket = "latest";
+          python = "latest";
         };
       };
     };

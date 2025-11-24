@@ -3,7 +3,7 @@ FROM nixos/nix
 # Set up environment for building the NixOS configuration
 RUN nix-channel --update
 
-# Copy your flake files to the Docker image
+# Copy your flake files to the image
 COPY . /workspace
 WORKDIR /workspace
 
