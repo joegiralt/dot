@@ -18,7 +18,7 @@
       
       local function scheme_for_appearance(appearance)
         if appearance:find("Dark") then
-          return "XY-Zed"
+          return "Grandshell (terminal.sexy)"
         else
           return "XY-Zed"
         end
@@ -58,14 +58,14 @@
         background = "#121212",          -- terminal.background
       
         -- Cursor (use the green accent from the theme)
-        cursor_bg = "#7de486",           -- players[0].cursor
+        cursor_bg = "#8BEF9A",           -- players[0].cursor
         cursor_fg = "#121212",           -- dark bg behind it
-        cursor_border = "#7de486",
+        cursor_border = "#8BEF9A",
       
         -- Selection
         selection_fg = "#121212",
-        -- Zed uses #7de4863d (transparent); wezterm has no alpha in hex, so we use solid accent
-        selection_bg = "#7de486",
+        -- Zed uses #8BEF9A3d (transparent); wezterm has no alpha in hex, so we use solid accent
+        selection_bg = "#8BEF9A",
       
         -- Split lines etc (use a subtle grey from the palette)
         split = "#40434c",               -- terminal.ansi.bright_black
@@ -77,7 +77,7 @@
         ansi = {
           "#1e2025", -- 0: black          terminal.ansi.black
           "#f82871", -- 1: red            terminal.ansi.red
-          "#96df71", -- 2: green          terminal.ansi.green
+          "#8BEF9A", -- 2: green          terminal.ansi.green
           "#fee56c", -- 3: yellow         terminal.ansi.yellow
           "#10a793", -- 4: blue (tealish) terminal.ansi.blue
           "#c74cec", -- 5: magenta        terminal.ansi.magenta
@@ -147,7 +147,7 @@
       if wezterm.gui then
         config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
       else
-        config.color_scheme = "XY-Zed"
+        config.color_scheme = "GruvboxDarkHard"
       end
       
       config.window_decorations = "RESIZE"   -- "NONE", "TITLE", "RESIZE", "INTEGRATED_BUTTONS"
@@ -170,7 +170,7 @@
       
       config.adjust_window_size_when_changing_font_size = true
       
-      config.use_fancy_tab_bar = true
+      config.use_fancy_tab_bar = false
       config.hide_tab_bar_if_only_one_tab = true
       config.show_new_tab_button_in_tab_bar = true
       config.tab_max_width = 32
