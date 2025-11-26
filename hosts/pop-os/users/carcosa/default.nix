@@ -57,6 +57,7 @@
         (config.lib.nixGL.wrap pkgs.slack)
         (config.lib.nixGL.wrapOffload pkgs.zed-editor)
         (config.lib.nixGL.wrapOffload pkgs.upscayl)
+        (config.lib.nixGL.wrapOffload pkgs.cool-retro-term)
       ];
 
     in
