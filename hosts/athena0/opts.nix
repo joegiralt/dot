@@ -90,6 +90,7 @@ rec {
     readarr = "8787";
     romm-app = "9041";
     romm-db = "9042";
+    searxng-www = "8798";
     sonarr = "8989";
     stirling-pdf = "3456";
     unbound_dns = "5053";

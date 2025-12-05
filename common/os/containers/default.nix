@@ -23,6 +23,7 @@
     ./radarr.nix
     ./readarr.nix
     ./romms.nix
+    ./searxng.nix
     ./sonarr.nix
     ./stirling-pdf.nix
     ./telemetry.nix

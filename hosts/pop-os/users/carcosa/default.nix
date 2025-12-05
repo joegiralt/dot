@@ -58,6 +58,7 @@
         (config.lib.nixGL.wrapOffload pkgs.zed-editor)
         (config.lib.nixGL.wrapOffload pkgs.upscayl)
         (config.lib.nixGL.wrapOffload pkgs.cool-retro-term)
+        (config.lib.nixGL.wrapOffload pkgs.teams-for-linux)
       ];
 
     in
