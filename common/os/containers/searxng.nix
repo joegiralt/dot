@@ -26,7 +26,7 @@
         "--dns=${opts.lanAddress}"
       ];
       environment = {
-        SEARXNG_BASE_URL = "https://searxng.nullptr.sh";
+        SEARXNG_BASE_URL = "https://searxng.nothing.ltd";
         TZ = opts.timeZone;
         PUID = opts.adminUID;
         PGID = opts.adminGID;
