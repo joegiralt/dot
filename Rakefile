@@ -280,6 +280,9 @@ namespace :tailscale do
     "kul" => { host: "my-kul-wg-001.mullvad.ts.net", match: "my-kul-wg-001" },
   }.freeze
 
+  HEALTH_STATE = "/var/lib/tailscale-exit-health"
+  LAST_CYCLE   = "#{HEALTH_STATE}/last_cycle"
+  COOLDOWN_SEC = 30 * 60   # 30 minutes
 
   def tailscale_status_json
     out, _ = Open3.capture2("tailscale status --json")
@@ -303,6 +306,54 @@ namespace :tailscale do
     end
 
     nil
+  end
+  
+  # rruns a shell command, returns true/false
+  def sh_ok?(cmd)
+    system(cmd, out: File::NULL, err: File::NULL)
+  end
+ 
+  # simple connectivity tests
+  def healthy?
+    return false unless sh_ok?("ping -c1 -W1 1.1.1.1")
+    return false unless sh_ok?("ping -c1 -W1 8.8.8.8")
+    return false unless sh_ok?("curl -4 --silent --max-time 5 https://github.com")
+
+    true
+  end
+ 
+  def cooldown_expired?
+    FileUtils.mkdir_p(HEALTH_STATE)
+
+    return true unless File.exist?(LAST_CYCLE)
+
+    last = File.read(LAST_CYCLE).to_i
+    now  = Time.now.to_i
+
+    (now - last) >= COOLDOWN_SEC
+  end
+
+  def record_cycle!
+    FileUtils.mkdir_p(HEALTH_STATE)
+    File.write(LAST_CYCLE, Time.now.to_i.to_s)
+  end
+  
+  desc "Check Tailscale connectivity; auto-cycle exit node if bad"
+    task :health do
+      unless cooldown_expired?
+        puts "Cooldown active. Skipping."
+        next
+      end
+  
+      if healthy?
+        puts "Tailscale connection OK. No action."
+        next
+      end
+  
+      puts "Connectivity bad. Cycling exit node…"
+      Rake::Task["tailscale:cycle"].invoke
+      record_cycle!
+    end
   end
 
   desc "Show Tailscale status including current exit node"
