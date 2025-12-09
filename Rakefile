@@ -4,6 +4,7 @@ require "etc"
 # tailscale
 require "open3"
 require "json"
+require "fileutils"
 
 def current_user
   @current_user ||= `whoami`.strip
@@ -17,7 +18,7 @@ def nix_jobs
   raw = ENV["NIX_JOBS"]
   return Integer(raw, exception: false) if raw && Integer(raw, exception: false).to_i > 0
 
-  threads = Etc.nprocessors        # logical cpuss
+  threads = Etc.nprocessors        # logical cpus
   max_jobs = threads               # full blast
   min_jobs = [threads - 2, 1].max  # just a wee bit of headroom
 
@@ -39,9 +40,9 @@ namespace :nix do
   task :format do
     sh("nix fmt")
   end
-  
+
   desc "show basic nix environment and config info"
-    task :info do
+  task :info do
     system_str = begin
       `nix eval --raw --impure --expr 'builtins.currentSystem' 2>/dev/null`.strip
     rescue
@@ -118,7 +119,7 @@ namespace :nix do
     puts "HM version:    #{hm_version}"
     puts "System:        #{system_str}"
     puts
-    
+
     puts "== Substituters =="
     puts substituters.split(" ")[2..]
     puts
@@ -128,7 +129,6 @@ namespace :nix do
     puts max_jobs
     puts cores
     puts sandbox
-  
     puts store_dir
     puts
 
@@ -253,25 +253,25 @@ namespace :tailscale do
     "bcn" => { host: "es-bcn-wg-001.mullvad.ts.net", match: "es-bcn-wg-001" },
     "mad" => { host: "es-mad-wg-201.mullvad.ts.net", match: "es-mad-wg-201" },
     "lis" => { host: "pt-lis-wg-201.mullvad.ts.net", match: "pt-lis-wg-201" },
-  
+
     # Core EU
     "par" => { host: "fr-par-wg-001.mullvad.ts.net", match: "fr-par-wg-001" },
     "fra" => { host: "de-fra-wg-001.mullvad.ts.net", match: "de-fra-wg-001" },
     "ams" => { host: "nl-ams-wg-001.mullvad.ts.net", match: "nl-ams-wg-001" },
     "ber" => { host: "de-ber-wg-001.mullvad.ts.net", match: "de-ber-wg-001" },
     "zrh" => { host: "ch-zrh-wg-201.mullvad.ts.net", match: "ch-zrh-wg-201" },
-  
+
     # UK
     "lon" => { host: "gb-lon-wg-001.mullvad.ts.net", match: "gb-lon-wg-001" },
     "man" => { host: "gb-mnc-wg-201.mullvad.ts.net", match: "gb-mnc-wg-201" },
-  
+
     # US
     "nyc" => { host: "us-nyc-wg-301.mullvad.ts.net", match: "us-nyc-wg-301" },
     "lax" => { host: "us-lax-wg-101.mullvad.ts.net", match: "us-lax-wg-101" },
     "chi" => { host: "us-chi-wg-301.mullvad.ts.net", match: "us-chi-wg-301" },
     "sea" => { host: "us-sea-wg-001.mullvad.ts.net", match: "us-sea-wg-001" },
     "mia" => { host: "us-mia-wg-002.mullvad.ts.net", match: "us-mia-wg-002" },
-  
+
     # Far East / APAC
     "tyo" => { host: "jp-tyo-wg-001.mullvad.ts.net", match: "jp-tyo-wg-001" },
     "osa" => { host: "jp-osa-wg-001.mullvad.ts.net", match: "jp-osa-wg-001" },
@@ -280,8 +280,8 @@ namespace :tailscale do
     "kul" => { host: "my-kul-wg-001.mullvad.ts.net", match: "my-kul-wg-001" },
   }.freeze
 
-  HEALTH_STATE = "/var/lib/tailscale-exit-health"
-  LAST_CYCLE   = "#{HEALTH_STATE}/last_cycle"
+  HEALTH_STATE = "/var/lib/tailscale-exit-health".freeze
+  LAST_CYCLE   = "#{HEALTH_STATE}/last_cycle".freeze
   COOLDOWN_SEC = 30 * 60   # 30 minutes
 
   def tailscale_status_json
@@ -300,19 +300,19 @@ namespace :tailscale do
     name = s["HostName"] || s["DNSName"] || s["ID"]
     return nil unless name
 
-    # ffind which alias matches this name by substring
+    # find which alias matches this name by substring
     EXIT_NODE_MAP.each do |alias_name, cfg|
       return alias_name if name.include?(cfg[:match])
     end
 
     nil
   end
-  
-  # rruns a shell command, returns true/false
+
+  # runs a shell command, returns true/false
   def sh_ok?(cmd)
     system(cmd, out: File::NULL, err: File::NULL)
   end
- 
+
   # simple connectivity tests
   def healthy?
     return false unless sh_ok?("ping -c1 -W1 1.1.1.1")
@@ -321,10 +321,9 @@ namespace :tailscale do
 
     true
   end
- 
+
   def cooldown_expired?
     FileUtils.mkdir_p(HEALTH_STATE)
-
     return true unless File.exist?(LAST_CYCLE)
 
     last = File.read(LAST_CYCLE).to_i
@@ -337,23 +336,22 @@ namespace :tailscale do
     FileUtils.mkdir_p(HEALTH_STATE)
     File.write(LAST_CYCLE, Time.now.to_i.to_s)
   end
-  
-  desc "Check Tailscale connectivity; auto-cycle exit node if bad"
-    task :health do
-      unless cooldown_expired?
-        puts "Cooldown active. Skipping."
-        next
-      end
-  
-      if healthy?
-        puts "Tailscale connection OK. No action."
-        next
-      end
-  
-      puts "Connectivity bad. Cycling exit node…"
-      Rake::Task["tailscale:cycle"].invoke
-      record_cycle!
+
+  desc "Check Tailscale connectivity; auto-cycle exit node if bad (for systemd)"
+  task :auto_health do
+    unless cooldown_expired?
+      puts "Cooldown active. Skipping."
+      next
     end
+
+    if healthy?
+      puts "Tailscale connection OK. No action."
+      next
+    end
+
+    puts "Connectivity bad. Cycling exit node…"
+    Rake::Task["tailscale:cycle"].invoke
+    record_cycle!
   end
 
   desc "Show Tailscale status including current exit node"
