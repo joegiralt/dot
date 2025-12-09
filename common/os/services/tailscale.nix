@@ -12,8 +12,8 @@
     openFirewall = true;
     authKeyFile = config.age.secrets.tailscale-auth-key.path;
     extraSetFlags = [
-      "--exit-node=es-mad-wg-102.mullvad.ts.net."
-      "--exit-node-allow-lan-access"
+      "--exit-node=es-mad-wg-102" # no domain, no trailing dot
+      "--exit-node-allow-lan-access=true"
     ];
   };
 }
