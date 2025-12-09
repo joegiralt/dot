@@ -1,4 +1,9 @@
+# nix info stuffs
 require "etc"
+
+# tailscale
+require "open3"
+require "json"
 
 def current_user
   @current_user ||= `whoami`.strip
@@ -238,5 +243,75 @@ namespace :arch do
   desc "restore packages from arch/aur/flatpak/cargo"
   task :restore do
     sh("./bin/restore-packages")
+  end
+end
+
+namespace :tailscale do
+  # map short names --> actual Mullvad exit node hostnames
+  EXIT_NODE_MAP = {
+    "bcn" => "es-bcn-wg-001.mullvad.ts.net",
+    "mad" => "es-mad-wg-201.mullvad.ts.net",
+    "par" => "fr-par-wg-001.mullvad.ts.net",
+    "fra" => "de-fra-wg-001.mullvad.ts.net",
+    "ams" => "nl-ams-wg-001.mullvad.ts.net"
+  }.freeze
+
+  def current_exit_node_hostname
+    out, _ = Open3.capture2("tailscale status --json")
+    begin
+      data = JSON.parse(out)
+      data.dig("ExitNodeStatus", "HostName")
+    rescue
+      nil
+    end
+  end
+
+  desc "Show Tailscale status including current exit node"
+  task :status do
+    sh("tailscale status")
+  end
+
+  desc "Clear exit node (return to direct WAN)"
+  task :clear do
+    sh("sudo tailscale set --exit-node=")
+  end
+
+  desc "Use an exit node alias. Example: rake 'tailscale:use[bcn]'"
+  task :use, [:alias] do |_t, args|
+    key = args[:alias]
+    unless key && EXIT_NODE_MAP.key?(key)
+      puts "Valid aliases: #{EXIT_NODE_MAP.keys.join(', ')}"
+      abort "Unknown alias: #{key.inspect}"
+    end
+
+    node = EXIT_NODE_MAP[key]
+    puts "Switching exit node to #{key} (#{node})"
+    sh("sudo tailscale set --exit-node=#{node} --exit-node-allow-lan-access=true")
+  end
+
+  desc "Cycle to next exit node in alias order"
+  task :cycle do
+    keys = EXIT_NODE_MAP.keys
+    current_host = current_exit_node_hostname
+    current_key =
+      EXIT_NODE_MAP.find { |_k, v| v == current_host }&.first
+
+    next_key =
+      if current_key
+        idx = keys.index(current_key)
+        keys[(idx + 1) % keys.length]
+      else
+        keys.first
+      end
+
+    node = EXIT_NODE_MAP[next_key]
+    puts "Cycling exit node → #{next_key} (#{node})"
+    sh("sudo tailscale set --exit-node=#{node} --exit-node-allow-lan-access=true")
+  end
+
+  desc "Ping via exit node to check tunnel health"
+  task :health, [:target] do |_t, args|
+    target = args[:target] || "8.8.8.8"
+    sh("ping -c3 #{target}")
   end
 end
