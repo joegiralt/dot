@@ -41,6 +41,13 @@
         fi
         podman ps -q --filter name="$container_name" | xargs -I {} podman logs {}
       }
+      
+      rake() {
+        GEM_HOME=/dev/null \
+        GEM_PATH=/dev/null \
+        BUNDLE_DISABLE_LOCAL_RUBYGEMS_PLUGINS=1 \
+          $HOME/.nix-profile/bin/rake "$@"
+      }
 
       export LD_LIBRARY_PATH=/run/opengl-driver/lib
       export PATH="$HOME/.local/bin:$PATH"
