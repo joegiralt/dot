@@ -41,7 +41,7 @@
         fi
         podman ps -q --filter name="$container_name" | xargs -I {} podman logs {}
       }
-      
+
       rake() {
         GEM_HOME=/dev/null \
         GEM_PATH=/dev/null \

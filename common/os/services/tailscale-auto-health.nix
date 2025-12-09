@@ -1,10 +1,15 @@
-{ config, pkgs, opts, ... }:
+{
+  config,
+  pkgs,
+  opts,
+  ...
+}:
 
 {
   systemd.tmpfiles.rules = [
     "d /var/lib/tailscale-exit-health 0755 ${opts.adminUID} ${opts.adminGID} -"
   ];
-  
+
   systemd.services."tailscale-auto-health" = {
     description = "Tailscale Exit Node Health Checker (auto cycle on failure)";
     after = [ "network-online.target" ];
@@ -26,7 +31,7 @@
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnBootSec = "5min";
-      OnUnitActiveSec = "10min";  # run every 10 minutes
+      OnUnitActiveSec = "10min"; # run every 10 minutes
       Unit = "tailscale-auto-health.service";
     };
   };
