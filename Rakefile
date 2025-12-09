@@ -247,23 +247,62 @@ namespace :arch do
 end
 
 namespace :tailscale do
-  # map short names --> actual Mullvad exit node hostnames
+  # alias => { host: value passed to tailscale set, match: substring to detect in status }
   EXIT_NODE_MAP = {
-    "bcn" => "es-bcn-wg-001.mullvad.ts.net",
-    "mad" => "es-mad-wg-201.mullvad.ts.net",
-    "par" => "fr-par-wg-001.mullvad.ts.net",
-    "fra" => "de-fra-wg-001.mullvad.ts.net",
-    "ams" => "nl-ams-wg-001.mullvad.ts.net"
+    # Iberia / nearby EU
+    "bcn" => { host: "es-bcn-wg-001.mullvad.ts.net", match: "es-bcn-wg-001" },
+    "mad" => { host: "es-mad-wg-201.mullvad.ts.net", match: "es-mad-wg-201" },
+    "lis" => { host: "pt-lis-wg-201.mullvad.ts.net", match: "pt-lis-wg-201" },
+  
+    # Core EU
+    "par" => { host: "fr-par-wg-001.mullvad.ts.net", match: "fr-par-wg-001" },
+    "fra" => { host: "de-fra-wg-001.mullvad.ts.net", match: "de-fra-wg-001" },
+    "ams" => { host: "nl-ams-wg-001.mullvad.ts.net", match: "nl-ams-wg-001" },
+    "ber" => { host: "de-ber-wg-001.mullvad.ts.net", match: "de-ber-wg-001" },
+    "zrh" => { host: "ch-zrh-wg-201.mullvad.ts.net", match: "ch-zrh-wg-201" },
+  
+    # UK
+    "lon" => { host: "gb-lon-wg-001.mullvad.ts.net", match: "gb-lon-wg-001" },
+    "man" => { host: "gb-mnc-wg-201.mullvad.ts.net", match: "gb-mnc-wg-201" },
+  
+    # US
+    "nyc" => { host: "us-nyc-wg-301.mullvad.ts.net", match: "us-nyc-wg-301" },
+    "lax" => { host: "us-lax-wg-101.mullvad.ts.net", match: "us-lax-wg-101" },
+    "chi" => { host: "us-chi-wg-301.mullvad.ts.net", match: "us-chi-wg-301" },
+    "sea" => { host: "us-sea-wg-001.mullvad.ts.net", match: "us-sea-wg-001" },
+    "mia" => { host: "us-mia-wg-002.mullvad.ts.net", match: "us-mia-wg-002" },
+  
+    # Far East / APAC
+    "tyo" => { host: "jp-tyo-wg-001.mullvad.ts.net", match: "jp-tyo-wg-001" },
+    "osa" => { host: "jp-osa-wg-001.mullvad.ts.net", match: "jp-osa-wg-001" },
+    "sin" => { host: "sg-sin-wg-001.mullvad.ts.net", match: "sg-sin-wg-001" },
+    "hkg" => { host: "hk-hkg-wg-201.mullvad.ts.net", match: "hk-hkg-wg-201" },
+    "kul" => { host: "my-kul-wg-001.mullvad.ts.net", match: "my-kul-wg-001" },
   }.freeze
 
-  def current_exit_node_hostname
+
+  def tailscale_status_json
     out, _ = Open3.capture2("tailscale status --json")
-    begin
-      data = JSON.parse(out)
-      data.dig("ExitNodeStatus", "HostName")
-    rescue
-      nil
+    JSON.parse(out)
+  rescue => e
+    warn "Failed to parse tailscale status JSON: #{e.class}: #{e.message}"
+    {}
+  end
+
+  def current_exit_node_label
+    data = tailscale_status_json
+    s = data.fetch("ExitNodeStatus", {})
+
+    # try HostName, then DNSName, then ID as last resort
+    name = s["HostName"] || s["DNSName"] || s["ID"]
+    return nil unless name
+
+    # ffind which alias matches this name by substring
+    EXIT_NODE_MAP.each do |alias_name, cfg|
+      return alias_name if name.include?(cfg[:match])
     end
+
+    nil
   end
 
   desc "Show Tailscale status including current exit node"
@@ -284,34 +323,39 @@ namespace :tailscale do
       abort "Unknown alias: #{key.inspect}"
     end
 
-    node = EXIT_NODE_MAP[key]
-    puts "Switching exit node to #{key} (#{node})"
-    sh("sudo tailscale set --exit-node=#{node} --exit-node-allow-lan-access=true")
+    cfg = EXIT_NODE_MAP[key]
+    puts "Switching exit node to #{key} (#{cfg[:host]})"
+    sh("sudo tailscale set --exit-node=#{cfg[:host]} --exit-node-allow-lan-access=true")
   end
 
   desc "Cycle to next exit node in alias order"
   task :cycle do
     keys = EXIT_NODE_MAP.keys
-    current_host = current_exit_node_hostname
-    current_key =
-      EXIT_NODE_MAP.find { |_k, v| v == current_host }&.first
+    current = current_exit_node_label
 
-    next_key =
-      if current_key
-        idx = keys.index(current_key)
-        keys[(idx + 1) % keys.length]
-      else
-        keys.first
-      end
+    if current
+      idx = keys.index(current) || 0
+      next_key = keys[(idx + 1) % keys.length]
+    else
+      # If we can't detect, start at the first
+      next_key = keys.first
+      warn "Could not detect current exit node; defaulting to #{next_key}"
+    end
 
-    node = EXIT_NODE_MAP[next_key]
-    puts "Cycling exit node → #{next_key} (#{node})"
-    sh("sudo tailscale set --exit-node=#{node} --exit-node-allow-lan-access=true")
+    cfg = EXIT_NODE_MAP[next_key]
+    puts "Cycling exit node → #{next_key} (#{cfg[:host]})"
+    sh("sudo tailscale set --exit-node=#{cfg[:host]} --exit-node-allow-lan-access=true")
   end
 
-  desc "Ping via exit node to check tunnel health"
+  desc "Ping via current exit node to check tunnel health"
   task :health, [:target] do |_t, args|
     target = args[:target] || "8.8.8.8"
     sh("ping -c3 #{target}")
+  end
+
+  desc "Debug: show JSON ExitNodeStatus"
+  task :debug_status do
+    data = tailscale_status_json
+    puts JSON.pretty_generate(data.fetch("ExitNodeStatus", {}))
   end
 end
