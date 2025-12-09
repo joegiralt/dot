@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  systemd.tmpfiles.rules = [
+    "d /var/lib/tailscale-exit-health 0755 ${opts.adminUID} ${opts.adminGID} -"
+  ];
+  
   systemd.services."tailscale-auto-health" = {
     description = "Tailscale Exit Node Health Checker (auto cycle on failure)";
     after = [ "network-online.target" ];
