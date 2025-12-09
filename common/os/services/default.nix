@@ -4,7 +4,7 @@
     ./adguard.nix
     ./oomd.nix
     ./tailscale.nix
-    ./ailscale-health.nix
+    ./ailscale-auto-health.nix
     ./vscode-server.nix
     ./unbound.nix
   ];
