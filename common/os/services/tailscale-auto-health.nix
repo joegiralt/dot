@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, opts, ... }:
 
 {
   systemd.tmpfiles.rules = [
