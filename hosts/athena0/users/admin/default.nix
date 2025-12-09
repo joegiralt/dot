@@ -5,6 +5,7 @@
     ../../../../common/hm/base.nix
     ../../../../common/hm/btop.nix
     ../../../../common/hm/core-max.nix
+    ../../../../common/hm/eza.nix
     ../../../../common/hm/git.nix
     ../../../../common/hm/github.nix
     ../../../../common/hm/mise.nix
