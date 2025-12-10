@@ -263,10 +263,12 @@
     parted
     pciutils
     progress
-    (ruby_3_3.withPackages (ps: with ps; [
-          bundler
-          rake
-        ]))
+    (ruby_3_3.withPackages (
+      ps: with ps; [
+        bundler
+        rake
+      ]
+    ))
     sshfs
     strace
     traceroute

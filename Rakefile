@@ -253,7 +253,7 @@ namespace :tailscale do
     "bcn" => { host: "es-bcn-wg-001.mullvad.ts.net", match: "es-bcn-wg-001" },
     "mad" => { host: "es-mad-wg-201.mullvad.ts.net", match: "es-mad-wg-201" },
     "lis" => { host: "pt-lis-wg-201.mullvad.ts.net", match: "pt-lis-wg-201" },
-
+    
     # Core EU
     "par" => { host: "fr-par-wg-001.mullvad.ts.net", match: "fr-par-wg-001" },
     "fra" => { host: "de-fra-wg-001.mullvad.ts.net", match: "de-fra-wg-001" },
