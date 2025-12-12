@@ -293,19 +293,13 @@ namespace :tailscale do
   end
 
   def current_exit_node_label
-    data = tailscale_status_json
-    s = data.fetch("ExitNodeStatus", {})
-
-    # try HostName, then DNSName, then ID as last resort
-    name = s["HostName"] || s["DNSName"] || s["ID"]
-    return nil unless name
-
-    # find which alias matches this name by substring
-    EXIT_NODE_MAP.each do |alias_name, cfg|
-      return alias_name if name.include?(cfg[:match])
-    end
-
-    nil
+    tailscale_status_json
+      .then { |json| json.fetch("ExitNodeStatus", {}) }
+      .then { |s| s["HostName"] || s["DNSName"] || s["ID"] }
+      .then do |name|
+        next unless name
+        EXIT_NODE_MAP.find { |_, cfg| name.include?(cfg[:match]) }&.first
+      end
   end
 
   # runs a shell command, returns true/false
@@ -379,19 +373,15 @@ namespace :tailscale do
 
   desc "Cycle to next exit node in alias order"
   task :cycle do
-    keys = EXIT_NODE_MAP.keys
+    keys    = EXIT_NODE_MAP.keys
     current = current_exit_node_label
-
-    if current
-      idx = keys.index(current) || 0
-      next_key = keys[(idx + 1) % keys.length]
-    else
-      # If we can't detect, start at the first
-      next_key = keys.first
-      warn "Could not detect current exit node; defaulting to #{next_key}"
-    end
-
-    cfg = EXIT_NODE_MAP[next_key]
+  
+    next_key =
+      keys
+        .then { |ks| ks.rotate(ks.index(current).to_i + 1) }
+        .first
+  
+    cfg = EXIT_NODE_MAP.fetch(next_key)
     puts "Cycling exit node → #{next_key} (#{cfg[:host]})"
     sh("sudo tailscale set --exit-node=#{cfg[:host]} --exit-node-allow-lan-access=true")
   end
