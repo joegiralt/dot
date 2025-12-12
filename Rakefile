@@ -234,6 +234,18 @@ namespace :popos do
   end
 end
 
+namespace :podman do
+  desc "Pull all tagged local podman images"
+  task :pull do
+    sh <<~SH
+      podman images --format '{{.Repository}}:{{.Tag}}' |
+        grep -v '<none>' |
+        sort -u |
+        xargs -n1 sh -c 'podman pull "$1" || true' sh
+    SH
+  end
+end
+
 namespace :arch do
   desc "archive packages from arch/aur/flatpak/cargo"
   task :archive do
