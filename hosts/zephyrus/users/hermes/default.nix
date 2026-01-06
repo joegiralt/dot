@@ -14,6 +14,7 @@
     ../../../../common/hm/fastfetch.nix
     ../../../../common/hm/fzf.nix
     ../../../../common/hm/keybase.nix
+    ../../../../common/hm/librepods.nix
     ../../../../common/hm/mise.nix
     ../../../../common/hm/starship.nix
     ../../../../common/hm/zsh.nix
