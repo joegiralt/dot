@@ -15,6 +15,7 @@
     ../../../../common/hm/fzf.nix
     ../../../../common/hm/keybase.nix
     ../../../../common/hm/mise.nix
+    ../../../../common/hm/librepods.nix
     ../../../../common/hm/starship.nix
     ../../../../common/hm/zsh.nix
     ../../../../common/hm/wezterm.nix
