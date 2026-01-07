@@ -20,7 +20,7 @@
         persistent = [
           {
             name = "apollo"; # kids machine
-            ids = [ "192.168.1.55" ];
+            ids = [ "192.168.1.149" ];
 
             use_global_blocked_services = false;
 
