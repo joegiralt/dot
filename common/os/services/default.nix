@@ -5,7 +5,7 @@
     ./oomd.nix
     ./tailscale.nix
     ./tailscale-auto-health.nix
-    ./vscode-server.nix
+    # ./vscode-server.nix
     ./unbound.nix
   ];
 }
