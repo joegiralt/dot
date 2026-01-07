@@ -143,10 +143,10 @@
     printing.enable = false;
     avahi.enable = false;
 
-    openvscode-server = {
-      enable = true;
-      package = pkgs.openvscode-server;
-    };
+    # openvscode-server = {
+    #   enable = true;
+    #   package = pkgs.openvscode-server;
+    # };
 
     pipewire = {
       enable = true;
