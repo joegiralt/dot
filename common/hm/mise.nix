@@ -29,7 +29,7 @@
           julia = "latest";
           clojure = "latest";
           racket = "latest";
-          python = "latest";
+          python = "3.14.0";
         };
       };
     };
