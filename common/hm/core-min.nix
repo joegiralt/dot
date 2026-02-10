@@ -8,6 +8,7 @@
     exiftool # rw exif information
     fd # modern find
     fzf # fuzzy finder
+    inotify-tools # 
     jq # json query lang
     less # pager
     ripgrep # faster grep

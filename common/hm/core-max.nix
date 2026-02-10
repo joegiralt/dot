@@ -20,6 +20,7 @@
     httpie # command line http client
     id3v2 # music files id3v2 tag modifier
     imagemagick # bitmap image manipulation
+    inotify-tools # 
     iotop # io monitoring
     jaq # better jq
     lua # lua lang
