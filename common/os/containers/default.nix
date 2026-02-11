@@ -2,6 +2,7 @@
 {
   imports = [
     ./archive-warrior.nix
+    ./atuin-server.nix
     ./audiobookshelf.nix
     ./filebrowser.nix
     ./flaresolverr.nix
