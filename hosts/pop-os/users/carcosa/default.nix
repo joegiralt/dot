@@ -20,6 +20,7 @@
     ../../../../common/hm/zsh.nix
     ../../../../common/hm/wezterm.nix
     ../../../../common/hm/zathura.nix
+    ../../../../common/hm/brave.nix
   ];
 
   targets.genericLinux.nixGL = {
