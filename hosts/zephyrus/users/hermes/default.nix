@@ -45,6 +45,7 @@
       cli-packages = with pkgs; [
         agenix
         tokei
+        claude-code
         colmena
       ];
 
