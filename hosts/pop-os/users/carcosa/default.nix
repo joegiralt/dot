@@ -42,6 +42,7 @@
       ai-coding-agent-packages = with pkgs; [
         goose-cli
         nur.repos.charmbracelet.crush
+        claude-code
       ];
 
       cli-packages = with pkgs; [
