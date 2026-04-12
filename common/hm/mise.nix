@@ -24,12 +24,13 @@
           golang = "latest";
           nodejs = "22.5.1";
           ruby = "latest";
-          zig = "latest";
+          zig = "master";
           ocaml = "latest";
           julia = "latest";
           clojure = "latest";
           racket = "latest";
           python = "3.14.0";
+          koka = "3.2.3";
         };
       };
     };

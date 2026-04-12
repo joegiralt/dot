@@ -1,8 +1,11 @@
-{ config, ... }:
+{ config, opts, ... }:
 {
   networking.firewall = {
     checkReversePath = "loose";
-    allowedTCPPorts = [ 41641 ];
+    allowedTCPPorts = [
+      41641
+      443 # Tailscale Funnel
+    ];
     allowedUDPPorts = [ 41641 ];
   };
   services.tailscale = {
@@ -15,5 +18,29 @@
       "--exit-node=es-bcn-wg-001.mullvad.ts.net."
       "--exit-node-allow-lan-access"
     ];
+  };
+
+  # Tailscale Funnel: expose Woodpecker CI to the public internet
+  # so GitHub can deliver webhooks.
+  systemd.services.tailscale-funnel-woodpecker = {
+    description = "Tailscale Funnel for Woodpecker CI";
+    after = [
+      "tailscaled.service"
+      "podman-woodpecker-server.service"
+    ];
+    wants = [ "tailscaled.service" ];
+    wantedBy = [ "multi-user.target" ];
+    path = [ config.services.tailscale.package ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = [
+        "${config.services.tailscale.package}/bin/tailscale serve --https=443 http://localhost:${opts.ports.woodpecker-http}"
+        "${config.services.tailscale.package}/bin/tailscale funnel 443 on"
+      ];
+      ExecStop = [
+        "${config.services.tailscale.package}/bin/tailscale funnel 443 off"
+      ];
+    };
   };
 }

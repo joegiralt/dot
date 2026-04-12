@@ -6,6 +6,7 @@
     stablepkgs.url = "github:nixos/nixpkgs?ref=nixos-25.05&shallow=1";
     colmena.url = "github:zhaofengli/colmena";
     claude-code.url = "github:sadjow/claude-code-nix";
+    claude-desktop.url = "github:aaddrick/claude-desktop-debian";
 
     agenix = {
       url = "github:ryantm/agenix";
