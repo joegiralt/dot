@@ -34,7 +34,7 @@
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStart = "${config.services.tailscale.package}/bin/tailscale funnel --https=443 http://localhost:${opts.ports.woodpecker-http}";
+      ExecStart = "${config.services.tailscale.package}/bin/tailscale funnel --bg --https=443 http://localhost:${opts.ports.woodpecker-http}";
       ExecStop = "${config.services.tailscale.package}/bin/tailscale funnel --https=443 off";
     };
   };
