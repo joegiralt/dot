@@ -15,7 +15,7 @@
   virtualisation.oci-containers.containers = {
     woodpecker-server = {
       autoStart = true;
-      image = "woodpeckerci/woodpecker-server:latest";
+      image = "woodpeckerci/woodpecker-server:v3";
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
@@ -53,7 +53,7 @@
 
     woodpecker-agent = {
       autoStart = true;
-      image = "woodpeckerci/woodpecker-agent:latest";
+      image = "woodpeckerci/woodpecker-agent:v3";
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
