@@ -98,6 +98,6 @@ rec {
     vscode-server = "2345";
     warrior = "8010";
     woodpecker-http = "8200";
-    woodpecker-grpc = "9000";
+    woodpecker-grpc = "9500";
   };
 }
