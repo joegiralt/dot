@@ -47,6 +47,7 @@
         tokei
         claude-code
         colmena
+        woodpecker-cli
       ];
 
       font-packages = with pkgs; [
