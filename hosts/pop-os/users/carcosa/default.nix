@@ -40,7 +40,7 @@
   home.packages =
     let
       ai-coding-agent-packages = with pkgs; [
-        goose-cli
+        # goose-cli
         nur.repos.charmbracelet.crush
         claude-code
       ];
@@ -61,7 +61,7 @@
 
       gui-packages = [
         (config.lib.nixGL.wrap pkgs.slack)
-        (config.lib.nixGL.wrapOffload pkgs.zed-editor)
+        (config.lib.nixGL.wrap pkgs.zed-editor)
         (config.lib.nixGL.wrapOffload pkgs.upscayl)
         (config.lib.nixGL.wrapOffload pkgs.cool-retro-term)
         (config.lib.nixGL.wrapOffload pkgs.teams-for-linux)
