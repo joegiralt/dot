@@ -99,5 +99,6 @@ rec {
     warrior = "8010";
     woodpecker-http = "8200";
     woodpecker-grpc = "9500";
+    attic = "8199";
   };
 }

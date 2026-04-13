@@ -48,4 +48,7 @@ in
   "secrets/woodpecker-github-app-pem.age" = {
     publicKeys = users ++ systems;
   };
+  "secrets/attic-credentials.age" = {
+    publicKeys = users ++ systems;
+  };
 }

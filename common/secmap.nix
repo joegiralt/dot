@@ -14,5 +14,6 @@ _: {
       path = "/run/agenix/woodpecker-github-app-pem";
       mode = "0444";
     };
+    attic-credentials.file = ../secrets/attic-credentials.age;
   };
 }
