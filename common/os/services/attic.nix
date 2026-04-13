@@ -35,7 +35,7 @@ in
         max-size = 262144; # 256 KiB
       };
 
-      api.require-proof-of-possession = false;
+      require-proof-of-possession = false;
 
       garbage-collection = {
         interval = "72 hours";
