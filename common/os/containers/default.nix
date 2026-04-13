@@ -28,6 +28,7 @@
     ./stirling-pdf.nix
     ./telemetry.nix
     ./uptime-kuma.nix
+    ./woodpecker.nix
   ];
 
   hardware.nvidia-container-toolkit.enable = true;

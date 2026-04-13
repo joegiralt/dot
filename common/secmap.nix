@@ -8,5 +8,12 @@ _: {
     plex-env.file = ../secrets/plex-env.age;
     romm_env.file = ../secrets/romms-env.age;
     tailscale-auth-key.file = ../secrets/tailscale-auth-key.age;
+    woodpecker-env.file = ../secrets/woodpecker-env.age;
+    woodpecker-github-app-pem = {
+      file = ../secrets/woodpecker-github-app-pem.age;
+      path = "/run/agenix/woodpecker-github-app-pem";
+      mode = "0444";
+    };
+    attic-credentials.file = ../secrets/attic-credentials.age;
   };
 }

@@ -113,7 +113,10 @@
         ];
       };
       dns = {
-        bind_host = "0.0.0.0";
+        bind_hosts = [
+          "127.0.0.1"
+          opts.lanAddress
+        ];
         cache_size = 1000000;
         cache_ttl_min = 3600;
         cache_ttl_max = 86400;

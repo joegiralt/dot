@@ -171,6 +171,7 @@
     carcosa-ed25519
     macbook-ed25519
     spare-macbook-ed25519
+    zephyrus-ed25519
   ];
 
   # User Accounts
@@ -183,6 +184,7 @@
       carcosa-ed25519
       macbook-ed25519
       spare-macbook-ed25519
+      zephyrus-ed25519
     ];
     shell = pkgs.zsh;
     description = "Admin";
@@ -299,6 +301,7 @@
       ];
 
       substituters = [
+        "http://localhost:8199/ci"
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
         "https://cuda-maintainers.cachix.org"
@@ -309,6 +312,7 @@
       ];
 
       trusted-public-keys = [
+        "ci:SZDpDowzYIb4+nu4l8fY6LnYzHoKbesvUl7MRXstgmY="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "cuda-maintainers.cachix.org-1:Ji+ZysQ8GqEtvQF3o4O5q6c3y8C3b2q9p5g6s7d8e9k="

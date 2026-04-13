@@ -38,7 +38,7 @@
   home.packages =
     let
       ai-coding-agent-packages = with pkgs; [
-        goose-cli
+        # goose-cl
         nur.repos.charmbracelet.crush
       ];
 
@@ -47,6 +47,7 @@
         tokei
         claude-code
         colmena
+        woodpecker-cli
       ];
 
       font-packages = with pkgs; [
@@ -58,6 +59,7 @@
       ];
 
       gui-packages = [
+        (config.lib.nixGL.wrap pkgs.claude-desktop)
         (config.lib.nixGL.wrap pkgs.slack)
         (config.lib.nixGL.wrap pkgs.zed-editor)
         (config.lib.nixGL.wrapOffload pkgs.upscayl)
