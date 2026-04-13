@@ -12,6 +12,7 @@ _: {
     woodpecker-github-app-pem = {
       file = ../secrets/woodpecker-github-app-pem.age;
       path = "/run/agenix/woodpecker-github-app-pem";
+      mode = "0444";
     };
   };
 }
