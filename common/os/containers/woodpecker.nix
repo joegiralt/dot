@@ -38,7 +38,7 @@
       environment = {
         WOODPECKER_HOST = "https://athena0.tail7424b4.ts.net";
         WOODPECKER_OPEN = "false";
-        WOODPECKER_ADMIN = "josephgiralt";
+        WOODPECKER_ADMIN = "joegiralt";
         WOODPECKER_FORGE_TYPE = "github";
         WOODPECKER_GITHUB_APP_PRIVATE_KEY = "/etc/woodpecker/github-app.pem";
         WOODPECKER_DATABASE_DRIVER = "sqlite3";
