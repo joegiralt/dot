@@ -68,6 +68,7 @@
       environment = {
         WOODPECKER_SERVER = "${opts.hostname}:${opts.ports.woodpecker-grpc}";
         WOODPECKER_BACKEND_DOCKER_API_VERSION = "1.43";
+        WOODPECKER_BACKEND_DOCKER_NETWORK = "podman";
         WOODPECKER_MAX_WORKFLOWS = "2";
         TZ = opts.timeZone;
       };
