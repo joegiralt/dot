@@ -12,8 +12,8 @@
       woodpecker-grpc
     ]
   );
-  # Create a DNS-disabled network for Woodpecker pipeline containers
-  # to avoid aardvark-dns conflicting with AdGuard on port 53
+  # Dedicated DNS-disabled network for Woodpecker pipeline containers,
+  # kept separate from the shared services network for isolation.
   systemd.services.podman-network-woodpecker-ci = {
     description = "Create Woodpecker CI podman network";
     after = [ "podman.service" ];

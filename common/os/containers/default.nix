@@ -38,6 +38,20 @@
     };
   };
 
+  # Shared DNS-disabled podman network for service containers.
+  # Prevents aardvark-dns from conflicting with AdGuard on port 53.
+  # Containers on this network use explicit --dns flags for resolution.
+  systemd.services.podman-network-services = {
+    description = "Create DNS-disabled podman network for services";
+    after = [ "podman.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.podman}/bin/podman network create --disable-dns --ignore services";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     dive
     podman-tui

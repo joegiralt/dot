@@ -5,6 +5,9 @@
     with opts.ports; [ searxng-www ]
   );
 
+  systemd.services.podman-searxng.after = [ "podman-network-services.service" ];
+  systemd.services.podman-searxng.wants = [ "podman-network-services.service" ];
+
   systemd.tmpfiles.rules = [
     "d ${opts.paths.app-data}/searxng 0755 ${opts.adminUID} ${opts.adminGID} -"
   ];
@@ -24,6 +27,7 @@
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
         "--dns=${opts.lanAddress}"
+        "--network=services"
       ];
       environment = {
         SEARXNG_BASE_URL = "https://searxng.nothing.ltd";
