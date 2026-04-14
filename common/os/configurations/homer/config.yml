@@ -224,6 +224,12 @@ services:
         url: "https://adguard.nothing.ltd"
         tag: "app"
         target: "_blank"
+      - name: "Woodpecker CI"
+        logo: "assets/tools/woodpecker.svg"
+        subtitle: "Continuous Integration"
+        url: "https://athena0.tail7424b4.ts.net:8443"
+        tag: "app"
+        target: "_blank"
 #  - name: "Applications"
 #    icon: "fas fa-layer-group"
 #    items:
