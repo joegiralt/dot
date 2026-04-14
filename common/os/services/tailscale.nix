@@ -25,10 +25,10 @@
   systemd.services.tailscale-funnel-woodpecker = {
     description = "Tailscale Funnel for Woodpecker CI";
     after = [
-      "tailscaled.service"
+      "tailscaled-autoconnect.service"
       "podman-woodpecker-server.service"
     ];
-    wants = [ "tailscaled.service" ];
+    wants = [ "tailscaled-autoconnect.service" ];
     wantedBy = [ "multi-user.target" ];
     path = [ config.services.tailscale.package ];
     serviceConfig = {
