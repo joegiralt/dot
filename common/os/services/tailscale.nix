@@ -4,7 +4,7 @@
     checkReversePath = "loose";
     allowedTCPPorts = [
       41641
-      443 # Tailscale Funnel
+      8443 # Tailscale Funnel for Woodpecker
     ];
     allowedUDPPorts = [ 41641 ];
   };
@@ -34,8 +34,8 @@
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStart = "${config.services.tailscale.package}/bin/tailscale funnel --bg --https=443 http://localhost:${opts.ports.woodpecker-http}";
-      ExecStop = "${config.services.tailscale.package}/bin/tailscale funnel --https=443 off";
+      ExecStart = "${config.services.tailscale.package}/bin/tailscale funnel --bg --https=8443 http://localhost:${opts.ports.woodpecker-http}";
+      ExecStop = "${config.services.tailscale.package}/bin/tailscale funnel --https=8443 off";
     };
   };
 }

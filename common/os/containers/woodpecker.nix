@@ -52,7 +52,7 @@
         "kuma.woodpecker.http.url" = "http://${opts.lanAddress}:${opts.ports.woodpecker-http}";
       };
       environment = {
-        WOODPECKER_HOST = "https://athena0.tail7424b4.ts.net";
+        WOODPECKER_HOST = "https://athena0.tail7424b4.ts.net:8443";
         WOODPECKER_OPEN = "false";
         WOODPECKER_ADMIN = "joegiralt";
         WOODPECKER_FORGE_TYPE = "github";
