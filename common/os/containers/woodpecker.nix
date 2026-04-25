@@ -28,6 +28,12 @@
   systemd.services.podman-woodpecker-agent.after = [ "podman-network-woodpecker-ci.service" ];
   systemd.services.podman-woodpecker-agent.wants = [ "podman-network-woodpecker-ci.service" ];
 
+  # Ensure the CI build cache directory exists with open permissions.
+  # Pipeline containers may run as non-root, so the directory must be world-writable.
+  systemd.tmpfiles.rules = [
+    "d ${opts.paths.app-data}/woodpecker/cache/cargo-target 0777 root root -"
+  ];
+
   virtualisation.oci-containers.containers = {
     woodpecker-server = {
       autoStart = true;
@@ -85,6 +91,7 @@
         WOODPECKER_SERVER = "${opts.hostname}:${opts.ports.woodpecker-grpc}";
         WOODPECKER_BACKEND_DOCKER_API_VERSION = "1.43";
         WOODPECKER_BACKEND_DOCKER_NETWORK = "woodpecker-ci";
+        WOODPECKER_BACKEND_DOCKER_VOLUMES = "${opts.paths.app-data}/woodpecker/cache/cargo-target:/tmp/cargo-target";
         WOODPECKER_MAX_WORKFLOWS = "2";
         TZ = opts.timeZone;
       };
