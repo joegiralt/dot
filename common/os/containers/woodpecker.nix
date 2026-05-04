@@ -93,7 +93,8 @@
         WOODPECKER_BACKEND_DOCKER_API_VERSION = "1.43";
         WOODPECKER_BACKEND_DOCKER_NETWORK = "woodpecker-ci";
         WOODPECKER_BACKEND_DOCKER_VOLUMES = "${opts.paths.app-data}/woodpecker/cache/cargo-target:/tmp/cargo-target,${opts.paths.app-data}/woodpecker/cache/cargo-home:/tmp/cargo-home";
-        WOODPECKER_MAX_WORKFLOWS = "2";
+        WOODPECKER_BACKEND_DOCKER_LIMIT_CPU_SET = "2-15";
+        WOODPECKER_MAX_WORKFLOWS = "4";
         TZ = opts.timeZone;
       };
     };
