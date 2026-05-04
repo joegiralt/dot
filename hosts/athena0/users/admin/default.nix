@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../../../../common/hm/atuin.nix
@@ -15,7 +15,10 @@
   ];
 
   targets.genericLinux.nixGL = {
-    inherit (inputs.nixgl) packages;
+    # Route through pkgs.nixgl (set by inputs.nixgl.overlay) so our
+    # nvidia compat overlay applies. inputs.nixgl.packages bypasses
+    # overlays since nixGL's flake uses nixpkgs.legacyPackages directly.
+    packages = pkgs.nixgl;
     defaultWrapper = "mesa";
     offloadWrapper = "nvidia";
     vulkan.enable = true;
