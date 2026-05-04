@@ -45,5 +45,9 @@ in
   nixgl = prev.nixgl.override {
     nvidiaURL = "https://us.download.nvidia.com/XFree86/Linux-x86_64";
     nvidiaVersion = "580.126.18";
+    # Pin sha256 so nixGL uses fetchurl (a fixed-output derivation) instead
+    # of builtins.fetchurl, which downloads at eval time and can stall the
+    # whole rebuild on a slow/closed connection.
+    nvidiaHash = "17dlk8m0j2h76g012izqbna04ka5xmwnxiql15cccr9d3hp1ny57";
   };
 }
