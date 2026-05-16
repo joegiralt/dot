@@ -30,8 +30,9 @@
 
   # Ensure the CI build cache directory exists with open permissions.
   # Pipeline containers may run as non-root, so the directory must be world-writable.
+  # cargo-target is intentionally NOT persisted: per-branch target dirs grew unbounded
+  # and filled /mnt/data. cargo-home/registry is small and worth keeping for crate downloads.
   systemd.tmpfiles.rules = [
-    "d ${opts.paths.app-data}/woodpecker/cache/cargo-target 0777 root root -"
     "d ${opts.paths.app-data}/woodpecker/cache/cargo-home 0777 root root -"
   ];
 
@@ -92,7 +93,7 @@
         WOODPECKER_SERVER = "${opts.hostname}:${opts.ports.woodpecker-grpc}";
         WOODPECKER_BACKEND_DOCKER_API_VERSION = "1.43";
         WOODPECKER_BACKEND_DOCKER_NETWORK = "woodpecker-ci";
-        WOODPECKER_BACKEND_DOCKER_VOLUMES = "${opts.paths.app-data}/woodpecker/cache/cargo-target:/tmp/cargo-target,${opts.paths.app-data}/woodpecker/cache/cargo-home:/tmp/cargo-home";
+        WOODPECKER_BACKEND_DOCKER_VOLUMES = "${opts.paths.app-data}/woodpecker/cache/cargo-home:/tmp/cargo-home";
         WOODPECKER_BACKEND_DOCKER_LIMIT_CPU_SET = "2-15";
         WOODPECKER_MAX_WORKFLOWS = "2";
         TZ = opts.timeZone;
