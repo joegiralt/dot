@@ -28,6 +28,23 @@
   systemd.services.podman-woodpecker-agent.after = [ "podman-network-woodpecker-ci.service" ];
   systemd.services.podman-woodpecker-agent.wants = [ "podman-network-woodpecker-ci.service" ];
 
+  # The Woodpecker agent is stateless across restarts: any pipeline interrupted
+  # by an agent restart / OOM / system event leaves its per-step containers and
+  # workspace volume behind, since the new agent process has no record of the
+  # in-flight pipeline to clean up. Over weeks these orphans accumulate (we hit
+  # ~80G across 32 stopped containers and 23 dangling workspace volumes before
+  # the first sweep). This pre-start sweep reaps them on every agent boot. It
+  # only touches the `wp_` namespace and only exited containers, so any
+  # in-flight pipeline (none exist pre-start by definition) is safe.
+  systemd.services.podman-woodpecker-agent.serviceConfig.ExecStartPre = pkgs.writeShellScript "woodpecker-orphan-sweep" ''
+    set -u
+    ${pkgs.podman}/bin/podman ps -aq --filter name=wp_ --filter status=exited \
+      | xargs -r ${pkgs.podman}/bin/podman rm -f >/dev/null 2>&1 || true
+    for v in $(${pkgs.podman}/bin/podman volume ls -q --filter name=wp_); do
+      ${pkgs.podman}/bin/podman volume rm "$v" >/dev/null 2>&1 || true
+    done
+  '';
+
   # Ensure the CI build cache directory exists with open permissions.
   # Pipeline containers may run as non-root, so the directory must be world-writable.
   # cargo-target is intentionally NOT persisted: per-branch target dirs grew unbounded
