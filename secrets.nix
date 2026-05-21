@@ -1,12 +1,14 @@
 let
   admin = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKb/dFPcj5XiylyXyPQH+SAZP6ce3PkdgVaLIPvnaL4g";
   josephgiralt = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICNLo4EXLOhYMQwi1cozZnSRbG7WnMyULHWzoag3wYff";
+  joegiralt = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILAqqYGwm4g5trxnvWdP51NH57mDLbJeScCZB1tO/pH4";
   carcosa = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFGf5kqPOJkt4VWH7yUhTxX3OhoL7a4g8wsMgIbBWuj7";
   hermes = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDlEKCikD42mCl5kdrijBEMo7hz6WcKCXOT5kBb3qr5R";
 
   users = [
     admin
     josephgiralt
+    joegiralt
     carcosa
     hermes
   ];
