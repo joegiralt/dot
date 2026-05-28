@@ -8,11 +8,13 @@
     ../../../../common/hm/atuin.nix
     ../../../../common/hm/btop.nix
     ../../../../common/hm/base.nix
+    ../../../../common/hm/direnv.nix
     ../../../../common/hm/core-max.nix
     ../../../../common/hm/core-min.nix
     ../../../../common/hm/eza.nix
     ../../../../common/hm/fastfetch.nix
     ../../../../common/hm/fzf.nix
+    ../../../../common/hm/git.nix
     ../../../../common/hm/keybase.nix
     ../../../../common/hm/mise.nix
     ../../../../common/hm/librepods.nix
@@ -88,6 +90,16 @@
     matchBlocks = {
       "*" = {
         userKnownHostsFile = "/dev/null";
+      };
+      "github.com-joegiralt" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519_joegiralt";
+      };
+      "github.com-tc-joegiralt" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519";
       };
     };
   };

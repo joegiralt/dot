@@ -117,6 +117,18 @@
             colorMoved = default
         [safe]
         	directory = /etc/nixos
+        [includeIf "gitdir:~/dev/"]
+          path = ~/.gitconfig-tc
+      '';
+    };
+
+    ".gitconfig-tc" = {
+      enable = true;
+      target = ".gitconfig-tc";
+      text = ''
+        [user]
+          email = joseph.giralt@tunecore.com
+          name = tc-joegiralt
       '';
     };
   };
