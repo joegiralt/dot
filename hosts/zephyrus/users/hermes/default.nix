@@ -60,7 +60,9 @@
       ];
 
       gui-packages = [
-        (config.lib.nixGL.wrap pkgs.claude-desktop)
+        # claude-desktop disabled: upstream patcher broken on v1.9659.2
+        # (aaddrick/claude-desktop-debian#672). Re-enable once fixed.
+        # (config.lib.nixGL.wrap pkgs.claude-desktop)
         (config.lib.nixGL.wrap pkgs.slack)
         (config.lib.nixGL.wrap pkgs.zed-editor)
         (config.lib.nixGL.wrapOffload pkgs.upscayl)
