@@ -93,7 +93,7 @@
   };
 
   nix = {
-    package = pkgs.nixVersions.nix_2_28;
+    package = pkgs.nixVersions.stable;
 
     gc = {
       automatic = true;
