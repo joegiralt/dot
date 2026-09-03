@@ -14,6 +14,7 @@
     ../../../../common/hm/eza.nix
     ../../../../common/hm/fastfetch.nix
     ../../../../common/hm/fzf.nix
+    ../../../../common/hm/ghostty.nix
     ../../../../common/hm/keybase.nix
     ../../../../common/hm/librepods.nix
     ../../../../common/hm/mise.nix
