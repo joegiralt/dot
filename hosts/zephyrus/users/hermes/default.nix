@@ -85,9 +85,9 @@
       StrictHostKeyChecking = "no";
       LogLevel = "ERROR";
     };
-    matchBlocks = {
+    settings = {
       "*" = {
-        userKnownHostsFile = "/dev/null";
+        UserKnownHostsFile = "/dev/null";
       };
     };
   };
