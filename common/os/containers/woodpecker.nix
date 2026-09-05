@@ -56,7 +56,14 @@
   virtualisation.oci-containers.containers = {
     woodpecker-server = {
       autoStart = true;
-      image = "woodpeckerci/woodpecker-server:v3";
+      # Pinned, not floating `:v3`. An unattended pull of the floating tag
+      # moved this host onto 3.18.0 on 2026-09-05, which split the JWT
+      # signing secret out of WOODPECKER_AGENT_SECRET into a separate
+      # WOODPECKER_GRPC_SECRET. Unset, that secret is regenerated randomly
+      # on every restart, so every webhook token GitHub holds fails to
+      # validate and all pushes 500 with "failure to parse token from hook".
+      # Upgrades are a deliberate act: bump this and the agent together.
+      image = "woodpeckerci/woodpecker-server:v3.18.0";
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
@@ -94,7 +101,8 @@
 
     woodpecker-agent = {
       autoStart = true;
-      image = "woodpeckerci/woodpecker-agent:v3";
+      # Pin in lockstep with the server (see the note there).
+      image = "woodpeckerci/woodpecker-agent:v3.18.0";
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
