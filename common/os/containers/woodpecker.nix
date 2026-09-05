@@ -63,7 +63,11 @@
       # on every restart, so every webhook token GitHub holds fails to
       # validate and all pushes 500 with "failure to parse token from hook".
       # Upgrades are a deliberate act: bump this and the agent together.
-      image = "woodpeckerci/woodpecker-server:v3.18.0";
+      # Fully qualified: podman has no unqualified-search registries, so a
+      # bare `woodpeckerci/...` only resolved while that exact tag was
+      # already in the local image store. Pinning forces a pull, which
+      # fails short-name resolution without the explicit docker.io/ prefix.
+      image = "docker.io/woodpeckerci/woodpecker-server:v3.18.0";
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
@@ -102,7 +106,7 @@
     woodpecker-agent = {
       autoStart = true;
       # Pin in lockstep with the server (see the note there).
-      image = "woodpeckerci/woodpecker-agent:v3.18.0";
+      image = "docker.io/woodpeckerci/woodpecker-agent:v3.18.0";
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
