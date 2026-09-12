@@ -88,19 +88,19 @@
       StrictHostKeyChecking = "no";
       LogLevel = "ERROR";
     };
-    matchBlocks = {
+    settings = {
       "*" = {
-        userKnownHostsFile = "/dev/null";
+        UserKnownHostsFile = "/dev/null";
       };
       "github.com-joegiralt" = {
-        hostname = "github.com";
-        user = "git";
-        identityFile = "~/.ssh/id_ed25519_joegiralt";
+        HostName = "github.com";
+        User = "git";
+        IdentityFile = "~/.ssh/id_ed25519_joegiralt";
       };
       "github.com-tc-joegiralt" = {
-        hostname = "github.com";
-        user = "git";
-        identityFile = "~/.ssh/id_ed25519";
+        HostName = "github.com";
+        User = "git";
+        IdentityFile = "~/.ssh/id_ed25519";
       };
     };
   };
