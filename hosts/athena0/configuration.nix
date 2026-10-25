@@ -304,28 +304,26 @@
         "http://localhost:8199/ci"
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
-        "https://cuda-maintainers.cachix.org"
+        "https://cache.nixos-cuda.org"
         "https://numtide.cachix.org"
         "https://colmena.cachix.org"
         "https://cache.flox.dev"
-        "https://cache.nixos-cuda.org"
       ];
 
       trusted-public-keys = [
         "ci:SZDpDowzYIb4+nu4l8fY6LnYzHoKbesvUl7MRXstgmY="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "cuda-maintainers.cachix.org-1:Ji+ZysQ8GqEtvQF3o4O5q6c3y8C3b2q9p5g6s7d8e9k="
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
         "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
-        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
       ];
 
       trusted-substituters = [
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
-        "https://cuda-maintainers.cachix.org"
+        "https://cache.nixos-cuda.org"
         "https://numtide.cachix.org"
         "https://colmena.cachix.org"
       ];
