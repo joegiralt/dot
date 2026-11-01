@@ -22,6 +22,7 @@
     ../../../../common/hm/zsh.nix
     ../../../../common/hm/wezterm.nix
     ../../../../common/hm/zathura.nix
+    ./asusctl.nix
     ./audio.nix
   ];
 

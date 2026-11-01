@@ -43,6 +43,9 @@ in
   };
 
   nixgl = prev.nixgl.override {
+    # nixpkgs removed `pcre` (2026-10-25); nixGL only uses `pcregrep` in a
+    # build check, which pcre2grep handles identically.
+    pcre = prev.writeShellScriptBin "pcregrep" ''exec ${prev.pcre2}/bin/pcre2grep "$@"'';
     nvidiaURL = "https://us.download.nvidia.com/XFree86/Linux-x86_64";
     nvidiaVersion = "580.126.18";
     # Pin sha256 so nixGL uses fetchurl (a fixed-output derivation) instead

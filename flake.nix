@@ -70,6 +70,13 @@
             '';
       });
 
+      # Packages installed outside home-manager (e.g. system daemons on Pop!_OS)
+      packages.${systems.x86}.asusctl =
+        (import inputs.nixpkgs {
+          system = systems.x86;
+          overlays = import ./common/overlays { inherit inputs; };
+        }).asusctl;
+
       # NixOS Configurations
       nixosConfigurations = mkSystems [
         {

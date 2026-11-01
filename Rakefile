@@ -234,6 +234,73 @@ namespace :popos do
   end
 end
 
+# asusd is a root daemon, which home-manager can't install on Pop!_OS. Build the
+# same asusctl home-manager uses, keep it GC-rooted, and copy its system files
+# (which reference the store path) into /etc.
+namespace :asusd do
+  ASUSD_ROOT = File.join(Dir.home, ".local/state/asusctl-system")
+  ASUSD_FILES = {
+    "lib/systemd/system/asusd.service" => "/etc/systemd/system/asusd.service",
+    "lib/systemd/system/asus-shutdown.service" => "/etc/systemd/system/asus-shutdown.service",
+    "lib/udev/rules.d/99-asusd.rules" => "/etc/udev/rules.d/99-asusd.rules",
+    "share/dbus-1/system.d/asusd.conf" => "/etc/dbus-1/system.d/asusd.conf",
+  }.freeze
+
+  # Left behind by the old `make install` from ~/asusctl (6.1.17).
+  ASUSD_LEGACY = %w[
+    /usr/bin/asusd /usr/bin/asusctl /usr/bin/asusd-user /usr/bin/rog-control-center
+    /usr/lib/systemd/system/asusd.service /usr/lib/systemd/user/asusd-user.service
+    /usr/lib/udev/rules.d/99-asusd.rules /usr/share/dbus-1/system.d/asusd.conf
+    /usr/share/applications/rog-control-center.desktop
+    /usr/share/icons/hicolor/512x512/apps/rog-control-center.png
+    /usr/share/icons/hicolor/512x512/apps/asus_notif_blue.png
+    /usr/share/icons/hicolor/512x512/apps/asus_notif_green.png
+    /usr/share/icons/hicolor/512x512/apps/asus_notif_orange.png
+    /usr/share/icons/hicolor/512x512/apps/asus_notif_red.png
+    /usr/share/icons/hicolor/512x512/apps/asus_notif_white.png
+    /usr/share/icons/hicolor/512x512/apps/asus_notif_yellow.png
+    /usr/share/icons/hicolor/scalable/status/gpu-compute.svg
+    /usr/share/icons/hicolor/scalable/status/gpu-hybrid.svg
+    /usr/share/icons/hicolor/scalable/status/gpu-integrated.svg
+    /usr/share/icons/hicolor/scalable/status/gpu-nvidia.svg
+    /usr/share/icons/hicolor/scalable/status/gpu-vfio.svg
+    /usr/share/icons/hicolor/scalable/status/notification-reboot.svg
+    /usr/share/asusd /usr/share/rog-gui /usr/share/asusctl
+  ].freeze
+
+  desc "build asusctl and install asusd system files into /etc (sudo)"
+  task :install do
+    sh("nix build '.#asusctl' --out-link '#{ASUSD_ROOT}' -j #{nix_jobs}")
+    store = File.realpath(ASUSD_ROOT)
+
+    ASUSD_FILES.each do |src, dest|
+      sh("sudo install -D -m 0644 '#{store}/#{src}' '#{dest}'")
+    end
+
+    sh("sudo systemctl daemon-reload")
+    sh("sudo udevadm control --reload")
+    sh("sudo systemctl reload dbus")
+    sh("sudo systemctl restart asusd")
+    sh("systemctl status asusd --no-pager --lines=5")
+  end
+
+  desc "remove the old make-install asusctl from /usr (one-time, sudo)"
+  task :remove_legacy do
+    if File.directory?("/etc/asusd") && !File.exist?("/etc/asusd.bak")
+      sh("sudo cp -a /etc/asusd /etc/asusd.bak")
+    end
+
+    ASUSD_LEGACY.select { |p| File.exist?(p) }.each do |path|
+      owned = system("dpkg -S '#{path}'", out: File::NULL, err: File::NULL)
+      next puts("skipping #{path}: owned by a dpkg package") if owned
+
+      sh("sudo rm -rf '#{path}'")
+    end
+
+    sh("sudo systemctl daemon-reload")
+  end
+end
+
 namespace :podman do
   desc "Pull all tagged local podman images"
   task :pull do
