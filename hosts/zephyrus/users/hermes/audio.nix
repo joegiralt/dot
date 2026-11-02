@@ -35,6 +35,20 @@ in
     ]
   '';
 
+  # Lower default latency for Bitwig and live monitoring. PipeWire's stock
+  # quantum of 1024 @ 48 kHz is ~21 ms per buffer; 256 is ~5 ms. JACK clients
+  # (Bitwig) can still ask for anything down to min-quantum. Allowing 44.1k
+  # avoids resampling 44.1 kHz projects; rates only switch while idle.
+  xdg.configFile."pipewire/pipewire.conf.d/92-low-latency.conf".text = ''
+    context.properties = {
+      default.clock.rate          = 48000
+      default.clock.allowed-rates = [ 44100 48000 88200 96000 ]
+      default.clock.quantum       = 256
+      default.clock.min-quantum   = 32
+      default.clock.max-quantum   = 2048
+    }
+  '';
+
   systemd.user.services.g14-speaker-levels = {
     Unit = {
       Description = "Pin G14 hardware speaker levels at 0 dB";

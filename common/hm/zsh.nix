@@ -49,7 +49,11 @@
           $HOME/.nix-profile/bin/rake "$@"
       }
 
-      export LD_LIBRARY_PATH=/run/opengl-driver/lib
+      # NixOS-only: the dir doesn't exist on Pop!_OS, and exporting it there
+      # makes nixGL wrappers warn about overwriting LD_LIBRARY_PATH.
+      if [ -d /run/opengl-driver/lib ]; then
+        export LD_LIBRARY_PATH=/run/opengl-driver/lib
+      fi
       export PATH="$HOME/.local/bin:$PATH"
       # RUST AUTOLOADS
       if [ -f "$HOME/.cargo/env" ]; then

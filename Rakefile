@@ -223,14 +223,41 @@ namespace :nix do
 end
 
 namespace :popos do
-  desc "update all packages on Pop!_OS (apt)"
+  # full-upgrade, not upgrade: Pop moves NVIDIA driver branches (580 -> 595)
+  # via transitional packages that add/remove packages, which `apt upgrade`
+  # and the Pop!_Shop silently keep back.
+  desc "update all packages on Pop!_OS (apt full-upgrade)"
   task :update do
-    sh("sudo apt update && sudo apt upgrade")
+    sh("sudo apt update && sudo apt full-upgrade")
   end
 
   desc "remove unused packages on Pop!_OS (apt autoremove)"
   task :autoremove do
     sh("sudo apt autoremove")
+  end
+
+  desc "system tuning for audio/gaming on Pop!_OS (idempotent, sudo)"
+  task :tune do
+    # Realtime rlimits for PipeWire/JACK (Bitwig) via PipeWire's own
+    # /etc/security/limits.d/25-pw-rlimits.conf. Takes effect on next login.
+    unless `id -nG`.split.include?("pipewire")
+      sh("sudo usermod -aG pipewire #{current_user}")
+    end
+
+    # Full kernel preemption: fewer audio dropouts at small buffer sizes.
+    # Pop's kernel is PREEMPT_DYNAMIC, so this is a boot flag. Needs a reboot.
+    unless File.read("/etc/kernelstub/configuration").include?("preempt=full")
+      sh("sudo kernelstub -a preempt=full")
+    end
+
+    # Feral GameMode: use `gamemoderun %command%` in Steam launch options.
+    unless system("dpkg -s gamemode", out: File::NULL, err: File::NULL)
+      sh("sudo apt install -y gamemode")
+    end
+
+    # Firmware (UEFI dbx etc.). BIOS itself comes from ASUS EZ Flash, not fwupd.
+    sh("fwupdmgr refresh --force || true")
+    sh("fwupdmgr update || true")
   end
 end
 
