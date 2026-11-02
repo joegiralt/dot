@@ -328,6 +328,33 @@ namespace :asusd do
   end
 end
 
+# GPU MUX via supergfxd. Both directions need a reboot. system76-power doesn't
+# know about the ASUS MUX and keeps reporting "hybrid"; trust `supergfxctl -g`.
+namespace :asus do
+  def set_gfx_mode(mode)
+    current = `supergfxctl -g`.strip
+    return puts("already in #{mode}") if current == mode
+
+    sh("supergfxctl -m #{mode}")
+    puts("switched #{current} -> #{mode}; reboot to apply")
+  end
+
+  desc "MUX to NVIDIA-only for gaming on AC (dGPU always on, reboot)"
+  task :gaming do
+    set_gfx_mode("AsusMuxDgpu")
+  end
+
+  desc "back to Hybrid: AMD iGPU drives the panel, dGPU sleeps (reboot)"
+  task :hybrid do
+    set_gfx_mode("Hybrid")
+  end
+
+  desc "show current graphics mode"
+  task :gfx do
+    sh("supergfxctl -g")
+  end
+end
+
 namespace :podman do
   desc "Pull all tagged local podman images"
   task :pull do
