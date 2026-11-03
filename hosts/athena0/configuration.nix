@@ -265,7 +265,7 @@
     parted
     pciutils
     progress
-    (ruby_3_3.withPackages (
+    (ruby_3_4.withPackages (
       ps: with ps; [
         bundler
         rake

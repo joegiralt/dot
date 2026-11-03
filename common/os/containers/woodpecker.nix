@@ -123,7 +123,11 @@
         WOODPECKER_BACKEND_DOCKER_API_VERSION = "1.43";
         WOODPECKER_BACKEND_DOCKER_NETWORK = "woodpecker-ci";
         WOODPECKER_BACKEND_DOCKER_VOLUMES = "${opts.paths.app-data}/woodpecker/cache/cargo-home:/tmp/cargo-home";
-        WOODPECKER_BACKEND_DOCKER_LIMIT_CPU_SET = "2-15";
+        # Half the box: CPUs 8-15 are the i5-12600H's 8 E-cores. Every step
+        # container shares this set, so CI as a whole can never exceed 8 CPUs
+        # no matter how many steps run. P-cores 0-7 stay free for Minecraft
+        # (pinned there in services/minecraft.nix) and everything else.
+        WOODPECKER_BACKEND_DOCKER_LIMIT_CPU_SET = "8-15";
         WOODPECKER_MAX_WORKFLOWS = "2";
         TZ = opts.timeZone;
       };
