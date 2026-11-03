@@ -37,48 +37,67 @@
     ];
   };
 
-  home.sessionVariables.SHELL = "${pkgs.zsh}/bin/zsh";
+  home = {
+    sessionVariables.SHELL = "${pkgs.zsh}/bin/zsh";
 
-  home.packages =
-    let
-      ai-coding-agent-packages = with pkgs; [
-        # goose-cl
-        nur.repos.charmbracelet.crush
-        herdr
+    packages =
+      let
+        ai-coding-agent-packages = with pkgs; [
+          # goose-cl
+          nur.repos.charmbracelet.crush
+          herdr
+        ];
+
+        cli-packages = with pkgs; [
+          agenix
+          tokei
+          claude-code
+          colmena
+          woodpecker-cli
+        ];
+
+        font-packages = with pkgs; [
+          nerd-fonts.iosevka
+          nerd-fonts.iosevka-term
+          nerd-fonts.jetbrains-mono
+          nerd-fonts.fira-code
+          nerd-fonts.hack
+        ];
+
+        gui-packages = [
+          # claude-desktop disabled: upstream patcher broken on v1.9659.2
+          # (aaddrick/claude-desktop-debian#672). Re-enable once fixed.
+          # (config.lib.nixGL.wrap pkgs.claude-desktop)
+          (config.lib.nixGL.wrap pkgs.slack)
+          (config.lib.nixGL.wrap pkgs.zed-editor)
+          (config.lib.nixGL.wrapOffload pkgs.upscayl)
+        ];
+
+      in
+      builtins.concatLists [
+        ai-coding-agent-packages
+        cli-packages
+        font-packages
+        gui-packages
       ];
 
-      cli-packages = with pkgs; [
-        agenix
-        tokei
-        claude-code
-        colmena
-        woodpecker-cli
-      ];
-
-      font-packages = with pkgs; [
-        nerd-fonts.iosevka
-        nerd-fonts.iosevka-term
-        nerd-fonts.jetbrains-mono
-        nerd-fonts.fira-code
-        nerd-fonts.hack
-      ];
-
-      gui-packages = [
-        # claude-desktop disabled: upstream patcher broken on v1.9659.2
-        # (aaddrick/claude-desktop-debian#672). Re-enable once fixed.
-        # (config.lib.nixGL.wrap pkgs.claude-desktop)
-        (config.lib.nixGL.wrap pkgs.slack)
-        (config.lib.nixGL.wrap pkgs.zed-editor)
-        (config.lib.nixGL.wrapOffload pkgs.upscayl)
-      ];
-
-    in
-    builtins.concatLists [
-      ai-coding-agent-packages
-      cli-packages
-      font-packages
-      gui-packages
-    ];
+    file = {
+      ".config/nixpkgs/config.nix" = {
+        enable = true;
+        text = ''
+          {
+            allowUnfree = true;
+            allowBroken = true;
+            packageOverrides = pkgs: {
+              nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") {
+                inherit pkgs;
+              };
+            };
+          }
+        '';
+      };
+    };
+  };
 
   services.ssh-agent.enable = true;
 
@@ -150,23 +169,6 @@
       log-lines = 50;
       keep-outputs = true;
       keep-derivations = true;
-    };
-  };
-
-  home.file = {
-    ".config/nixpkgs/config.nix" = {
-      enable = true;
-      text = ''
-        {
-          allowUnfree = true;
-          allowBroken = true;
-          packageOverrides = pkgs: {
-            nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") {
-              inherit pkgs;
-            };
-          };
-        }
-      '';
     };
   };
 

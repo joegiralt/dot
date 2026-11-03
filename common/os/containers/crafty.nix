@@ -11,13 +11,15 @@
     }
   ];
 
-  systemd.tmpfiles.rules = map (d: "d ${opts.paths.app-data}/crafty/${d} 0775 ${opts.adminUID} root -") [
-    "backups"
-    "config"
-    "import"
-    "logs"
-    "servers"
-  ];
+  systemd.tmpfiles.rules =
+    map (d: "d ${opts.paths.app-data}/crafty/${d} 0775 ${opts.adminUID} root -")
+      [
+        "backups"
+        "config"
+        "import"
+        "logs"
+        "servers"
+      ];
 
   virtualisation.oci-containers.containers = {
     "crafty" = {

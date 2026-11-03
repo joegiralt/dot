@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+_: {
   fonts.fontconfig.enable = true;
   programs.eza = {
     enable = true;

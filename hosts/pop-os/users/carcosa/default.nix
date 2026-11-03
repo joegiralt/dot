@@ -36,48 +36,67 @@
     ];
   };
 
-  home.sessionVariables = {
-    VK_ICD_FILENAMES = "/usr/share/vulkan/icd.d/nvidia_icd.json";
+  home = {
+    sessionVariables = {
+      VK_ICD_FILENAMES = "/usr/share/vulkan/icd.d/nvidia_icd.json";
+    };
+
+    packages =
+      let
+        ai-coding-agent-packages = with pkgs; [
+          # goose-cli
+          nur.repos.charmbracelet.crush
+          claude-code
+        ];
+
+        cli-packages = with pkgs; [
+          agenix
+          tokei
+          colmena
+        ];
+
+        font-packages = with pkgs; [
+          nerd-fonts.iosevka
+          nerd-fonts.iosevka-term
+          nerd-fonts.jetbrains-mono
+          nerd-fonts.fira-code
+          nerd-fonts.hack
+        ];
+
+        gui-packages = [
+          (config.lib.nixGL.wrap pkgs.claude-desktop)
+          (config.lib.nixGL.wrap pkgs.slack)
+          (config.lib.nixGL.wrap pkgs.zed-editor)
+          (config.lib.nixGL.wrapOffload pkgs.upscayl)
+          (config.lib.nixGL.wrapOffload pkgs.cool-retro-term)
+          (config.lib.nixGL.wrapOffload pkgs.teams-for-linux)
+        ];
+
+      in
+      builtins.concatLists [
+        ai-coding-agent-packages
+        cli-packages
+        font-packages
+        gui-packages
+      ];
+
+    file = {
+      ".config/nixpkgs/config.nix" = {
+        enable = true;
+        text = ''
+          {
+            allowUnfree = true;
+            allowBroken = true;
+            packageOverrides = pkgs: {
+              nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") {
+                inherit pkgs;
+              };
+            };
+          }
+        '';
+      };
+    };
   };
-
-  home.packages =
-    let
-      ai-coding-agent-packages = with pkgs; [
-        # goose-cli
-        nur.repos.charmbracelet.crush
-        claude-code
-      ];
-
-      cli-packages = with pkgs; [
-        agenix
-        tokei
-        colmena
-      ];
-
-      font-packages = with pkgs; [
-        nerd-fonts.iosevka
-        nerd-fonts.iosevka-term
-        nerd-fonts.jetbrains-mono
-        nerd-fonts.fira-code
-        nerd-fonts.hack
-      ];
-
-      gui-packages = [
-        (config.lib.nixGL.wrap pkgs.claude-desktop)
-        (config.lib.nixGL.wrap pkgs.slack)
-        (config.lib.nixGL.wrap pkgs.zed-editor)
-        (config.lib.nixGL.wrapOffload pkgs.upscayl)
-        (config.lib.nixGL.wrapOffload pkgs.cool-retro-term)
-        (config.lib.nixGL.wrapOffload pkgs.teams-for-linux)
-      ];
-
-    in
-    builtins.concatLists [
-      ai-coding-agent-packages
-      cli-packages
-      font-packages
-      gui-packages
-    ];
 
   services.ssh-agent.enable = true;
 
@@ -159,23 +178,6 @@
       log-lines = 50;
       keep-outputs = true;
       keep-derivations = true;
-    };
-  };
-
-  home.file = {
-    ".config/nixpkgs/config.nix" = {
-      enable = true;
-      text = ''
-        {
-          allowUnfree = true;
-          allowBroken = true;
-          packageOverrides = pkgs: {
-            nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") {
-              inherit pkgs;
-            };
-          };
-        }
-      '';
     };
   };
 

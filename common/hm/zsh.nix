@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+_: {
 
   home.shellAliases = {
     v = "vim";

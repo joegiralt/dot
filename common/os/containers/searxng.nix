@@ -5,12 +5,15 @@
     with opts.ports; [ searxng-www ]
   );
 
-  systemd.services.podman-searxng.after = [ "podman-network-services.service" ];
-  systemd.services.podman-searxng.wants = [ "podman-network-services.service" ];
+  systemd = {
+    services.podman-searxng.after = [ "podman-network-services.service" ];
 
-  systemd.tmpfiles.rules = [
-    "d ${opts.paths.app-data}/searxng 0755 ${opts.adminUID} ${opts.adminGID} -"
-  ];
+    services.podman-searxng.wants = [ "podman-network-services.service" ];
+
+    tmpfiles.rules = [
+      "d ${opts.paths.app-data}/searxng 0755 ${opts.adminUID} ${opts.adminGID} -"
+    ];
+  };
 
   virtualisation.oci-containers.containers = {
     "searxng" = {
