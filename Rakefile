@@ -250,6 +250,17 @@ namespace :popos do
       sh("sudo kernelstub -a preempt=full")
     end
 
+    # Keep System76 Scheduler from resetting the audio stack's SCHED_FIFO
+    # threads to SCHED_OTHER. See the header of the .kdl for details.
+    s76_src = File.expand_path("hosts/zephyrus/etc/system76-scheduler.kdl", __dir__)
+    s76_dst = "/etc/system76-scheduler/config.kdl"
+    unless File.exist?(s76_dst) && File.read(s76_dst) == File.read(s76_src)
+      sh("sudo install -D -m 0644 '#{s76_src}' '#{s76_dst}'")
+      sh("sudo systemctl restart com.system76.Scheduler")
+      # PipeWire re-acquires RT on start; restart so it does so unhindered.
+      sh("systemctl --user restart pipewire pipewire-pulse wireplumber")
+    end
+
     # Feral GameMode: use `gamemoderun %command%` in Steam launch options.
     unless system("dpkg -s gamemode", out: File::NULL, err: File::NULL)
       sh("sudo apt install -y gamemode")
