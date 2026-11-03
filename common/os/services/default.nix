@@ -3,7 +3,6 @@
   imports = [
     ./adguard.nix
     ./attic.nix
-    ./minecraft.nix
     ./oomd.nix
     ./tailscale.nix
     ./tailscale-auto-health.nix

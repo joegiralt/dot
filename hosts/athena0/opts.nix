@@ -55,6 +55,7 @@ rec {
 
   ports = {
     audiobookshelf = "13378";
+    crafty = "8444";
     filebrowser = "9008";
     flare-solverr = "8191";
     grafana = "2200";

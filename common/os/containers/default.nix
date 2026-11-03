@@ -3,6 +3,7 @@
   imports = [
     ./archive-warrior.nix
     ./audiobookshelf.nix
+    ./crafty.nix
     ./filebrowser.nix
     ./flaresolverr.nix
     ./homer.nix
