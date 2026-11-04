@@ -79,7 +79,7 @@
       modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
-      open = false;
+      open = true; # NVIDIA-recommended for Turing+ (Ada here)
       nvidiaSettings = true;
       nvidiaPersistenced = true;
     };
