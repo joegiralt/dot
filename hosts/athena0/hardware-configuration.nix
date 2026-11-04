@@ -5,7 +5,6 @@
 
 {
   config,
-  opts,
   lib,
   pkgs,
   modulesPath,
@@ -60,23 +59,9 @@
   networking = {
     useDHCP = lib.mkDefault false;
     hostId = "0ec79991";
-    # consider moving to systemd.network.netdev
-    interfaces = {
-      enp90s0 = {
-        useDHCP = lib.mkDefault true;
-        ipv4 = {
-          addresses = [
-            {
-              address = opts.lanAddress;
-              prefixLength = 24;
-            }
-          ];
-        };
-      };
-      # wlan0 = {
-      #   useDHCP = lib.mkDefault true;
-      # };
-    };
+    # LAN (enp91s0) is DHCP via NetworkManager; 192.168.1.32 comes from the
+    # router's reservation. The old static block named enp90s0, which no
+    # longer exists on this box, so it was never applied.
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

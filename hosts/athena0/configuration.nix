@@ -16,11 +16,16 @@
 
   nix.settings.download-buffer-size = 524288000;
 
+  # Host Nix builds (nixos-rebuild etc.) share the E-cores with Woodpecker CI,
+  # leaving P-cores 0-7 to Crafty/Minecraft. Build processes inherit this.
+  systemd.services.nix-daemon.serviceConfig.CPUAffinity = "8-15";
+
   # Bootloader configuration
   boot = {
     kernel.sysctl = {
       "fs.inotify.max_user_watches" = "1048576";
-      "vm.swappiness" = 70;
+      # Low: 94G RAM; keep JVM (Minecraft) heaps and service memory out of swap.
+      "vm.swappiness" = 10;
       "vm.dirty_ratio" = 20;
       "vm.dirty_background_ratio" = 10;
     };
@@ -65,10 +70,6 @@
     hostName = opts.hostname;
     domain = "nothing.ltd";
     search = [ opts.hostname ];
-    defaultGateway = {
-      address = "192.168.1.1";
-      interface = "enp90s0";
-    };
     wireless = {
       iwd = {
         enable = true;

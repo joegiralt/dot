@@ -22,6 +22,8 @@
       extraOptions = [
         "--add-host=${opts.hostname}:${opts.lanAddress}"
         "--no-healthcheck"
+        # NVENC/NVDEC hardware transcoding on the RTX 2000 Ada.
+        "--gpus=all"
       ];
       ports = [ "${opts.ports.jellyfin}:8096" ];
       labels = {

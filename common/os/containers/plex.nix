@@ -24,6 +24,8 @@
       image = "plexinc/pms-docker";
       extraOptions = [
         "--no-healthcheck"
+        # NVENC/NVDEC hardware transcoding on the RTX 2000 Ada.
+        "--gpus=all"
         "--network=host"
       ];
       volumes = [
