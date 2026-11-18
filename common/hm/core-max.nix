@@ -44,7 +44,10 @@
     tailspin # fancy tail
     traceroute # ip packet route tracker
     tree # fs tree generator
-    viddy # modern watch
+    # ponytail: viddy 1.3.1 in this lock misses sqlite in buildInputs (fixed upstream, same drv is on cache.nixos.org); drop at next flake update
+    (viddy.overrideAttrs (o: {
+      buildInputs = (o.buildInputs or [ ]) ++ [ sqlite ];
+    })) # modern watch
     xh # friendly http
     xxd # hex viewer
     yazi # file manager tui

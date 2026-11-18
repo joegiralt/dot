@@ -81,6 +81,11 @@
       ];
 
     file = {
+      # carcosa-only mise tools, layered on common/hm/mise.nix's config.toml
+      ".config/mise/conf.d/carcosa.toml".source = (pkgs.formats.toml { }).generate "mise-carcosa" {
+        tools.glab = "latest"; # GitLab CLI
+      };
+
       ".config/nixpkgs/config.nix" = {
         enable = true;
         text = ''
