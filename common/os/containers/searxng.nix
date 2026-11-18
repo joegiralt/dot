@@ -1,4 +1,9 @@
-{ pkgs, opts, ... }:
+{
+  config,
+  pkgs,
+  opts,
+  ...
+}:
 {
 
   networking.firewall.allowedTCPPorts = builtins.map pkgs.lib.strings.toInt (
@@ -22,6 +27,7 @@
       ports = [ "${opts.ports.searxng-www}:8080" ];
       volumes = [
         "${opts.paths.app-data}/searxng:/etc/searxng:rw"
+        "${../configurations/searxng/settings.yml}:/etc/searxng/settings.yml:ro"
       ];
       labels = {
         "com.centurylinklabs.watchtower.enable" = "true";
@@ -32,6 +38,7 @@
         "--dns=${opts.lanAddress}"
         "--network=services"
       ];
+      environmentFiles = [ config.age.secrets.searxng-env.path ];
       environment = {
         SEARXNG_BASE_URL = "https://searxng.nothing.ltd";
         TZ = opts.timeZone;

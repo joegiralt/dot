@@ -6,6 +6,7 @@ _: {
     nextcloud-env.file = ../secrets/nextcloud-env.age;
     paperless-env.file = ../secrets/paperless-env.age;
     plex-env.file = ../secrets/plex-env.age;
+    searxng-env.file = ../secrets/searxng-env.age;
     romm_env.file = ../secrets/romms-env.age;
     tailscale-auth-key.file = ../secrets/tailscale-auth-key.age;
     woodpecker-env.file = ../secrets/woodpecker-env.age;

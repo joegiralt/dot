@@ -1,0 +1,26 @@
+# Only overrides; everything else comes from SearXNG's shipped defaults.
+use_default_settings: true
+
+general:
+  instance_name: "SearXNG"
+
+search:
+  formats:
+    - html
+    - json # Open WebUI / scripts
+
+server:
+  # secret_key comes from SEARXNG_SECRET (agenix: searxng-env)
+  limiter: false # private instance behind the LAN / tailnet
+  image_proxy: true # thumbnails load via SearXNG, not straight from the source site
+  method: "GET" # back button works; usable as a browser default search engine
+
+# Athena egresses via a Mullvad exit node. Google/Brave/DDG/Startpage
+# CAPTCHA VPN IPs; these engines still answer from there.
+engines:
+  - name: bing
+    disabled: false
+  - name: yandex
+    disabled: false
+  - name: mwmbl
+    disabled: false
