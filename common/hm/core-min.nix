@@ -5,6 +5,7 @@
     dig # dns query
     dust # file disk space usage summary
     exiftool # rw exif information
+    ffmpeg # audio/video convert, record, stream
     fd # modern find
     fzf # fuzzy finder
     inotify-tools # 
