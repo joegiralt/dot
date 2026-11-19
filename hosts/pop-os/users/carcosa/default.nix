@@ -53,6 +53,7 @@
           agenix
           tokei
           colmena
+          woodpecker-cli
         ];
 
         font-packages = with pkgs; [
