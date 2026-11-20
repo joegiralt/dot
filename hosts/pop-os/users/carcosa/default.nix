@@ -54,6 +54,12 @@
           tokei
           colmena
           woodpecker-cli
+          # Rust dev helpers
+          cargo-nextest
+          cargo-modules
+          difftastic
+          sccache
+          mold
         ];
 
         font-packages = with pkgs; [
@@ -68,6 +74,7 @@
           (config.lib.nixGL.wrap pkgs.claude-desktop)
           (config.lib.nixGL.wrap pkgs.slack)
           (config.lib.nixGL.wrap pkgs.zed-editor)
+          (config.lib.nixGL.wrap pkgs.elektroid)
           (config.lib.nixGL.wrapOffload pkgs.upscayl)
           (config.lib.nixGL.wrapOffload pkgs.cool-retro-term)
           (config.lib.nixGL.wrapOffload pkgs.teams-for-linux)
